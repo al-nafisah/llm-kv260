@@ -1,0 +1,25 @@
+# Model checkpoints and int4 exports are never committed; commit the command
+# that produced them and the perplexity table instead.
+models/
+
+# Vivado, Vitis HLS and PYNQ transient output. Raw evidence for a build log is
+# committed as .txt, since *.log is ignored here.
+*.jou
+*.log
+*.str
+.Xil/
+*.runs/
+*.cache/
+*.hw/
+*.sim/
+*.gen/
+*.ip_user_files/
+hls/*/solution*/
+vivado_*.backup.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+build/
