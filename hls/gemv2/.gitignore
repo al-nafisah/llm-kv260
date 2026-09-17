@@ -1,0 +1,4 @@
+gemv_fetch_prj*/
+gemv_mac_prj*/
+*.zip
+vitis_hls.log
