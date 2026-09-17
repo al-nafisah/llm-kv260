@@ -1,0 +1,62 @@
+/* Device-tree overlay for gemv2 on Kria Ubuntu 22.04: the same as
+ * hw/kv260_gemv/pl.dtsi (see the notes there on the AFI width node) with
+ * two UIO devices, gemv_fetch at 0xA000_0000 and gemv_mac at 0xA001_0000,
+ * on pl_ps_irq0[0] and [1].
+ */
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&fpga_full>;
+		overlay0: __overlay__ {
+			#address-cells = <2>;
+			#size-cells = <2>;
+			firmware-name = "gemv2.bit.bin";
+			resets = <&zynqmp_reset 116>, <&zynqmp_reset 117>,
+			         <&zynqmp_reset 118>, <&zynqmp_reset 119>;
+		};
+	};
+
+	fragment@1 {
+		target = <&amba>;
+		overlay1: __overlay__ {
+			#address-cells = <2>;
+			#size-cells = <2>;
+
+			afi0: afi0 {
+				compatible = "xlnx,afi-fpga";
+				config-afi = <0 0>, <1 0>, <2 0>, <3 0>, <4 0>, <5 0>,
+				             <6 0>, <7 0>, <8 0>, <9 0>, <10 0>, <11 0>,
+				             <12 0>, <13 0>, <14 0x0>, <15 0x0>;
+			};
+
+			clocking0: clocking0 {
+				#clock-cells = <0>;
+				compatible = "xlnx,fclk";
+				clocks = <&zynqmp_clk 71>;
+				assigned-clocks = <&zynqmp_clk 71>;
+				assigned-clock-rates = <250000000>;
+				clock-output-names = "fabric_clk";
+			};
+
+			gemv_fetch_0: gemv_fetch@a0000000 {
+				compatible = "generic-uio";
+				reg = <0x0 0xa0000000 0x0 0x10000>;
+				interrupt-parent = <&gic>;
+				interrupts = <0 89 4>;
+				clocks = <&zynqmp_clk 71>;
+				clock-names = "ap_clk";
+			};
+
+			gemv_mac_0: gemv_mac@a0010000 {
+				compatible = "generic-uio";
+				reg = <0x0 0xa0010000 0x0 0x10000>;
+				interrupt-parent = <&gic>;
+				interrupts = <0 90 4>;
+				clocks = <&zynqmp_clk 71>;
+				clock-names = "ap_clk";
+			};
+		};
+	};
+};

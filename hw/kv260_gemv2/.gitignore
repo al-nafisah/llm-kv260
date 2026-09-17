@@ -1,0 +1,6 @@
+ip_repo*/
+kv260_gemv2*/
+out*/
+*.jou
+*.log
+.Xil/
