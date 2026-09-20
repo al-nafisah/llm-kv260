@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge FPGA-based LLM</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.18.6/katex.min.css" integrity="sha384-M59ezskvvpvT+a+C1x088YJ3DVmK+wZdX0UkVKalOI4Qi5Nwv0WrvpqHcfa2HQqB" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style>
+  :root { --bg:#f7f7f5; --fg:#1b1b1b; --muted:#6b6b6b; --line:#dcdcd7; --card:#ffffff; --accent:#0b5fff; --user:#eef3ff; --bot:#f3f3ef; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111214; --fg:#e8e8e6; --muted:#9a9a97; --line:#2a2b2e; --card:#191a1d; --accent:#6ea0ff; --user:#1b2436; --bot:#1f2023; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  main { max-width:1180px; margin:0 auto; padding:24px 16px 120px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 18px; } .sub b { color:var(--fg); font-weight:600 }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin-bottom:14px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  label { color:var(--muted); font-size:13px; }
+  input[type=text] { flex:1; min-width:240px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--fg); font-family:var(--mono); font-size:13px; }
+  .stat { font-family:var(--mono); font-size:13px; color:var(--muted); }
+  .stat b { color:var(--fg); font-weight:600 }
+  #chat { display:flex; flex-direction:column; gap:10px; min-height:200px; }
+  .msg { padding:10px 14px; border-radius:10px; word-wrap:break-word; overflow-wrap:anywhere; }
+  .user { background:var(--user); align-self:flex-end; max-width:85%; white-space:pre-wrap; }
+  /* the model's text is Markdown, rendered as it streams */
+  .md > :first-child { margin-top:0 } .md > :last-child { margin-bottom:0 }
+  .md p, .md ul, .md ol, .md pre, .md blockquote, .md table { margin:0 0 10px; }
+  .md h1, .md h2, .md h3, .md h4 { margin:12px 0 6px; line-height:1.3; } .md h1 { font-size:18px } .md h2 { font-size:16px } .md h3, .md h4 { font-size:15px }
+  .md ul, .md ol { padding-left:24px; } .md li { margin:2px 0 } .md li > p { margin:0 }
+  .md code { font-family:var(--mono); font-size:13px; background:var(--card); border:1px solid var(--line); border-radius:4px; padding:1px 4px; }
+  .md pre { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; overflow-x:auto; }
+  .md pre code { border:0; padding:0; background:none; font-size:13px; }
+  .md blockquote { border-left:3px solid var(--line); margin-left:0; padding-left:12px; color:var(--muted); }
+  .md table { border-collapse:collapse; display:block; overflow-x:auto; max-width:100%; }
+  .md th, .md td { border:1px solid var(--line); padding:4px 8px; text-align:left; } .md th { background:var(--card) }
+  .md a { color:var(--accent) } .md hr { border:0; border-top:1px solid var(--line); margin:10px 0 }
+  .md .katex { font-size:1.05em } .md .katex-display { margin:6px 0 10px; overflow-x:auto; overflow-y:hidden; padding:2px 0 }
+  .bot { background:var(--bot); align-self:flex-start; max-width:95%; }
+  .bot .meta { display:block; margin-top:8px; font-family:var(--mono); font-size:12px; color:var(--muted); }
+  form { position:fixed; left:0; right:0; bottom:0; background:var(--bg); border-top:1px solid var(--line); padding:12px 16px; }
+  form .inner { max-width:1180px; margin:0 auto; display:flex; gap:8px; }
+  textarea { flex:1; resize:none; height:46px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); font:inherit; }
+  button { padding:0 18px; border:0; border-radius:10px; background:var(--accent); color:#fff; font:inherit; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default }
+  .ok { color:#2a8f3c } .bad { color:#c23a2b }
+  #examples { max-width:1180px; margin:0 auto 10px; } #examples[hidden] { display:none } #examples button { white-space:normal; text-align:left; }
+  .grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin-bottom:10px; }
+  #system { margin:14px 0 12px; }
+  #system .legend { white-space:normal; }
+  #system .sys { display:flex; flex-wrap:wrap; gap:4px 18px; margin-top:8px; color:var(--muted); font-size:12px; }
+  #system .sys b { color:var(--fg); font-weight:500; font-family:var(--mono); font-size:12px; }
+  @media (max-width:1000px) { .grid { grid-template-columns:1fr } }
+  .board { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:13px; }
+  .board h3 { margin:0 0 2px; font-size:14px; display:flex; justify-content:space-between; }
+  .board .st { color:var(--muted); font-family:var(--mono); font-size:12px; }
+  .board .st.on { color:#2a8f3c }
+  .barrow { display:flex; align-items:center; gap:8px; margin:4px 0 2px; }
+  .barrow .bar { flex:1; margin:0; }
+  .pct { font-family:var(--mono); font-size:12px; color:var(--muted); width:36px; text-align:right; }
+  .bar { height:8px; border-radius:4px; background:var(--line); overflow:hidden; display:flex; margin:4px 0 2px; }
+  .bar > i { display:block; height:100%; }
+  .e { background:#0b5fff } .x { background:#e0a100 } .c { background:#8a8a8a } .u { background:#2a8f3c }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:2px 8px; margin-top:6px; color:var(--muted); }
+  .kv b { color:var(--fg); font-weight:500; font-family:var(--mono); font-size:12px; }
+  .legend { font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .legend i { display:inline-block; width:8px; height:8px; border-radius:2px; margin:0 3px 0 6px; vertical-align:middle }
+  button.ghost { background:transparent; color:var(--muted); border:1px solid var(--line); padding:4px 10px; font-size:13px; }
+  #resources { margin-bottom:6px; }
+  #resources > summary { cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border:1px solid var(--line); border-radius:8px; color:var(--fg); font-size:13px; user-select:none; }
+  #resources > summary::-webkit-details-marker { display:none }
+  #resources > summary::before { content:"▸"; display:inline-block; transition:transform .15s; color:var(--muted); }
+  #resources[open] > summary::before { transform:rotate(90deg); }
+  #resources[open] > summary { margin-bottom:10px; }
+  code { font-family:var(--mono); font-size:13px }
+</style>
+</head>
+<body>
+<main>
+  <h1>Edge FPGA-based LLM</h1>
+  <div id="system" class="board"></div>
+
+  <details id="resources">
+    <summary>Resources</summary>
+    <div id="grid" class="grid"></div>
+  </details>
+
+  <div class="row" style="justify-content:flex-end;margin:6px 0 10px">
+    <button id="clear" type="button" class="ghost">Clear chat</button>
+  </div>
+  <div id="chat"></div>
+</main>
+
+<form id="f">
+  <div id="examples" class="row"><label>Try:</label></div>
+  <div class="inner">
+    <textarea id="q" placeholder="Ask something… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <button id="send" type="submit">Send</button>
+  </div>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js" integrity="sha384-H+hy9ULve6xfxRkWIh/YOtvDdpXgV2fmAGQkIDTxIgZwNoaoBal14Di2YTMR6MzR" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.4/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.18.6/katex.min.js" integrity="sha384-7jGyG5zFwmEamqNWdCbpsPn+GTWEis3lnV7X/jXHyhFpJG7ExABLyMapabg8F4+p" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="config.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const history = [];
+// The API comes from config.js; ?api=https://... overrides it for testing.
+const base = (new URLSearchParams(location.search).get('api') || window.KV260_API || '').replace(/\/+$/, '');
+
+
+// One card for the system as a whole (the last chat, averaged over its
+// generation, and the four boards' totals), then one card per board with
+// its resources. Refreshed every second from /stats.
+// Per-board use of the implemented design and the XCK26's totals (Vivado, docs/buildlog/0006-fabric-engine.md).
+const PL = { lut: 32228, dsp: 228, bram: 48, lut_total: 117120, dsp_total: 1248, bram_total: 144 };
+const plRow = (key) => `<div class="legend">${key.toUpperCase()} ${PL[key].toLocaleString('en-US')} / ${PL[key + '_total'].toLocaleString('en-US')}</div>${bar([['e', PL[key]]], PL[key + '_total'], true)}`;
+function bar(parts, total, pct) {   // parts: [[class, value], ...]; pct: show the fill percentage right of the bar
+  const fill = parts.map(([c, v]) => `<i class="${c}" style="width:${total > 0 ? (100 * v / total).toFixed(1) : 0}%"></i>`).join('');
+  const used = parts.reduce((a, [, v]) => a + v, 0);
+  return `<div class="barrow"><div class="bar">${fill}</div>${pct ? `<span class="pct">${total > 0 ? (100 * used / total).toFixed(0) : 0}%</span>` : ''}</div>`;
+}
+async function boards() {
+  const g = $('grid');
+  try {
+    const j = await (await fetch(base + '/stats', { cache: 'no-store' })).json();
+    const on = j.busy;
+    // The last chat: the mean per-token split across the boards, averaged over every token it generated.
+    const c = j.last_chat || {};
+    const tok = (c.engine_ms || 0) + (c.cpu_ms || 0) + (c.exchange_ms || 0);
+    const pct = (v) => tok > 0 ? (100 * v / tok).toFixed(0) + '%' : '—';
+    const nb = j.boards.length;
+    const weights = j.boards.reduce((a, b) => a + b.shard_mb, 0);
+    const power = j.boards.reduce((a, b) => a + (b.power_w > 0 ? b.power_w : 0), 0);
+    const temp = Math.max(...j.boards.map(b => b.temp_c));
+    const memUsed = j.boards.reduce((a, b) => a + b.mem_used_mb, 0), memTotal = j.boards.reduce((a, b) => a + b.mem_total_mb, 0);
+    // Every engine reads its whole shard once per token, so the shard is the numerator.
+    // The denominator is the WHOLE token, not the fabric term: gemv2 prefetches the next
+    // matrix during the exchange and the CPU work, so the fabric term is not the window
+    // the DRAM was busy in, and dividing by it read ~18.5 GB/s a board -- above what the
+    // DRAM can deliver at all (12.7 GB/s measured, docs/buildlog/0012).
+    const bwAll = tok > 0 ? weights / tok : 0;   // MB/ms = GB/s, averaged over the token
+    $('system').innerHTML = `
+        <h3><span>System · ${nb} boards · ${j.model || ''}</span><span class="st ${on ? 'on' : ''}">${on ? '● decoding' : '○ idle'}</span></h3>
+        ${c.n_gen > 0 ? `
+        <div class="legend">Last chat: <b>${c.n_gen}</b> tokens at <b>${c.tps.toFixed(1)} t/s</b> · first token after ${(c.prompt_ms / 1000).toFixed(2)} s (${c.n_prompt}-token prompt) · average consumed time per token is ${tok.toFixed(0)} ms: <i class="e"></i>${c.engine_ms.toFixed(0)} ms (${pct(c.engine_ms)} in fabric) + <i class="c"></i>${c.cpu_ms.toFixed(0)} ms (${pct(c.cpu_ms)} in cpu) + <i class="x"></i>${c.exchange_ms.toFixed(0)} ms (${pct(c.exchange_ms)} in interfaces)</div>
+        ${bar([['e', c.engine_ms], ['c', c.cpu_ms], ['x', c.exchange_ms]], tok)}`
+        : `<div class="legend">Last chat: none yet — send a prompt and the average per-token split appears here.</div>${bar([], 1)}`}
+        <div class="sys">
+          <span>Weights: <b>${weights.toFixed(0)} MB</b> in engine memory</span>
+          <span title="Weight bytes streamed per token divided by the whole per-token time: the average DRAM rate the decode sustains, not the peak while streaming (the bench measures 12.7 GB/s a board). Counts weight bytes only; the KV cache and activations add a little more.">Memory BW (token avg): <b>${bwAll > 0 ? bwAll.toFixed(1) + ' / ' + (19.2 * nb).toFixed(1) + ' GB/s' : '—'}</b></span>
+          <span>Power: <b>${power > 0 ? power.toFixed(1) + ' W' : '—'}</b></span>
+          <span>Hottest: <b>${temp > 0 ? temp.toFixed(1) + ' °C' : '—'}</b></span>
+          <span>RAM: <b>${(memUsed / 1024).toFixed(1)} / ${(memTotal / 1024).toFixed(1)} GB</b></span>
+          <span>Served: <b>${(j.tokens_total || 0).toLocaleString('en-US')} tokens</b> since start</span>
+          <span>Programmable Logic: <b>${(nb * PL.lut).toLocaleString('en-US')} LUT · ${nb * PL.dsp} DSP · ${nb * PL.bram} BRAM</b> in use across ${nb} boards</span>
+        </div>`;
+    const stale = j.sample_age_s < 0;
+    g.innerHTML = j.boards.map(b => {
+      // Shard over the whole token, for the reason above the system bar: once gemv2
+      // prefetches, the fabric term is not the window the DRAM was busy in.
+      const tokB = (b.engine_ms || 0) + (b.cpu_ms || 0) + (b.exchange_ms || 0);
+      const bw = tokB > 0 ? b.shard_mb / tokB : 0;   // MB/ms = GB/s, averaged over the token
+      return `<div class="board">
+        <h3><span>${b.host || 'board ' + (b.rank + 1)}</span><span class="st ${on ? 'on' : ''}">${on ? '● decoding ' + b.tps.toFixed(1) + ' t/s' : '○ idle'}</span></h3>
+        <div class="legend" title="Shard bytes per token over the whole per-token time — the average DRAM rate, not the peak while streaming.">Memory BW (token avg) ${bw > 0 && !stale ? bw.toFixed(1) + ' / 19.2 GB/s' : '—'}</div>${bar([['e', bw]], 19.2, true)}
+        <div class="legend">RAM ${(b.mem_used_mb / 1024).toFixed(2)} / ${(b.mem_total_mb / 1024).toFixed(1)} GB</div>${bar([['u', b.mem_used_mb]], b.mem_total_mb, true)}
+        ${plRow('lut')}${plRow('dsp')}${plRow('bram')}
+        <div class="kv">
+          <span>Loaded Weights:</span><b>${b.shard_mb.toFixed(0)} MB (heads ${b.heads}, vocab rows ${b.vocab_rows})</b>
+          <span>Fabric clock:</span><b>250 MHz</b>
+          <span>Environment:</span><b>${b.temp_c > 0 ? b.temp_c.toFixed(1) + ' °C' : '—'}${b.power_w > 0 ? ' · ' + b.power_w.toFixed(1) + ' W' : ''}</b>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    $('system').innerHTML = '<h3><span>System</span><span class="st bad">● unreachable</span></h3>';
+    g.innerHTML = '';
+  }
+}
+let tick = 0;
+boards(); setInterval(() => { if ($('resources').open || ++tick % 5 === 0) boards(); }, 1000);
+$('resources').addEventListener('toggle', () => { if ($('resources').open) boards(); });
+
+// Every reply runs as long as the context allows: the server clamps
+// max_tokens to ctx_max - prompt - 1 (tp_llama.cpp), so asking for the whole
+// context asks for the most that can actually fit after the prompt.
+const CTX = 2048;   // tp_llama's --ctx; serve-tp.sh runs the default
+
+// Example prompts: one click sends one. Shown while the chat is empty.
+const EXAMPLES = ['Explain what an FPGA is to a high-school student.',
+                  'Write a short poem about four small boards thinking as one.',
+                  'Give me a five-step plan to learn Rust, one sentence per step.'];
+// The chat's bottom padding follows the bar's height (the example row comes and goes).
+const fitBar = () => { document.querySelector('main').style.paddingBottom = ($('f').offsetHeight + 24) + 'px'; };
+window.addEventListener('resize', fitBar);
+for (const t of EXAMPLES) {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'ghost'; b.textContent = t;
+  b.addEventListener('click', () => { $('q').value = t; $('f').requestSubmit(); });
+  $('examples').appendChild(b);
+}
+fitBar();
+// One conversation. Clear starts over (so does a page refresh).
+$('clear').addEventListener('click', () => { history.length = 0; $('chat').innerHTML = ''; $('examples').hidden = false; fitBar(); });
+
+// The model answers in Markdown (**bold**, lists, headings, code) and writes
+// math in LaTeX: $…$, $$…$$, \(…\), \[…\] ("The final answer is: $\boxed{3}$").
+// Math is cut out before Markdown sees it, since Markdown eats TeX's
+// backslashes, underscores and asterisks. KaTeX renders it, and it goes back
+// in after sanitizing: KaTeX builds its HTML from the TeX with text escaped
+// and, with trust off, no links or raw HTML, while DOMPurify would strip its
+// MathML. Code keeps its dollar signs, and so do prices: an inline $ must hug
+// its content, so "$5 and $10" stays text.
+// If a library did not load: without KaTeX the math stays as TeX; without
+// marked or DOMPurify the reply is plain text with line breaks kept.
+const MATH = /\$\$([\s\S]+?)\$\$|\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)|(?<!\\)\$(?=[^\s$])((?:\\\$|[^$\n])+?)(?<=[^\s\\])\$(?!\d)/g;
+const texCache = new Map();   // a streaming reply is re-rendered every frame
+function tex(src, display) {
+  const key = (display ? 'D' : 'I') + src;
+  let html = texCache.get(key);
+  if (html === undefined) {
+    html = katex.renderToString(src, { displayMode: display, throwOnError: false, maxSize: 10, maxExpand: 500, strict: 'ignore' });
+    if (texCache.size > 500) texCache.clear();
+    texCache.set(key, html);
+  }
+  return html;
+}
+function cutMath(text, found) {
+  // Odd parts are code: fenced blocks (closed, or still streaming) and inline spans.
+  const parts = text.split(/(```[\s\S]*?(?:```|$)|`[^`\n]*`)/);
+  for (let i = 0; i < parts.length; i += 2)
+    parts[i] = parts[i].replace(MATH, (m, dd, sq, rd, d) => {
+      const display = dd !== undefined || sq !== undefined;
+      found.push(tex(dd ?? sq ?? rd ?? d, display));
+      return (display ? '\uE002' : '\uE000') + (found.length - 1) + '\uE001';
+    });
+  return parts.join('');
+}
+const md = (window.marked && window.DOMPurify) ? (t) => {
+  const found = [];
+  if (window.katex) t = cutMath(t, found);
+  const html = DOMPurify.sanitize(marked.parse(t, { gfm: true, breaks: true }), { USE_PROFILES: { html: true }, FORBID_TAGS: ['img'] });
+  if (!found.length) return html;
+  // A display equation is a block of its own: drop the line breaks Markdown put around it.
+  return html.replace(/(?:<br>\s*)?\uE002(\d+)\uE001(?:\s*<br>)?/g, (m, i) => found[i] ?? m)
+             .replace(/\uE000(\d+)\uE001/g, (m, i) => found[i] ?? m);
+} : null;
+function render(el, text) {
+  if (md) { el.innerHTML = md(text); el.querySelectorAll('a').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; }); }
+  else { el.style.whiteSpace = 'pre-wrap'; el.textContent = text; }
+}
+
+function add(role, text) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+  if (role === 'user') d.appendChild(document.createTextNode(text));
+  else { const c = document.createElement('div'); c.className = 'md'; render(c, text); d.appendChild(c); }
+  $('chat').appendChild(d);
+  d.scrollIntoView({ block: 'end' });
+  return d;
+}
+
+$('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = $('q').value.trim();
+  if (!text) return;
+  $('q').value = '';
+  $('send').disabled = true;
+  $('examples').hidden = true; fitBar();
+  add('user', text);
+  history.push({ role: 'user', content: text });
+  const bot = add('bot', '');
+  const meta = document.createElement('span'); meta.className = 'meta'; meta.textContent = 'waiting for the boards…';
+  bot.appendChild(meta);
+  let out = '', t0 = performance.now(), tFirst = null, n = 0, timings = null, poll = null, raf = 0, finish = null;
+  const paint = () => { raf = 0; render(bot.firstChild, out); };
+  try {
+    // While we wait for the first token, show the queue: one stream at a time, served in order.
+    poll = setInterval(async () => {
+      if (tFirst !== null) { clearInterval(poll); return; }
+      try { const j = await (await fetch(base + '/health', { cache: 'no-store' })).json();
+            meta.textContent = j.queued > 0 ? `queued — ${j.queued} waiting, one stream at a time…` : (j.busy ? 'the boards are working on your prompt…' : 'waiting for the boards…'); } catch (e) {}
+    }, 1000);
+    const r = await fetch(base + '/v1/chat/completions', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history.slice(-8), max_tokens: CTX, temperature: 0, stream: true })
+    });
+    if (r.status === 429) { clearInterval(poll); throw new Error('the queue is full (one stream at a time, 8 may wait) — try again in a minute'); }
+    if (!r.ok) { clearInterval(poll); throw new Error('HTTP ' + r.status); }
+    const reader = r.body.getReader(), dec = new TextDecoder();
+    let buf = '';
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      let i;
+      while ((i = buf.indexOf('\n\n')) >= 0) {
+        const line = buf.slice(0, i).trim(); buf = buf.slice(i + 2);
+        if (!line.startsWith('data: ')) continue;
+        const payload = line.slice(6);
+        if (payload === '[DONE]') continue;
+        const j = JSON.parse(payload);
+        const delta = j.choices?.[0]?.delta?.content;
+        if (delta) {
+          if (tFirst === null) tFirst = performance.now();
+          out += delta; n++;
+          if (!raf) raf = requestAnimationFrame(paint);
+          meta.textContent = `${n} tokens · ${(n / ((performance.now() - tFirst) / 1000 || 1e-9)).toFixed(1)} t/s`;
+        }
+        if (j.timings) timings = j.timings;
+        if (j.choices?.[0]?.finish_reason) finish = j.choices[0].finish_reason;
+      }
+    }
+    if (raf) cancelAnimationFrame(raf); paint();
+    history.push({ role: 'assistant', content: out });
+    const ttft = tFirst ? ((tFirst - t0) / 1000).toFixed(2) : '?';
+    // The prompt is the whole conversation sent (the last 8 turns), so prompt + reply is what this turn used of the context.
+    const sv = timings ? `${timings.predicted_per_second.toFixed(1)} t/s on the boards, prompt ${timings.prompt_n} tokens in ${(timings.prompt_ms / 1000).toFixed(2)} s · context ${timings.prompt_n + timings.predicted_n} / ${CTX}` : '';
+    meta.textContent = `${n} tokens · first token ${ttft} s · ${sv}` + (finish === 'length' ? ` · cut at the ${CTX}-token context limit (Clear chat to start over)` : '');
+  } catch (err) {
+    meta.textContent = 'error: ' + err.message;
+    meta.className = 'meta bad';
+  } finally {
+    clearInterval(poll);
+    if (raf) { cancelAnimationFrame(raf); paint(); }
+    $('send').disabled = false;
+    bot.scrollIntoView({ block: 'end' });
+  }
+});
+$('q').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('f').requestSubmit(); } });
+</script>
+</body>
+</html>
