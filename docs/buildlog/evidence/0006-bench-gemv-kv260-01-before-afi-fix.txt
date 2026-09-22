@@ -1,0 +1,25 @@
+udmabuf0: 512 MB at 0x37f00000
+  row 0: got -3.03164883e-13 want 14.9013252
+  row 1: got -3.03164883e-13 want -9.59325027
+  row 2: got -3.03164883e-13 want -3.16861558
+  row 3: got -3.03164883e-13 want -5.54499865
+  row 4: got -3.03164883e-13 want -1.54015207
+k256_n16     k=256   rows=16   MISMATCH (16/16 rows differ)
+  row 0: got -3.03164883e-13 want 11.686573
+  row 1: got -3.03164883e-13 want -2.59485149
+  row 2: got -3.03164883e-13 want 18.3548203
+  row 3: got -3.03164883e-13 want -52.2037201
+  row 4: got -3.03164883e-13 want 27.7671261
+k2048_n64    k=2048  rows=64   MISMATCH (64/64 rows differ)
+  row 0: got -3.03164883e-13 want 60.2651596
+  row 1: got -3.03164883e-13 want 12.4954796
+  row 2: got -3.03164883e-13 want 20.4402161
+  row 3: got -3.03164883e-13 want 64.7101135
+  row 4: got -3.03164883e-13 want 127.765007
+k8192_n16    k=8192  rows=16   MISMATCH (16/16 rows differ)
+EXACTNESS: FAIL
+q_proj     k=2048  rows=2048      2.36 MB  best   0.002 ms  mean   0.002 ms  1043.94 GB/s
+k_proj     k=2048  rows=512       0.59 MB  best   0.002 ms  mean   0.002 ms  260.98 GB/s
+gate       k=2048  rows=8192      9.44 MB  best   0.002 ms  mean   0.002 ms  4175.75 GB/s
+down       k=8192  rows=2048      9.44 MB  best   0.002 ms  mean   0.002 ms  4175.75 GB/s
+lm_head    k=2048  rows=128256  147.75 MB  best   0.002 ms  mean   0.002 ms  65088.60 GB/s

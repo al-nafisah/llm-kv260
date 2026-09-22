@@ -1,0 +1,45 @@
+# Public API at https://kv260.al-nafisah.com (Cloudflare named tunnel -> kv260-01:8080), 2026-09-14T06:20Z, from the PC
+## CORS preflight from the GitHub Pages origin
+HTTP/2 204 
+access-control-allow-headers: Content-Type, Authorization
+access-control-allow-methods: GET, POST, OPTIONS
+access-control-allow-origin: *
+## streaming chat
+"""\""Hello"","" I"" am"" here"".\""predicted_per_second":24.630980584027768
+## queue: B submitted 1.5 s after A
+health while A runs: {"busy":true,"queue_max":8,"queued":0,"ranks":4,"status":"ok"}
+A: 51 tokens, 22.1 t/s
+B (queued behind A): 16 tokens, 24.0 t/s
+## api-bench through the public URL
+Traceback (most recent call last):
+  File "/home/nafisah/Desktop/llm-kv260/board/tp/api-bench.py", line 66, in <module>
+    main()
+  File "/home/nafisah/Desktop/llm-kv260/board/tp/api-bench.py", line 56, in main
+    text, wall, first, usage, tm = one(a.base, a.prompt, a.n)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/Desktop/llm-kv260/board/tp/api-bench.py", line 24, in one
+    with urllib.request.urlopen(req, timeout=600) as resp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 525, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/home/nafisah/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+## api-bench through the public URL (User-Agent set; Cloudflare's managed rules 403 the default Python-urllib UA, the OpenAI SDK's UA passes)
+run 1: 67 tokens, first token 2.52s, client-side 20.83 t/s, server-side 20.81 t/s (prompt 22 tok in 0.89s)
+    The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced during the daytime, when the sun is overhead,
+run 2: 67 tokens, first token 1.38s, client-side 21.85 t/s, server-side 21.86 t/s (prompt 22 tok in 0.92s)
+run 3: 67 tokens, first token 2.03s, client-side 20.83 t/s, server-side 20.83 t/s (prompt 22 tok in 0.92s)

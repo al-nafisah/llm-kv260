@@ -1,0 +1,12 @@
+### gemv2 second bitstream (drain reads all eight FIFOs in one loop), 2026-09-14. Vivado: WNS -0.210 ns (577 failing endpoints of 298,280), 58,268 LUTs, 76 BRAM tiles, 64 URAM.
+
+## kv260-01 and kv260-02: overlay loaded, then a single-rank tp_llama run of 8 tokens exits with a 3.5 MB prefetch stalled, then bench_gemv2 in a fresh process:
+kv260-01: drain: 130.2 us / EXACTNESS: PASS / 65 calls, 0 us gap: MAC time 13.39 ms (12.97 GB/s over 173.8 MB) / 65 calls, 300 us gap after each: MAC time 8.06 ms (21.56 GB/s)
+kv260-02: drain: 146.8 us / EXACTNESS: PASS / 65 calls, 0 us gap: MAC time 13.48 ms (12.89 GB/s over 173.8 MB) / 65 calls, 300 us gap after each: MAC time 8.03 ms (21.63 GB/s)
+
+## four boards, ranks 0,1 (kv260-01, -02) on gemv2, ranks 2,3 on gemv_q4_0 staggered, 400 tokens, same prompt as 0012-tp-ab-runs.txt:
+rank 0: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.23 s = 30.24 t/s; per token: engine 10.0 ms, comm 17.7 ms, cpu 5.9 ms
+rank 1: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.23 s = 30.24 t/s; per token: engine 10.0 ms, comm 17.8 ms, cpu 5.9 ms
+rank 2: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.23 s = 30.24 t/s; per token: engine 16.4 ms, comm 11.7 ms, cpu 5.7 ms
+rank 3: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.23 s = 30.24 t/s; per token: engine 16.3 ms, comm 11.7 ms, cpu 5.8 ms
+rank 0 text identical to the 0012 four-board reference (cmp)

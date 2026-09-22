@@ -1,0 +1,173 @@
+### mesh_bench (board/tp/bench), 1000 exchanges each, four boards, default MTU 1500, DisplayPort storm present, process placed by the scheduler; comm_t as of 0010 (blocking reads)
+=== rank 0 (10.42.0.137)
+all-gather, blocking reads (committed)           64 B  median   113.6 us  mean   118.4  p90   139.8  max    239.6
+all-gather, polled reads                         64 B  median   112.9 us  mean   115.4  p90   122.8  max    540.4
+all-gather, blocking reads (committed)         2048 B  median   249.5 us  mean   250.4  p90   281.8  max    699.7
+all-gather, polled reads                       2048 B  median   248.7 us  mean   251.9  p90   272.5  max   1867.9
+all-gather, blocking reads (committed)         4096 B  median   318.6 us  mean   320.5  p90   360.9  max    441.0
+all-gather, polled reads                       4096 B  median   315.8 us  mean   318.5  p90   354.3  max    512.5
+all-gather, blocking reads (committed)         8192 B  median   407.7 us  mean   431.4  p90   537.0  max   1362.1
+all-gather, polled reads                       8192 B  median   355.4 us  mean   358.4  p90   405.5  max    462.7
+all-gather, blocking reads (committed)        16384 B  median   662.3 us  mean   668.1  p90   732.1  max   2093.4
+all-gather, polled reads                      16384 B  median   616.9 us  mean   620.7  p90   687.9  max    814.0
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   425.5 us  mean   426.4  p90   472.8  max    540.3
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   372.5 us  mean   376.0  p90   407.8  max    728.8
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   341.3 us  mean   342.7  p90   362.2  max    684.8
+=== rank 1 (10.42.0.217)
+all-gather, blocking reads (committed)           64 B  median   115.3 us  mean   118.5  p90   141.3  max    270.3
+all-gather, polled reads                         64 B  median   112.8 us  mean   115.5  p90   127.1  max    592.7
+all-gather, blocking reads (committed)         2048 B  median   249.2 us  mean   250.4  p90   290.5  max    505.8
+all-gather, polled reads                       2048 B  median   248.4 us  mean   251.7  p90   268.5  max   1819.1
+all-gather, blocking reads (committed)         4096 B  median   317.0 us  mean   320.2  p90   380.4  max    512.9
+all-gather, polled reads                       4096 B  median   319.2 us  mean   318.5  p90   369.7  max    503.2
+all-gather, blocking reads (committed)         8192 B  median   401.2 us  mean   431.3  p90   542.4  max   1394.2
+all-gather, polled reads                       8192 B  median   357.5 us  mean   358.4  p90   394.6  max    469.4
+all-gather, blocking reads (committed)        16384 B  median   663.2 us  mean   668.1  p90   716.5  max   1946.6
+all-gather, polled reads                      16384 B  median   619.3 us  mean   620.6  p90   673.2  max    803.0
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   425.3 us  mean   426.4  p90   465.8  max    522.5
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   374.0 us  mean   376.0  p90   403.2  max    686.5
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   341.9 us  mean   342.7  p90   360.9  max    665.8
+=== rank 2 (10.42.0.218)
+all-gather, blocking reads (committed)           64 B  median   114.3 us  mean   118.3  p90   140.7  max    258.5
+all-gather, polled reads                         64 B  median   113.3 us  mean   115.4  p90   128.4  max    492.8
+all-gather, blocking reads (committed)         2048 B  median   248.3 us  mean   250.3  p90   293.6  max    516.5
+all-gather, polled reads                       2048 B  median   249.0 us  mean   251.8  p90   277.9  max   1810.0
+all-gather, blocking reads (committed)         4096 B  median   317.5 us  mean   320.3  p90   387.2  max    448.6
+all-gather, polled reads                       4096 B  median   316.4 us  mean   318.5  p90   365.4  max    523.2
+all-gather, blocking reads (committed)         8192 B  median   408.4 us  mean   430.9  p90   532.5  max   1419.8
+all-gather, polled reads                       8192 B  median   357.6 us  mean   358.4  p90   394.7  max    443.1
+all-gather, blocking reads (committed)        16384 B  median   663.3 us  mean   668.1  p90   712.0  max   2024.6
+all-gather, polled reads                      16384 B  median   619.8 us  mean   620.6  p90   659.9  max    720.7
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   426.9 us  mean   426.4  p90   469.4  max    510.5
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   371.5 us  mean   376.0  p90   405.6  max    715.0
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   341.1 us  mean   342.7  p90   363.1  max    698.1
+=== rank 3 (10.42.0.114)
+all-gather, blocking reads (committed)           64 B  median   116.1 us  mean   118.5  p90   137.4  max    270.9
+all-gather, polled reads                         64 B  median   113.7 us  mean   115.5  p90   123.4  max    540.7
+all-gather, blocking reads (committed)         2048 B  median   253.0 us  mean   250.4  p90   297.8  max    480.4
+all-gather, polled reads                       2048 B  median   251.5 us  mean   251.7  p90   293.8  max   1866.3
+all-gather, blocking reads (committed)         4096 B  median   322.4 us  mean   320.5  p90   361.6  max    447.3
+all-gather, polled reads                       4096 B  median   322.0 us  mean   318.6  p90   363.1  max    586.8
+all-gather, blocking reads (committed)         8192 B  median   408.4 us  mean   431.1  p90   535.8  max   1476.3
+all-gather, polled reads                       8192 B  median   357.9 us  mean   358.4  p90   392.8  max    463.6
+all-gather, blocking reads (committed)        16384 B  median   662.7 us  mean   668.1  p90   716.5  max   1926.4
+all-gather, polled reads                      16384 B  median   619.0 us  mean   620.6  p90   660.6  max    746.5
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   426.4 us  mean   426.4  p90   472.8  max    529.1
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   372.3 us  mean   376.0  p90   409.6  max    723.4
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   341.9 us  mean   342.7  p90   363.1  max    752.6
+
+### same, every rank pinned to CPU 2 (taskset -c 2)
+=== rank 0 (10.42.0.137)
+all-gather, blocking reads (committed)           64 B  median    81.9 us  mean    83.3  p90    95.6  max    160.2
+all-gather, polled reads                         64 B  median    69.4 us  mean    70.3  p90    77.0  max    127.1
+all-gather, blocking reads (committed)         2048 B  median   170.2 us  mean   171.7  p90   204.8  max    517.7
+all-gather, polled reads                       2048 B  median   157.8 us  mean   163.5  p90   181.3  max   2932.9
+all-gather, blocking reads (committed)         4096 B  median   226.9 us  mean   227.7  p90   256.7  max   1109.3
+all-gather, polled reads                       4096 B  median   211.4 us  mean   212.1  p90   232.1  max    612.4
+all-gather, blocking reads (committed)         8192 B  median   376.5 us  mean   377.8  p90   410.7  max    782.5
+all-gather, polled reads                       8192 B  median   357.1 us  mean   357.3  p90   386.4  max    763.4
+all-gather, blocking reads (committed)        16384 B  median   648.9 us  mean   648.6  p90   691.2  max    927.4
+all-gather, polled reads                      16384 B  median   621.5 us  mean   622.7  p90   655.3  max   1552.0
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   412.2 us  mean   413.0  p90   444.6  max    521.3
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   369.6 us  mean   371.0  p90   397.7  max    488.3
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   338.7 us  mean   343.2  p90   359.2  max   3126.0
+=== rank 1 (10.42.0.217)
+all-gather, blocking reads (committed)           64 B  median    81.8 us  mean    83.4  p90    98.3  max    154.8
+all-gather, polled reads                         64 B  median    69.4 us  mean    70.3  p90    76.5  max    120.6
+all-gather, blocking reads (committed)         2048 B  median   170.9 us  mean   171.8  p90   203.4  max    500.2
+all-gather, polled reads                       2048 B  median   158.6 us  mean   163.5  p90   182.1  max   2925.7
+all-gather, blocking reads (committed)         4096 B  median   226.4 us  mean   227.6  p90   254.1  max    994.2
+all-gather, polled reads                       4096 B  median   211.4 us  mean   212.1  p90   228.9  max    511.8
+all-gather, blocking reads (committed)         8192 B  median   377.7 us  mean   377.8  p90   410.1  max    599.6
+all-gather, polled reads                       8192 B  median   356.6 us  mean   357.3  p90   384.6  max    551.6
+all-gather, blocking reads (committed)        16384 B  median   647.8 us  mean   648.5  p90   681.5  max   1031.5
+all-gather, polled reads                      16384 B  median   620.8 us  mean   622.8  p90   653.6  max   1226.0
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   412.9 us  mean   413.0  p90   444.8  max    520.4
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   369.0 us  mean   370.9  p90   393.5  max    464.5
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   339.4 us  mean   343.1  p90   357.6  max   3169.9
+=== rank 2 (10.42.0.218)
+all-gather, blocking reads (committed)           64 B  median    81.8 us  mean    83.4  p90   100.3  max    166.0
+all-gather, polled reads                         64 B  median    69.8 us  mean    70.3  p90    77.0  max    123.3
+all-gather, blocking reads (committed)         2048 B  median   170.4 us  mean   171.8  p90   199.0  max    522.9
+all-gather, polled reads                       2048 B  median   158.4 us  mean   163.5  p90   177.8  max   2929.0
+all-gather, blocking reads (committed)         4096 B  median   226.6 us  mean   227.7  p90   250.7  max   1031.1
+all-gather, polled reads                       4096 B  median   211.9 us  mean   212.1  p90   228.7  max    506.6
+all-gather, blocking reads (committed)         8192 B  median   377.1 us  mean   377.8  p90   409.3  max    636.0
+all-gather, polled reads                       8192 B  median   356.7 us  mean   357.3  p90   383.2  max    588.0
+all-gather, blocking reads (committed)        16384 B  median   650.3 us  mean   648.6  p90   685.9  max   1054.3
+all-gather, polled reads                      16384 B  median   622.4 us  mean   622.8  p90   651.6  max   1223.0
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   412.3 us  mean   413.0  p90   444.8  max    557.4
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   369.1 us  mean   370.9  p90   399.3  max    476.4
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   338.3 us  mean   343.1  p90   358.6  max   3193.6
+=== rank 3 (10.42.0.114)
+all-gather, blocking reads (committed)           64 B  median    82.6 us  mean    83.3  p90    96.5  max    155.5
+all-gather, polled reads                         64 B  median    69.8 us  mean    70.3  p90    76.8  max    111.3
+all-gather, blocking reads (committed)         2048 B  median   170.4 us  mean   171.7  p90   199.0  max    490.9
+all-gather, polled reads                       2048 B  median   157.7 us  mean   163.5  p90   178.4  max   2955.2
+all-gather, blocking reads (committed)         4096 B  median   226.4 us  mean   227.6  p90   258.6  max   1030.3
+all-gather, polled reads                       4096 B  median   211.3 us  mean   212.1  p90   233.6  max    521.2
+all-gather, blocking reads (committed)         8192 B  median   376.9 us  mean   377.9  p90   423.9  max    664.8
+all-gather, polled reads                       8192 B  median   356.0 us  mean   357.3  p90   390.4  max    607.2
+all-gather, blocking reads (committed)        16384 B  median   648.1 us  mean   648.6  p90   691.9  max   1004.9
+all-gather, polled reads                      16384 B  median   621.7 us  mean   622.7  p90   657.7  max   1419.1
+all-reduce 2048 f32 via all-gather (committed)   8192 B  median   412.1 us  mean   412.9  p90   455.9  max    568.6
+all-reduce 2048 f32, reduce-scatter+all-gather   8192 B  median   369.6 us  mean   370.8  p90   400.1  max    460.4
+all-reduce 2048 f32, reduce-scatter+all-gather, polled   8192 B  median   338.7 us  mean   343.1  p90   359.8  max   3147.3
+
+### pinned to CPU 2, comm_t as committed in 0011 (polled reads, reduce-scatter+all-gather); boards 1-2 at MTU 9000 with DisplayPort unbound, boards 3-4 at 1500 with the storm
+=== rank 0 (10.42.0.137)
+all-gather (committed comm_t)                    64 B  median    84.9 us  mean    85.9  p90    96.0  max    319.0
+all-gather, bench variant, polled reads          64 B  median    85.0 us  mean    85.6  p90    94.5  max    741.4
+all-gather (committed comm_t)                  2048 B  median   177.1 us  mean   176.4  p90   201.8  max    338.8
+all-gather, bench variant, polled reads        2048 B  median   177.1 us  mean   179.4  p90   200.7  max   3617.7
+all-gather (committed comm_t)                  4096 B  median   235.6 us  mean   233.0  p90   259.1  max    558.2
+all-gather, bench variant, polled reads        4096 B  median   234.3 us  mean   233.0  p90   257.2  max   1208.5
+all-gather (committed comm_t)                  8192 B  median   379.7 us  mean   377.2  p90   422.4  max    726.6
+all-gather, bench variant, polled reads        8192 B  median   378.7 us  mean   376.5  p90   422.8  max    744.0
+all-gather (committed comm_t)                 16384 B  median   643.9 us  mean   655.1  p90   724.1  max   3189.0
+all-gather, bench variant, polled reads       16384 B  median   643.2 us  mean   650.7  p90   719.7  max   1108.2
+all-reduce 2048 f32 (committed comm_t)         8192 B  median   364.3 us  mean   369.4  p90   386.8  max   2950.6
+all-reduce, bench reduce-scatter+all-gather, blocking   8192 B  median   411.1 us  mean   415.0  p90   443.0  max   2674.0
+all-reduce, bench reduce-scatter+all-gather, polled   8192 B  median   373.0 us  mean   375.2  p90   394.4  max   1506.4
+=== rank 1 (10.42.0.217)
+all-gather (committed comm_t)                    64 B  median    83.8 us  mean    85.9  p90    94.9  max    280.5
+all-gather, bench variant, polled reads          64 B  median    83.3 us  mean    85.6  p90    94.5  max    703.2
+all-gather (committed comm_t)                  2048 B  median   176.7 us  mean   176.5  p90   198.0  max    385.1
+all-gather, bench variant, polled reads        2048 B  median   175.1 us  mean   179.4  p90   196.9  max   3525.6
+all-gather (committed comm_t)                  4096 B  median   233.4 us  mean   233.0  p90   254.3  max    443.6
+all-gather, bench variant, polled reads        4096 B  median   233.3 us  mean   233.1  p90   251.7  max   1098.8
+all-gather (committed comm_t)                  8192 B  median   374.1 us  mean   377.2  p90   452.1  max    558.7
+all-gather, bench variant, polled reads        8192 B  median   372.2 us  mean   376.5  p90   455.0  max    507.4
+all-gather (committed comm_t)                 16384 B  median   637.8 us  mean   655.1  p90   737.7  max   3366.0
+all-gather, bench variant, polled reads       16384 B  median   637.8 us  mean   650.7  p90   747.8  max   1421.9
+all-reduce 2048 f32 (committed comm_t)         8192 B  median   363.7 us  mean   369.4  p90   388.3  max   2941.3
+all-reduce, bench reduce-scatter+all-gather, blocking   8192 B  median   412.1 us  mean   415.0  p90   440.1  max   2704.8
+all-reduce, bench reduce-scatter+all-gather, polled   8192 B  median   372.6 us  mean   375.2  p90   392.9  max   1531.7
+=== rank 2 (10.42.0.218)
+all-gather (committed comm_t)                    64 B  median    84.0 us  mean    85.9  p90    96.1  max    306.7
+all-gather, bench variant, polled reads          64 B  median    83.5 us  mean    85.6  p90    93.9  max    736.8
+all-gather (committed comm_t)                  2048 B  median   175.3 us  mean   176.5  p90   204.7  max    375.4
+all-gather, bench variant, polled reads        2048 B  median   175.2 us  mean   179.4  p90   201.2  max   3571.0
+all-gather (committed comm_t)                  4096 B  median   234.8 us  mean   233.0  p90   260.9  max    472.9
+all-gather, bench variant, polled reads        4096 B  median   233.7 us  mean   233.0  p90   257.0  max   1120.6
+all-gather (committed comm_t)                  8192 B  median   378.0 us  mean   377.1  p90   419.7  max    564.4
+all-gather, bench variant, polled reads        8192 B  median   376.9 us  mean   376.5  p90   419.9  max    522.4
+all-gather (committed comm_t)                 16384 B  median   640.9 us  mean   655.0  p90   716.3  max   3367.3
+all-gather, bench variant, polled reads       16384 B  median   643.9 us  mean   650.8  p90   712.9  max   1397.7
+all-reduce 2048 f32 (committed comm_t)         8192 B  median   364.6 us  mean   369.4  p90   383.9  max   2966.8
+all-reduce, bench reduce-scatter+all-gather, blocking   8192 B  median   412.7 us  mean   414.9  p90   437.0  max   2674.8
+all-reduce, bench reduce-scatter+all-gather, polled   8192 B  median   373.2 us  mean   375.2  p90   393.0  max   1564.7
+=== rank 3 (10.42.0.114)
+all-gather (committed comm_t)                    64 B  median    83.9 us  mean    85.9  p90    95.7  max    312.0
+all-gather, bench variant, polled reads          64 B  median    83.4 us  mean    85.6  p90    95.8  max    725.0
+all-gather (committed comm_t)                  2048 B  median   173.9 us  mean   176.5  p90   202.1  max    363.0
+all-gather, bench variant, polled reads        2048 B  median   173.7 us  mean   179.4  p90   199.9  max   3554.9
+all-gather (committed comm_t)                  4096 B  median   232.7 us  mean   233.0  p90   251.4  max    513.2
+all-gather, bench variant, polled reads        4096 B  median   231.8 us  mean   233.1  p90   251.7  max   1166.9
+all-gather (committed comm_t)                  8192 B  median   378.8 us  mean   377.1  p90   410.6  max    578.5
+all-gather, bench variant, polled reads        8192 B  median   379.1 us  mean   376.5  p90   411.6  max    593.5
+all-gather (committed comm_t)                 16384 B  median   640.1 us  mean   655.0  p90   710.9  max   3150.1
+all-gather, bench variant, polled reads       16384 B  median   640.9 us  mean   650.8  p90   701.2  max   1337.2
+all-reduce 2048 f32 (committed comm_t)         8192 B  median   363.8 us  mean   369.4  p90   385.7  max   2932.5
+all-reduce, bench reduce-scatter+all-gather, blocking   8192 B  median   411.4 us  mean   415.0  p90   442.6  max   2739.4
+all-reduce, bench reduce-scatter+all-gather, polled   8192 B  median   371.9 us  mean   375.2  p90   393.4  max   1569.6

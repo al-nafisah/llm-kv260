@@ -1,0 +1,38 @@
+### decode-power probe, 2026-09-15T00:08:53, GET /stats polled during one chat through the API on board 1 (four-board stream, gemv2). power_w = INA260 on each K26 SOM (hwmon power1_input), read by tp_llama at request time; SOM power, not wall power (carrier, fan, PSU and the switch are outside it).
+idle t=1789420133.58 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+idle t=1789420134.59 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+idle t=1789420135.59 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+idle t=1789420136.59 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+idle t=1789420137.60 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+idle t=1789420138.60 kv260-01 idle 5.30 W 32.4 C | kv260-02 idle 5.99 W 32.5 C | kv260-03 idle 5.47 W 34.3 C | kv260-04 idle 5.23 W 33.0 C
+during t=1789420140.60 kv260-01 decoding 5.61 W 30.8 C | kv260-02 decoding 5.18 W 31.4 C | kv260-03 decoding 5.79 W 32.0 C | kv260-04 decoding 5.30 W 32.2 C
+during t=1789420141.10 kv260-01 decoding 5.81 W 32.1 C | kv260-02 decoding 5.84 W 32.4 C | kv260-03 decoding 5.93 W 33.1 C | kv260-04 decoding 6.16 W 31.7 C
+during t=1789420141.60 kv260-01 decoding 6.02 W 31.6 C | kv260-02 decoding 5.74 W 32.0 C | kv260-03 decoding 5.83 W 31.9 C | kv260-04 decoding 5.89 W 32.6 C
+during t=1789420142.11 kv260-01 decoding 5.78 W 31.5 C | kv260-02 decoding 5.78 W 32.0 C | kv260-03 decoding 5.82 W 33.4 C | kv260-04 decoding 5.82 W 31.8 C
+during t=1789420142.61 kv260-01 decoding 5.60 W 32.5 C | kv260-02 decoding 6.07 W 32.7 C | kv260-03 decoding 5.76 W 33.0 C | kv260-04 decoding 5.72 W 31.8 C
+during t=1789420143.11 kv260-01 decoding 5.71 W 32.9 C | kv260-02 decoding 5.53 W 32.8 C | kv260-03 decoding 6.05 W 33.6 C | kv260-04 decoding 5.68 W 33.5 C
+during t=1789420143.61 kv260-01 decoding 5.70 W 32.3 C | kv260-02 decoding 5.59 W 31.9 C | kv260-03 decoding 5.78 W 32.3 C | kv260-04 decoding 5.94 W 31.8 C
+during t=1789420144.11 kv260-01 decoding 5.56 W 32.2 C | kv260-02 decoding 6.00 W 32.7 C | kv260-03 decoding 5.63 W 32.7 C | kv260-04 decoding 5.93 W 33.9 C
+during t=1789420144.62 kv260-01 decoding 5.62 W 32.7 C | kv260-02 decoding 5.92 W 31.1 C | kv260-03 decoding 5.67 W 31.9 C | kv260-04 decoding 5.47 W 32.5 C
+during t=1789420145.12 kv260-01 decoding 5.80 W 31.5 C | kv260-02 decoding 5.20 W 32.4 C | kv260-03 decoding 5.45 W 32.5 C | kv260-04 decoding 5.94 W 34.1 C
+during t=1789420145.62 kv260-01 decoding 5.51 W 32.5 C | kv260-02 decoding 5.62 W 33.1 C | kv260-03 decoding 5.70 W 32.2 C | kv260-04 decoding 5.98 W 32.0 C
+during t=1789420146.12 kv260-01 decoding 5.67 W 31.9 C | kv260-02 decoding 5.51 W 32.6 C | kv260-03 decoding 6.12 W 32.5 C | kv260-04 decoding 5.52 W 32.5 C
+during t=1789420146.62 kv260-01 decoding 5.49 W 31.6 C | kv260-02 decoding 5.55 W 32.7 C | kv260-03 decoding 5.79 W 33.0 C | kv260-04 decoding 5.38 W 32.3 C
+during t=1789420147.12 kv260-01 decoding 6.00 W 31.0 C | kv260-02 decoding 5.47 W 31.9 C | kv260-03 decoding 6.25 W 32.1 C | kv260-04 decoding 6.14 W 32.9 C
+during t=1789420147.63 kv260-01 decoding 5.61 W 31.1 C | kv260-02 decoding 5.17 W 31.7 C | kv260-03 decoding 5.57 W 32.5 C | kv260-04 decoding 5.45 W 32.8 C
+during t=1789420148.13 kv260-01 decoding 5.32 W 31.5 C | kv260-02 decoding 5.13 W 33.1 C | kv260-03 decoding 5.28 W 32.7 C | kv260-04 decoding 5.59 W 33.2 C
+during t=1789420148.63 kv260-01 decoding 5.44 W 32.6 C | kv260-02 decoding 5.78 W 32.5 C | kv260-03 decoding 6.01 W 32.6 C | kv260-04 decoding 5.38 W 33.5 C
+during t=1789420149.13 kv260-01 decoding 5.34 W 31.2 C | kv260-02 decoding 5.95 W 31.8 C | kv260-03 decoding 5.54 W 32.3 C | kv260-04 decoding 5.61 W 32.8 C
+during t=1789420149.63 kv260-01 decoding 5.29 W 31.5 C | kv260-02 decoding 5.41 W 32.5 C | kv260-03 decoding 5.96 W 33.1 C | kv260-04 decoding 5.42 W 33.8 C
+during t=1789420150.14 kv260-01 decoding 5.33 W 32.4 C | kv260-02 decoding 5.60 W 32.5 C | kv260-03 decoding 5.80 W 33.6 C | kv260-04 decoding 5.50 W 33.0 C
+during t=1789420150.64 kv260-01 decoding 5.83 W 32.6 C | kv260-02 decoding 5.41 W 32.3 C | kv260-03 decoding 6.02 W 32.8 C | kv260-04 decoding 5.42 W 33.6 C
+during t=1789420151.14 kv260-01 decoding 5.91 W 32.1 C | kv260-02 decoding 4.65 W 31.7 C | kv260-03 decoding 5.00 W 31.7 C | kv260-04 decoding 4.56 W 32.6 C
+chat: 12.00 s wall, usage {'completion_tokens': 400, 'prompt_tokens': 33, 'total_tokens': 433}
+after t=1789420153.64 kv260-01 idle 5.21 W 32.4 C | kv260-02 idle 5.79 W 32.6 C | kv260-03 idle 5.98 W 33.1 C | kv260-04 idle 5.28 W 32.5 C
+after t=1789420154.64 kv260-01 idle 5.21 W 32.4 C | kv260-02 idle 5.79 W 32.6 C | kv260-03 idle 5.98 W 33.1 C | kv260-04 idle 5.28 W 32.5 C
+after t=1789420155.64 kv260-01 idle 5.21 W 32.4 C | kv260-02 idle 5.79 W 32.6 C | kv260-03 idle 5.98 W 33.1 C | kv260-04 idle 5.28 W 32.5 C
+after t=1789420156.65 kv260-01 idle 5.21 W 32.4 C | kv260-02 idle 5.79 W 32.6 C | kv260-03 idle 5.98 W 33.1 C | kv260-04 idle 5.28 W 32.5 C
+last_chat: tps 35.53221750554849, n_gen 400, engine 9.407538253263123 ms, exchange 11.56559486078439 ms, cpu 6.090810928876538 ms
+SUMMARY idle before: kv260-01 mean 5.30 W (min 5.30, max 5.30, n=6), kv260-02 mean 5.99 W (min 5.99, max 5.99, n=6), kv260-03 mean 5.47 W (min 5.47, max 5.47, n=6), kv260-04 mean 5.23 W (min 5.23, max 5.23, n=6); four-SOM total 21.99 W
+SUMMARY decoding: kv260-01 mean 5.63 W (min 5.29, max 6.02, n=22), kv260-02 mean 5.55 W (min 4.65, max 6.07, n=22), kv260-03 mean 5.76 W (min 5.00, max 6.25, n=22), kv260-04 mean 5.63 W (min 4.56, max 6.16, n=22); four-SOM total 22.57 W
+SUMMARY idle after: kv260-01 mean 5.21 W (min 5.21, max 5.21, n=4), kv260-02 mean 5.79 W (min 5.79, max 5.79, n=4), kv260-03 mean 5.98 W (min 5.98, max 5.98, n=4), kv260-04 mean 5.28 W (min 5.28, max 5.28, n=4); four-SOM total 22.26 W

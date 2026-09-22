@@ -1,0 +1,35 @@
+# tp_llama scaling, Llama-3.2-1B all-Q4_0, prompt: The three primary colors are; 64 tokens, greedy
+# 2026-09-13T21:09Z, boards kv260-01..04 on one switch, 3 repeats each
+## nranks=1 repeat 1
+rank 0: prompt 6 tokens in 0.47 s (12.9 t/s); generated 64 tokens in 6.10 s = 10.49 t/s; per token: engine 65.3 ms, comm 0.1 ms, cpu 30.0 ms
+## nranks=1 repeat 2
+rank 0: prompt 6 tokens in 0.47 s (12.9 t/s); generated 64 tokens in 6.10 s = 10.49 t/s; per token: engine 65.2 ms, comm 0.1 ms, cpu 29.9 ms
+## nranks=1 repeat 3
+rank 0: prompt 6 tokens in 0.47 s (12.9 t/s); generated 64 tokens in 6.10 s = 10.49 t/s; per token: engine 65.3 ms, comm 0.1 ms, cpu 29.9 ms
+## nranks=1 text:  red, yellow, and blue. The primary colors are the colors that are used to mix the other colors. The primary colors are 
+## nranks=2 repeat 1
+rank 0: prompt 6 tokens in 0.30 s (20.2 t/s); generated 64 tokens in 3.68 s = 17.37 t/s; per token: engine 33.7 ms, comm 7.5 ms, cpu 16.4 ms
+rank 1: prompt 6 tokens in 0.30 s (20.2 t/s); generated 64 tokens in 3.68 s = 17.37 t/s; per token: engine 34.9 ms, comm 6.1 ms, cpu 16.5 ms
+## nranks=2 repeat 2
+rank 0: prompt 6 tokens in 0.29 s (20.9 t/s); generated 64 tokens in 3.67 s = 17.45 t/s; per token: engine 33.7 ms, comm 7.2 ms, cpu 16.4 ms
+rank 1: prompt 6 tokens in 0.29 s (20.9 t/s); generated 64 tokens in 3.67 s = 17.45 t/s; per token: engine 34.7 ms, comm 6.1 ms, cpu 16.5 ms
+## nranks=2 repeat 3
+rank 0: prompt 6 tokens in 0.29 s (20.5 t/s); generated 64 tokens in 3.68 s = 17.39 t/s; per token: engine 33.7 ms, comm 7.3 ms, cpu 16.4 ms
+rank 1: prompt 6 tokens in 0.29 s (20.5 t/s); generated 64 tokens in 3.68 s = 17.39 t/s; per token: engine 34.9 ms, comm 6.2 ms, cpu 16.5 ms
+## nranks=2 text:  red, yellow, and blue. The primary colors are the colors that are used to mix the other colors. The primary colors are 
+## nranks=4 repeat 1
+rank 0: prompt 6 tokens in 0.25 s (23.7 t/s); generated 64 tokens in 3.00 s = 21.36 t/s; per token: engine 17.8 ms, comm 20.3 ms, cpu 8.7 ms
+rank 1: prompt 6 tokens in 0.25 s (23.7 t/s); generated 64 tokens in 3.00 s = 21.36 t/s; per token: engine 20.1 ms, comm 15.4 ms, cpu 11.3 ms
+rank 2: prompt 6 tokens in 0.25 s (23.7 t/s); generated 64 tokens in 3.00 s = 21.36 t/s; per token: engine 17.8 ms, comm 20.4 ms, cpu 8.6 ms
+rank 3: prompt 6 tokens in 0.25 s (23.7 t/s); generated 64 tokens in 3.00 s = 21.36 t/s; per token: engine 17.8 ms, comm 20.3 ms, cpu 8.7 ms
+## nranks=4 repeat 2
+rank 0: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.68 s = 23.84 t/s; per token: engine 17.8 ms, comm 15.3 ms, cpu 8.7 ms
+rank 1: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.68 s = 23.84 t/s; per token: engine 18.7 ms, comm 13.9 ms, cpu 9.3 ms
+rank 2: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.68 s = 23.84 t/s; per token: engine 17.8 ms, comm 15.5 ms, cpu 8.6 ms
+rank 3: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.68 s = 23.84 t/s; per token: engine 17.8 ms, comm 15.5 ms, cpu 8.7 ms
+## nranks=4 repeat 3
+rank 0: prompt 6 tokens in 0.22 s (27.5 t/s); generated 64 tokens in 2.96 s = 21.61 t/s; per token: engine 18.2 ms, comm 19.3 ms, cpu 8.7 ms
+rank 1: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.96 s = 21.61 t/s; per token: engine 20.9 ms, comm 15.2 ms, cpu 10.1 ms
+rank 2: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.96 s = 21.61 t/s; per token: engine 17.8 ms, comm 19.8 ms, cpu 8.6 ms
+rank 3: prompt 6 tokens in 0.22 s (27.6 t/s); generated 64 tokens in 2.96 s = 21.61 t/s; per token: engine 18.0 ms, comm 19.6 ms, cpu 8.7 ms
+## nranks=4 text:  red, yellow, and blue. The primary colors are the colors that are used to mix the other colors. The primary colors are 
