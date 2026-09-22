@@ -1,0 +1,22 @@
+### gemv2 (hls/gemv2, hw/kv260_gemv2) first hardware run, kv260-01, 250 MHz. Vivado: WNS -0.149 ns (611 failing endpoints of 300,749), 58,832 LUTs (50%), 76 BRAM tiles, 64 URAM (100%). bench_gemv2 ~/vectors udmabuf0, taskset -c 2, API stopped:
+drain: 133.9 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.5 us    13.30 |    30.9 us    28.61
+o           0.590 |    53.7 us    10.98 |    21.2 us    27.87
+gateup      4.719 |   348.0 us    13.56 |   197.2 us    23.93
+down        2.359 |   175.8 us    13.42 |    77.1 us    30.60
+lm_head    36.938 |  2814.4 us    13.12 |  2664.9 us    13.86
+
+65 calls, 0 us gap after each: MAC time 13.29 ms (13.07 GB/s over 173.8 MB), wall 13.34 ms
+
+65 calls, 300 us gap after each: MAC time 8.25 ms (21.07 GB/s over 173.8 MB), wall 31.94 ms
+
+### tp_llama single rank on kv260-01 with gemv2 (same prompt/build as 0012-tp-ab-runs single-rank case; gemv_q4_0 staggered was engine 66.7 ms):
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: prompt 12 tokens in 0.68 s (17.7 t/s); generated 64 tokens in 3.80 s = 16.85 t/s; per token: engine 59.0 ms, comm 0.2 ms, cpu 9.2 ms
+text identical to tp_llama.0011's (cmp)

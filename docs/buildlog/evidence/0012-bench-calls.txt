@@ -1,0 +1,14 @@
+### kv260-01, API server idle, taskset -c 2 ./bench_calls udmabuf2 (board/kv260gemv/bench_calls.c). Shard shapes of one rank of four. raw = gemv_dev_run alone, best/mean of N; the other columns are what the runtime does around a call: ggml's scalar quantize_row_q8_0_ref vs a NEON version, cache clean of x, invalidate of y, the 11 register writes.
+udmabuf2: 128 MB at 0x68100000
+
+shape        k   rows       MB |  raw best  raw mean     GB/s |    q8ref   q8neon    clean  inval_y     regs
+tiny       256     16    0.002 |    2.8 us    2.9 us     0.84 |   3.8 us   1.0 us   0.0 us   0.0 us   0.9 us
+x2048     2048     16    0.018 |    4.6 us    4.8 us     4.00 |  30.3 us   8.3 us   0.2 us   0.0 us   0.9 us
+x8192     8192     16    0.074 |   10.4 us   10.8 us     7.10 | 121.7 us  33.5 us   0.6 us   0.0 us   0.9 us
+qkv       2048    768    0.885 |   77.4 us   79.1 us    11.42 |  30.3 us   8.3 us   0.2 us   0.2 us   0.9 us
+o          512   2048    0.590 |   57.0 us   58.1 us    10.34 |   7.6 us   2.1 us   0.1 us   0.5 us   0.9 us
+gateup    2048   4096    4.719 |  458.1 us  463.7 us    10.30 |  30.3 us   8.3 us   0.2 us   1.0 us   0.9 us
+down      2048   2048    2.359 |  227.1 us  230.4 us    10.39 |  30.3 us   8.3 us   0.5 us   0.5 us   0.9 us
+lm_head   2048  32064   36.938 | 3145.9 us 3186.5 us    11.74 |  30.3 us   8.3 us   0.2 us   7.6 us   0.9 us
+
+65 shard calls back to back (one token's engine work, same buffers): 16.45 ms = 10.56 GB/s over 173.8 MB

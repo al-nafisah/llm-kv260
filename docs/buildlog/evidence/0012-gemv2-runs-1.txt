@@ -1,0 +1,41 @@
+### gemv2 first bitstream (sequential drain), 2026-09-14. Runs via run-tp.sh, 400 tokens, prompt as in 0012-tp-ab-runs.txt.
+
+## kv260-02: load + bench_gemv2
+gemv2: loaded to slot 0
+  uio5 gemv_mac 0x00000000a0010000
+EXACTNESS: PASS
+65 calls, 0 us gap after each: MAC time 13.40 ms (12.97 GB/s over 173.8 MB), wall 13.45 ms
+65 calls, 300 us gap after each: MAC time 8.08 ms (21.51 GB/s over 173.8 MB), wall 31.81 ms
+
+## four boards, ranks 0,1 (kv260-01, -02) on gemv2, ranks 2,3 on gemv_q4_0 (staggered). Text was GARBAGE from the first token (see below for the cause); rank 0's board had been left by the previous process with a 3.5 MB prefetch stalled half-delivered.
+rank 0: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.26 s = 30.16 t/s; per token: engine 12.4 ms, comm 15.4 ms, cpu 5.9 ms
+rank 1: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.26 s = 30.16 t/s; per token: engine 10.0 ms, comm 17.7 ms, cpu 6.0 ms
+rank 2: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.26 s = 30.16 t/s; per token: engine 16.3 ms, comm 11.6 ms, cpu 5.9 ms
+rank 3: prompt 24 tokens in 0.68 s (35.5 t/s); generated 400 tokens in 13.26 s = 30.16 t/s; per token: engine 16.2 ms, comm 11.8 ms, cpu 5.8 ms
+rank 0 text (first 120 bytes): ольшольшольшольшольшольшольшольшольшольшольшольшольшольшольш
+
+## two ranks, kv260-01 + kv260-02, both gemv2 (run after the mixed run, whose exit left a 0.88 MB prefetch that had completed):
+rank 0: prompt 24 tokens in 0.89 s (27.0 t/s); generated 400 tokens in 18.61 s = 21.50 t/s; per token: engine 22.3 ms, comm 13.8 ms, cpu 11.4 ms
+rank 1: prompt 24 tokens in 0.89 s (27.0 t/s); generated 400 tokens in 18.61 s = 21.50 t/s; per token: engine 22.3 ms, comm 13.2 ms, cpu 11.9 ms
+## two ranks, kv260-03 + kv260-04, both gemv_q4_0 staggered (reference):
+rank 0: prompt 24 tokens in 0.98 s (24.4 t/s); generated 400 tokens in 20.23 s = 19.78 t/s; per token: engine 31.6 ms, comm 9.2 ms, cpu 11.1 ms
+rank 1: prompt 24 tokens in 0.98 s (24.4 t/s); generated 400 tokens in 20.22 s = 19.78 t/s; per token: engine 31.4 ms, comm 8.7 ms, cpu 11.8 ms
+## rank 0 text identical between the two two-rank runs (cmp, 400 tokens)
+
+## the cause, reproduced on kv260-01: a single-rank tp_llama run (8 tokens) exits with the next token's layer-0 q|k|v prefetch (3072 rows, 3.5 MB > the 2 MB of FIFO) stalled; the next process's drain then returns early and the vectors mismatch; after that (clean) process, they pass again:
+drain: 838.8 us
+k256_n32     k=256   rows=32   MISMATCH (16/32 rows differ)
+k2048_n64    k=2048  rows=64   MISMATCH (32/64 rows differ)
+EXACTNESS: FAIL
+--- next process:
+drain: 134.2 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+
+## four-rank shard shapes checked one call each against the contract's vectors (gen_vectors.py DIR 512,2048 2048,768 2048,2048 2048,4096), kv260-01 gemv2, clean state:
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS

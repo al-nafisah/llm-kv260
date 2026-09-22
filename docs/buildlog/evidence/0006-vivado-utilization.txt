@@ -1,0 +1,47 @@
+1. CLB Logic
+1.1 Summary of Registers by Type
+2. CLB Logic Distribution
+3. BLOCKRAM
+4. ARITHMETIC
+5. I/O
+6. CLOCK
+7. ADVANCED
+8. CONFIGURATION
+9. Primitives
+10. Black Boxes
+11. Instantiated Netlists
+
+1. CLB Logic
+------------
+
++----------------------------+-------+-------+------------+-----------+-------+
+|          Site Type         |  Used | Fixed | Prohibited | Available | Util% |
++----------------------------+-------+-------+------------+-----------+-------+
+| CLB LUTs                   | 32228 |     0 |          0 |    117120 | 27.52 |
+|   LUT as Logic             | 26569 |     0 |          0 |    117120 | 22.69 |
+|   LUT as Memory            |  5659 |     0 |          0 |     57600 |  9.82 |
+|     LUT as Distributed RAM |  2576 |     0 |            |           |       |
+|     LUT as Shift Register  |  3083 |     0 |            |           |       |
+| CLB Registers              | 43978 |     0 |          0 |    234240 | 18.77 |
+|   Register as Flip Flop    | 43978 |     0 |          0 |    234240 | 18.77 |
+|   Register as Latch        |     0 |     0 |          0 |    234240 |  0.00 |
+| CARRY8                     |  1085 |     0 |          0 |     14640 |  7.41 |
+| F7 Muxes                   |   982 |     0 |          0 |     58560 |  1.68 |
+| F8 Muxes                   |     4 |     0 |          0 |     29280 |  0.01 |
+| F9 Muxes                   |     0 |     0 |          0 |     14640 |  0.00 |
++----------------------------+-------+-------+------------+-----------+-------+
+* Warning! LUT value is adjusted to account for LUT combining.
+
+
+1.1 Summary of Registers by Type
+--------------------------------
+
++-------+--------------+-------------+--------------+
+| Total | Clock Enable | Synchronous | Asynchronous |
++-------+--------------+-------------+--------------+
+| 0     |            _ |           - |            - |
+| 0     |            _ |           - |          Set |
+| 0     |            _ |           - |        Reset |
+| 0     |            _ |         Set |            - |
+| Block RAM Tile    |   48 |     0 |          0 |       144 | 33.33 |
+| DSPs           |  228 |     0 |          0 |      1248 | 18.27 |

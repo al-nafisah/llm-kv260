@@ -1,0 +1,69 @@
+### kv260-01, gcc 11.4, -O2, board idle (the API server resident but not decoding); make run in board/tp/bench
+
+### attn_bench: the scalar attention loop of HEAD a274708 vs NEON, interleaved KV layout
+pos 40: reference scalar loop         5.65 ms per token (16 layers, 8 heads)
+pos 40: neon, 4 heads per K/V pass     1.26 ms per token (max |diff| vs reference 5.96e-08)
+pos 40: neon + 2 threads               0.64 ms per token (max |diff| vs reference 5.96e-08)
+pos 200: reference scalar loop        23.43 ms per token (16 layers, 8 heads)
+pos 200: neon, 4 heads per K/V pass     5.28 ms per token (max |diff| vs reference 4.47e-08)
+pos 200: neon + 2 threads               3.11 ms per token (max |diff| vs reference 4.47e-08)
+pos 400: reference scalar loop        54.98 ms per token (16 layers, 8 heads)
+pos 400: neon, 4 heads per K/V pass    12.65 ms per token (max |diff| vs reference 5.22e-08)
+pos 400: neon + 2 threads               6.12 ms per token (max |diff| vs reference 5.22e-08)
+pos 1000: reference scalar loop       119.37 ms per token (16 layers, 8 heads)
+pos 1000: neon, 4 heads per K/V pass    26.73 ms per token (max |diff| vs reference 3.35e-08)
+pos 1000: neon + 2 threads              15.33 ms per token (max |diff| vs reference 3.35e-08)
+
+### misc_bench: the per-token CPU work that does not grow with position, scalar as in HEAD a274708
+rmsnorm x33              1.27 ms
+rope x32                 0.21 ms
+silu*up x16              2.26 ms
+argmax 32064             0.20 ms
+residual add x32         0.51 ms
+quantize_row_q8_0_ref x65 (in the fabric bucket)   1.45 ms
+quantize + pack x65    (in the fabric bucket)   1.56 ms
+
+### ops_bench: the runtime kernels as committed, per-head KV layout, ctx 2048
+ctx_max 2048 pos 200: runtime attention    5.60 ms per token
+ctx_max 2048 pos 400: runtime attention   11.45 ms per token
+rmsnorm x33    0.319 ms
+silu_mul x16   0.541 ms
+add_into x32   0.136 ms
+
+### attn_var: kernel variants; the committed kernel on the interleaved layout, then on the per-head layout
+pos 200  current runtime kernel            6.25 ms
+pos 200  p folded, ld1r, no prefetch      6.23 ms  (diff 0)
+pos 200  + prefetch 2 rows ahead          5.78 ms  (diff 0)
+pos 200  + prefetch 4 rows ahead          5.78 ms  (diff 0)
+pos 200  + prefetch 8 rows ahead          5.90 ms  (diff 0)
+pos 200  chunk 32, prefetch 4             5.22 ms  (diff 0)
+pos 200  memory floor, interleaved layout    1.95 ms  (-1748.67)
+pos 200  contiguous layout, no prefetch    3.65 ms
+pos 200  contiguous, prefetch 4            3.54 ms
+pos 200  contiguous, chunk 32, prefetch 4   4.08 ms
+pos 200  contiguous, chunk 32, no prefetch   4.22 ms
+pos 200  memory floor, contiguous layout     1.27 ms  (-1619.88)
+pos 400  current runtime kernel           15.34 ms
+pos 400  p folded, ld1r, no prefetch     15.26 ms  (diff 0)
+pos 400  + prefetch 2 rows ahead         13.80 ms  (diff 0)
+pos 400  + prefetch 4 rows ahead         13.76 ms  (diff 0)
+pos 400  + prefetch 8 rows ahead         13.93 ms  (diff 0)
+pos 400  chunk 32, prefetch 4            12.55 ms  (diff 0)
+pos 400  memory floor, interleaved layout    5.06 ms  (-2838.42)
+pos 400  contiguous layout, no prefetch    8.67 ms
+pos 400  contiguous, prefetch 4            8.42 ms
+pos 400  contiguous, chunk 32, prefetch 4   9.59 ms
+pos 400  contiguous, chunk 32, no prefetch  10.20 ms
+pos 400  memory floor, contiguous layout     2.99 ms  (-3581.32)
+pos 1000  current runtime kernel           34.99 ms
+pos 1000  p folded, ld1r, no prefetch     34.66 ms  (diff 0)
+pos 1000  + prefetch 2 rows ahead         30.04 ms  (diff 0)
+pos 1000  + prefetch 4 rows ahead         29.93 ms  (diff 0)
+pos 1000  + prefetch 8 rows ahead         30.28 ms  (diff 0)
+pos 1000  chunk 32, prefetch 4            27.39 ms  (diff 0)
+pos 1000  memory floor, interleaved layout   12.80 ms  (-6084.66)
+pos 1000  contiguous layout, no prefetch   17.95 ms
+pos 1000  contiguous, prefetch 4           17.74 ms
+pos 1000  contiguous, chunk 32, prefetch 4  20.24 ms
+pos 1000  contiguous, chunk 32, no prefetch  20.62 ms
+pos 1000  memory floor, contiguous layout     6.28 ms  (-11084)

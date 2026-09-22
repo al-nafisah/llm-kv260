@@ -1,0 +1,10 @@
+### /proc/interrupts line for the DisplayPort subsystem on each board before the unbind (uptime ~16 h), and eth0's IRQ placement
+kv260-01: dp irq 628798295 uptime 60070s; eth0 irq cpu 3; tp_llama on cpu 0
+kv260-02: dp irq 629713215 uptime 58559s; eth0 irq cpu 3; tp_llama on cpu 1
+kv260-03: dp irq 625965783 uptime 56914s; eth0 irq cpu 3; tp_llama on cpu 3
+kv260-04: dp irq 626733896 uptime 56912s; eth0 irq cpu 3; tp_llama on cpu 3
+kv260-01 after disable-dp.sh: display interrupts in 2 s: 0
+kv260-02 after disable-dp.sh: display interrupts in 2 s: 0
+### jumbo frames: kv260-01 -> kv260-02 at MTU 9000 through the switch
+ping -M do -s 8972 -c 5: 5 packets transmitted, 5 received, 0% packet loss, rtt min/avg/max/mdev = 0.597/0.692/0.922/0.116 ms
+ip -d link show eth0: maxmtu 16365 (macb, 5.15.0-1027-xilinx-zynqmp); ethtool: tcp-segmentation-offload off [fixed], coalescing not supported

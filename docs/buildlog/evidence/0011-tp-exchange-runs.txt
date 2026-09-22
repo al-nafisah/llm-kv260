@@ -1,0 +1,20 @@
+### before: the three committed-0010 runs (evidence/0010-tp-neon-runs.txt, after2..4): 23.03 / 22.69 / 23.05 t/s, comm 16.5-20.7 ms
+### after5: bash board/tp/run-tp.sh <27-token prompt> 400 <four boards>, MODEL=instruct; reduce-scatter+all-gather with polled reads, --cpu 2; boards 1-2 at MTU 9000 with DisplayPort unbound, boards 3-4 at MTU 1500 with the DisplayPort storm
+rank 1: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.02 t/s; per token: engine 19.0 ms, comm 13.2 ms, cpu 5.9 ms
+rank 3: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.02 t/s; per token: engine 19.0 ms, comm 13.3 ms, cpu 5.8 ms
+rank 0: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.02 t/s; per token: engine 18.9 ms, comm 13.2 ms, cpu 5.8 ms
+rank 2: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.02 t/s; per token: engine 19.0 ms, comm 13.1 ms, cpu 6.1 ms
+
+### after6: bash board/tp/run-tp.sh <27-token prompt> 400 <four boards>, MODEL=instruct; reduce-scatter+all-gather with polled reads, --cpu 2; boards 1-2 at MTU 9000 with DisplayPort unbound, boards 3-4 at MTU 1500 with the DisplayPort storm
+rank 1: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.01 t/s; per token: engine 18.9 ms, comm 13.2 ms, cpu 5.9 ms
+rank 2: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.01 t/s; per token: engine 19.0 ms, comm 13.3 ms, cpu 5.9 ms
+rank 0: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.01 t/s; per token: engine 18.9 ms, comm 13.2 ms, cpu 5.8 ms
+rank 3: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.81 s = 27.01 t/s; per token: engine 19.0 ms, comm 13.3 ms, cpu 5.9 ms
+
+### after7: bash board/tp/run-tp.sh <27-token prompt> 400 <four boards>, MODEL=instruct; reduce-scatter+all-gather with polled reads, --cpu 2; boards 1-2 at MTU 9000 with DisplayPort unbound, boards 3-4 at MTU 1500 with the DisplayPort storm
+rank 1: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.82 s = 26.99 t/s; per token: engine 19.0 ms, comm 13.2 ms, cpu 5.9 ms
+rank 3: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.82 s = 26.99 t/s; per token: engine 19.0 ms, comm 13.3 ms, cpu 5.9 ms
+rank 2: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.82 s = 26.99 t/s; per token: engine 19.0 ms, comm 13.3 ms, cpu 5.9 ms
+rank 0: prompt 27 tokens in 0.86 s (31.5 t/s); generated 400 tokens in 14.82 s = 26.99 t/s; per token: engine 18.9 ms, comm 13.2 ms, cpu 5.9 ms
+
+### rank 0 text identical to evidence/0010-tp-neon-text.txt (after) in all three runs

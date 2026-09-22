@@ -1,0 +1,120 @@
+### GET /stats after a 36-token prompt, 400 generated, through the API (reduce-scatter build; boards 1-2 at MTU 9000 with DisplayPort unbound, boards 3-4 at 1500 with the storm)
+{
+    "boards": [
+        {
+            "cpu_ms": 9.899195671081543,
+            "cpu_pct": 31.25,
+            "engine_ms": 17.789915084838867,
+            "engine_share": 0.43148747086524963,
+            "exchange_ms": 13.54016399383545,
+            "heads": "0-7",
+            "host": "kv260-01",
+            "mem_total_mb": 3911.2578125,
+            "mem_used_mb": 1471.5859375,
+            "power_w": 4.929999828338623,
+            "rank": 0,
+            "shard_mb": 173.776896,
+            "state": "idle",
+            "temp_c": 35.375,
+            "tps": 23.665691375732422,
+            "vocab_rows": "0-32063"
+        },
+        {
+            "cpu_ms": 9.842215538024902,
+            "cpu_pct": 26.66666603088379,
+            "engine_ms": 17.79429054260254,
+            "engine_share": 0.43627825379371643,
+            "exchange_ms": 13.15005874633789,
+            "heads": "8-15",
+            "host": "kv260-02",
+            "mem_total_mb": 3911.2578125,
+            "mem_used_mb": 1490.5546875,
+            "power_w": 4.71999979019165,
+            "rank": 1,
+            "shard_mb": 173.776896,
+            "state": "idle",
+            "temp_c": 35.70199966430664,
+            "tps": 23.689739227294922,
+            "vocab_rows": "32064-64127"
+        },
+        {
+            "cpu_ms": 9.918800354003906,
+            "cpu_pct": 31.25,
+            "engine_ms": 17.804109573364258,
+            "engine_share": 0.4315696656703949,
+            "exchange_ms": 13.531402587890625,
+            "heads": "16-23",
+            "host": "kv260-03",
+            "mem_total_mb": 3911.2578125,
+            "mem_used_mb": 1446.89453125,
+            "power_w": 5.010000228881836,
+            "rank": 2,
+            "shard_mb": 173.776896,
+            "state": "idle",
+            "temp_c": 37.44300079345703,
+            "tps": 23.65167808532715,
+            "vocab_rows": "64128-96191"
+        },
+        {
+            "cpu_ms": 10.032745361328125,
+            "cpu_pct": 31.25,
+            "engine_ms": 17.81922149658203,
+            "engine_share": 0.43218040466308594,
+            "exchange_ms": 13.379013061523438,
+            "heads": "24-31",
+            "host": "kv260-04",
+            "mem_total_mb": 3911.2578125,
+            "mem_used_mb": 1454.85546875,
+            "power_w": 4.590000152587891,
+            "rank": 3,
+            "shard_mb": 173.776896,
+            "state": "idle",
+            "temp_c": 38.856998443603516,
+            "tps": 23.675567626953125,
+            "vocab_rows": "96192-128255"
+        }
+    ],
+    "busy": false,
+    "last_chat": {
+        "boards": [
+            {
+                "cpu_ms": 6.011485916630068,
+                "engine_ms": 17.803917031539115,
+                "exchange_ms": 12.766680743760034,
+                "rank": 0
+            },
+            {
+                "cpu_ms": 5.966122571089513,
+                "engine_ms": 17.804217694696028,
+                "exchange_ms": 12.702065776165266,
+                "rank": 1
+            },
+            {
+                "cpu_ms": 6.205947654289112,
+                "engine_ms": 17.840344378822728,
+                "exchange_ms": 12.638487660496455,
+                "rank": 2
+            },
+            {
+                "cpu_ms": 6.100069197795744,
+                "engine_ms": 17.797540588187694,
+                "exchange_ms": 12.790426321196975,
+                "rank": 3
+            }
+        ],
+        "cpu_ms": 6.070906334951109,
+        "engine_ms": 17.81150492331139,
+        "exchange_ms": 12.724415125404683,
+        "gen_ms": 15040.25468799955,
+        "n_gen": 400,
+        "n_prompt": 36,
+        "prompt_ms": 1145.291428998462,
+        "samples": 399,
+        "tps": 26.595294315006214
+    },
+    "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+    "nranks": 4,
+    "queued": 0,
+    "sample_age_s": 0.009765335002157371,
+    "tokens_total": 604
+}

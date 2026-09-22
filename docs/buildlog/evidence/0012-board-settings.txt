@@ -1,0 +1,48 @@
+### 2026-09-14, after the user ran on kv260-03 and kv260-04: sudo bash ~/board/load-overlay.sh ~/gemv2 && sudo bash ~/board/disable-dp.sh && sudo bash ~/board/jumbo-frames.sh (the rewritten script: netplan file for boot, live MTU by a detached ip link bounce, no netplan apply).
+
+## state of each board afterwards (eth0 first address, MTU, NetworkManager, DisplayPort interrupts in 2 s, UIO engine devices)
+kv260-01: 10.0.0.1/24 mtu 9000, NetworkManager active, display irqs/2s 0, uio: gemv_fetch gemv_mac
+kv260-02: 10.0.0.2/24 mtu 9000, NetworkManager active, display irqs/2s 0, uio: gemv_fetch gemv_mac
+kv260-03: 10.42.0.218/24 mtu 9000, NetworkManager active, display irqs/2s 0, uio: gemv_fetch gemv_mac
+kv260-04: 10.42.0.114/24 mtu 9000, NetworkManager active, display irqs/2s 0, uio: gemv_fetch gemv_mac
+
+## the user's terminal (kv260-03; kv260-04 identical but for the hostname)
+gemv2: loaded to slot 0
+--- fpga: operating
+                            pl0_ref       2        2        0   249999998          0     0  50000         Y
+  uio4 gemv_fetch 0x00000000a0000000
+  uio5 gemv_mac 0x00000000a0010000
+Created symlink /etc/systemd/system/multi-user.target.wants/unbind-dp.service → /etc/systemd/system/unbind-dp.service.
+kv260-03: display interrupts in 2 s: 0
+kv260-03: /etc/netplan/99-jumbo-frames.yaml sets MTU 9000 at boot
+kv260-03: in 2 s eth0 goes down, to MTU 9000, and up; the board answers again within ~10 s
+
+## netplan dry run of 99-jumbo-frames.yaml on kv260-03 before the change (netplan generate --root-dir into a temp dir, no sudo): the NetworkManager profile it boots with
+[connection]
+id=netplan-eth0
+type=ethernet
+interface-name=eth0
+
+[ethernet]
+wake-on-lan=0
+mtu=9000
+
+[ipv4]
+method=auto
+
+[ipv6]
+method=ignore
+
+## every ordered pair: ping -M do -s 8972 -c 3 (9000-byte IP packets, do-not-fragment)
+10.42.0.114 -> 10.42.0.137: 3 packets transmitted, 3 received, 0% packet loss, time 2046ms rtt min/avg/max/mdev = 0.493/0.609/0.744/0.103 ms
+10.42.0.114 -> 10.42.0.217: 3 packets transmitted, 3 received, 0% packet loss, time 2014ms rtt min/avg/max/mdev = 0.512/0.681/0.867/0.145 ms
+10.42.0.114 -> 10.42.0.218: 3 packets transmitted, 3 received, 0% packet loss, time 2039ms rtt min/avg/max/mdev = 0.604/0.660/0.754/0.066 ms
+10.42.0.137 -> 10.42.0.114: 3 packets transmitted, 3 received, 0% packet loss, time 2044ms rtt min/avg/max/mdev = 0.566/0.608/0.667/0.042 ms
+10.42.0.137 -> 10.42.0.217: 3 packets transmitted, 3 received, 0% packet loss, time 2046ms rtt min/avg/max/mdev = 0.489/0.603/0.665/0.081 ms
+10.42.0.137 -> 10.42.0.218: 3 packets transmitted, 3 received, 0% packet loss, time 2044ms rtt min/avg/max/mdev = 0.579/0.659/0.708/0.057 ms
+10.42.0.217 -> 10.42.0.114: 3 packets transmitted, 3 received, 0% packet loss, time 2051ms rtt min/avg/max/mdev = 0.558/0.607/0.679/0.051 ms
+10.42.0.217 -> 10.42.0.137: 3 packets transmitted, 3 received, 0% packet loss, time 2046ms rtt min/avg/max/mdev = 0.572/0.596/0.608/0.017 ms
+10.42.0.217 -> 10.42.0.218: 3 packets transmitted, 3 received, 0% packet loss, time 2051ms rtt min/avg/max/mdev = 0.500/0.568/0.641/0.057 ms
+10.42.0.218 -> 10.42.0.114: 3 packets transmitted, 3 received, 0% packet loss, time 2052ms rtt min/avg/max/mdev = 0.632/0.679/0.739/0.044 ms
+10.42.0.218 -> 10.42.0.137: 3 packets transmitted, 3 received, 0% packet loss, time 2056ms rtt min/avg/max/mdev = 0.620/0.628/0.645/0.011 ms
+10.42.0.218 -> 10.42.0.217: 3 packets transmitted, 3 received, 0% packet loss, time 2051ms rtt min/avg/max/mdev = 0.613/0.642/0.678/0.026 ms

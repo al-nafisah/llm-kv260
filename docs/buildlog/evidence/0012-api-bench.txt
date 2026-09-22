@@ -1,0 +1,5 @@
+### .venv/bin/python board/tp/api-bench.py http://10.42.0.137:8080 --n 128 --repeats 3, from the PC, after serve-tp.sh on four boards; every board on gemv2 with MTU 9000 and DisplayPort unbound (0011: 29.36 / 29.44 / 29.38 t/s on the same prompt)
+run 1: 67 tokens, first token 0.52s, client-side 39.98 t/s, server-side 39.98 t/s (prompt 22 tok in 0.51s)
+    The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced when the sun is high in the sky, which is why
+run 2: 67 tokens, first token 0.50s, client-side 40.09 t/s, server-side 40.09 t/s (prompt 22 tok in 0.50s)
+run 3: 67 tokens, first token 0.47s, client-side 39.95 t/s, server-side 39.95 t/s (prompt 22 tok in 0.46s)

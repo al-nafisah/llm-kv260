@@ -1,0 +1,43 @@
+### a 400-token chat through the API (prompt 'Write a detailed history of the Roman Empire, from its founding to its fall, covering the key events and figures.', max_tokens 400, temperature 0), then GET /stats; every board on gemv2 with MTU 9000 and DisplayPort unbound
+usage: {'completion_tokens': 400, 'prompt_tokens': 33, 'total_tokens': 433}
+{
+  "last_chat": {
+    "boards": [
+      {
+        "cpu_ms": 6.138260391421784,
+        "engine_ms": 9.41028478569853,
+        "exchange_ms": 11.794139381638146,
+        "rank": 0
+      },
+      {
+        "cpu_ms": 6.126705244370272,
+        "engine_ms": 9.424180716799016,
+        "exchange_ms": 11.845910175103592,
+        "rank": 1
+      },
+      {
+        "cpu_ms": 6.110390844201683,
+        "engine_ms": 9.409441560730897,
+        "exchange_ms": 11.77582193436778,
+        "rank": 2
+      },
+      {
+        "cpu_ms": 6.241624041607506,
+        "engine_ms": 9.37070249734367,
+        "exchange_ms": 11.711052610163103,
+        "rank": 3
+      }
+    ],
+    "cpu_ms": 6.154245130400311,
+    "engine_ms": 9.403652390143028,
+    "exchange_ms": 11.781731025318154,
+    "gen_ms": 11365.197381994221,
+    "n_gen": 400,
+    "n_prompt": 33,
+    "prompt_ms": 715.1737609965494,
+    "samples": 399,
+    "tps": 35.19516525368194
+  },
+  "nranks": 4,
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf"
+}

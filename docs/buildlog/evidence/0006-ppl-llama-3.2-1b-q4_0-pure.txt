@@ -1,0 +1,4 @@
+0.00.715.164 I system_info: n_threads = 5 (n_threads_batch = 5) / 12 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.00.892.147 I perplexity: calculating perplexity over 564 chunks, n_ctx=512, batch_size=2048, n_seq=4
+[1]6.0193,[2]7.8191,[3]8.9148,[4]9.4703,[5]9.8822,[6]10.2878,[7]10.9702,[8]11.6702,[9]12.7515,[10]13.0620,[11]13.2126,[12]13.5100,[13]14.2515,[14]13.6505,[15]13.4705,[16]13.0299,[17]12.8721,[18]13.147
+28.11.227.741 I Final estimate: PPL = 11.6392 +/- 0.08195

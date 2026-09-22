@@ -1,0 +1,25 @@
+### four boards, every one on gemv2 (drain-fixed bitstream), MTU 9000 and DisplayPort unbound on all four (0012-board-settings.txt). bash board/tp/run-tp.sh <prompt> 400 <four boards>, MODEL=instruct, prompt 'Write a detailed history of the Roman Empire, from its founding to its fall, covering the key events and figures.' (24 tokens), same binary as the 0012 staggered run in 0012-tp-ab-runs.txt
+
+## run 1
+rank 0: prompt 24 tokens in 0.52 s (46.2 t/s); generated 400 tokens in 11.00 s = 36.37 t/s; per token: engine 10.0 ms, comm 11.8 ms, cpu 5.9 ms
+rank 1: prompt 24 tokens in 0.52 s (46.2 t/s); generated 400 tokens in 11.00 s = 36.37 t/s; per token: engine 10.0 ms, comm 11.8 ms, cpu 5.9 ms
+rank 2: prompt 24 tokens in 0.52 s (46.2 t/s); generated 400 tokens in 11.00 s = 36.37 t/s; per token: engine 10.0 ms, comm 11.8 ms, cpu 5.9 ms
+rank 3: prompt 24 tokens in 0.52 s (46.2 t/s); generated 400 tokens in 11.00 s = 36.37 t/s; per token: engine 9.9 ms, comm 11.8 ms, cpu 5.9 ms
+      4 engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0 text identical to the 0012 reference run (0012-tp-ab-runs.txt, which is itself identical to the 0011 build's) (cmp, 400 tokens)
+
+## run 2
+rank 0: prompt 24 tokens in 0.53 s (45.2 t/s); generated 400 tokens in 11.05 s = 36.21 t/s; per token: engine 10.0 ms, comm 11.9 ms, cpu 5.9 ms
+rank 1: prompt 24 tokens in 0.53 s (45.2 t/s); generated 400 tokens in 11.05 s = 36.21 t/s; per token: engine 10.0 ms, comm 11.9 ms, cpu 5.9 ms
+rank 2: prompt 24 tokens in 0.53 s (45.1 t/s); generated 400 tokens in 11.05 s = 36.21 t/s; per token: engine 10.0 ms, comm 11.9 ms, cpu 5.9 ms
+rank 3: prompt 24 tokens in 0.53 s (45.2 t/s); generated 400 tokens in 11.05 s = 36.21 t/s; per token: engine 9.9 ms, comm 12.0 ms, cpu 5.9 ms
+      4 engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0 text identical to the 0012 reference run (0012-tp-ab-runs.txt, which is itself identical to the 0011 build's) (cmp, 400 tokens)
+
+## run 3
+rank 0: prompt 24 tokens in 0.52 s (46.5 t/s); generated 400 tokens in 11.00 s = 36.36 t/s; per token: engine 10.0 ms, comm 11.7 ms, cpu 6.1 ms
+rank 1: prompt 24 tokens in 0.52 s (46.5 t/s); generated 400 tokens in 11.00 s = 36.36 t/s; per token: engine 10.0 ms, comm 11.8 ms, cpu 5.9 ms
+rank 2: prompt 24 tokens in 0.52 s (46.5 t/s); generated 400 tokens in 11.00 s = 36.36 t/s; per token: engine 10.0 ms, comm 11.7 ms, cpu 5.9 ms
+rank 3: prompt 24 tokens in 0.52 s (46.5 t/s); generated 400 tokens in 11.00 s = 36.36 t/s; per token: engine 9.9 ms, comm 11.8 ms, cpu 5.9 ms
+      4 engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0 text identical to the 0012 reference run (0012-tp-ab-runs.txt, which is itself identical to the 0011 build's) (cmp, 400 tokens)

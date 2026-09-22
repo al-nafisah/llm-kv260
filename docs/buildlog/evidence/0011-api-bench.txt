@@ -1,0 +1,4 @@
+run 1: 67 tokens, first token 0.70s, client-side 29.36 t/s, server-side 29.36 t/s (prompt 22 tok in 0.70s)
+    The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced when the sun is high in the sky, which is why
+run 2: 67 tokens, first token 0.70s, client-side 29.44 t/s, server-side 29.44 t/s (prompt 22 tok in 0.70s)
+run 3: 67 tokens, first token 0.70s, client-side 29.38 t/s, server-side 29.38 t/s (prompt 22 tok in 0.70s)

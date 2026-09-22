@@ -1,0 +1,10 @@
+udmabuf0: 512 MB at 0x38500000
+k256_n16     k=256   rows=16   bit-exact (0/16 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n16    k=8192  rows=16   bit-exact (0/16 rows differ)
+EXACTNESS: PASS
+q_proj     k=2048  rows=2048      2.36 MB  best   0.228 ms  mean   0.232 ms   10.36 GB/s
+k_proj     k=2048  rows=512       0.59 MB  best   0.049 ms  mean   0.051 ms   12.11 GB/s
+gate       k=2048  rows=8192      9.44 MB  best   0.873 ms  mean   0.885 ms   10.81 GB/s
+down       k=8192  rows=2048      9.44 MB  best   0.808 ms  mean   0.827 ms   11.68 GB/s
+lm_head    k=2048  rows=128256  147.75 MB  best  12.787 ms  mean  12.825 ms   11.56 GB/s

@@ -1,0 +1,97 @@
+### gemv2 (drain-fixed bitstream, md5 81e7b63d430956c99de998ab90bfffda) on all four boards, API stopped, each board alone: taskset -c 2 ./bench_gemv2 ~/vectors udmabuf0 k256_n32 k512_n64 k1024_n32 k2048_n64 k8192_n32 k512_n2048 k2048_n768 k2048_n2048 k2048_n4096 (the last four are one rank's shard shapes, from gen_vectors.py DIR 512,2048 2048,768 2048,2048 2048,4096)
+
+===== kv260-01
+drain: 19.3 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.3 us    13.35 |    30.9 us    28.59
+o           0.590 |    53.7 us    10.98 |    21.2 us    27.86
+gateup      4.719 |   347.6 us    13.58 |   196.9 us    23.97
+down        2.359 |   175.1 us    13.48 |    77.1 us    30.58
+lm_head    36.938 |  2818.9 us    13.10 |  2638.5 us    14.00
+
+65 calls, 0 us gap after each: MAC time 13.31 ms (13.05 GB/s over 173.8 MB), wall 13.36 ms
+
+65 calls, 300 us gap after each: MAC time 8.09 ms (21.47 GB/s over 173.8 MB), wall 31.81 ms
+
+===== kv260-02
+drain: 19.2 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.5 us    13.30 |    30.9 us    28.60
+o           0.590 |    53.6 us    11.00 |    21.2 us    27.87
+gateup      4.719 |   348.1 us    13.56 |   197.0 us    23.95
+down        2.359 |   176.5 us    13.37 |    77.1 us    30.59
+lm_head    36.938 |  2818.4 us    13.11 |  2668.8 us    13.84
+
+65 calls, 0 us gap after each: MAC time 13.43 ms (12.94 GB/s over 173.8 MB), wall 13.49 ms
+
+65 calls, 300 us gap after each: MAC time 8.02 ms (21.68 GB/s over 173.8 MB), wall 31.75 ms
+
+===== kv260-03
+drain: 19.1 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.4 us    13.32 |    30.9 us    28.60
+o           0.590 |    53.6 us    11.01 |    21.2 us    27.86
+gateup      4.719 |   347.6 us    13.58 |   196.9 us    23.97
+down        2.359 |   176.5 us    13.37 |    77.1 us    30.62
+lm_head    36.938 |  2818.1 us    13.11 |  2668.6 us    13.84
+
+65 calls, 0 us gap after each: MAC time 13.46 ms (12.91 GB/s over 173.8 MB), wall 13.51 ms
+
+65 calls, 300 us gap after each: MAC time 8.15 ms (21.33 GB/s over 173.8 MB), wall 31.87 ms
+
+===== kv260-04
+drain: 19.4 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.3 us    13.35 |    30.9 us    28.61
+o           0.590 |    53.8 us    10.96 |    21.2 us    27.87
+gateup      4.719 |   348.7 us    13.53 |   196.1 us    24.07
+down        2.359 |   175.7 us    13.43 |    77.1 us    30.59
+lm_head    36.938 |  2820.6 us    13.10 |  2649.7 us    13.94
+
+65 calls, 0 us gap after each: MAC time 13.40 ms (12.96 GB/s over 173.8 MB), wall 13.46 ms
+
+65 calls, 300 us gap after each: MAC time 8.01 ms (21.70 GB/s over 173.8 MB), wall 31.73 ms
