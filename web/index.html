@@ -338,8 +338,8 @@ const base = (new URLSearchParams(location.search).get('api') || window.KV260_AP
 // One card for the system as a whole (the last chat, averaged over its
 // generation, and the four boards' totals), then one card per board with
 // its resources. Refreshed every second from /stats.
-// Per-board use of the implemented design and the XCK26's totals (Vivado, docs/buildlog/0006-fabric-engine.md).
-const PL = { lut: 32228, dsp: 228, bram: 48, lut_total: 117120, dsp_total: 1248, bram_total: 144 };
+// Per-board use of the gemv2 design the boards run and the XCK26's totals (Vivado, docs/buildlog/evidence/0012-gemv2-vivado-utilization.txt).
+const PL = { lut: 58268, dsp: 456, bram: 76, uram: 64, lut_total: 117120, dsp_total: 1248, bram_total: 144, uram_total: 64 };
 const plRow = (key) => `<div class="legend">${key.toUpperCase()} ${PL[key].toLocaleString('en-US')} / ${PL[key + '_total'].toLocaleString('en-US')}</div>${bar([['e', PL[key]]], PL[key + '_total'], true)}`;
 function bar(parts, total, pct) {   // parts: [[class, value], ...]; pct: show the fill percentage right of the bar
   const fill = parts.map(([c, v]) => `<i class="${c}" style="width:${total > 0 ? (100 * v / total).toFixed(1) : 0}%"></i>`).join('');
@@ -380,7 +380,7 @@ async function boards() {
           <span>Hottest: <b>${temp > 0 ? temp.toFixed(1) + ' °C' : '—'}</b></span>
           <span>RAM: <b>${(memUsed / 1024).toFixed(1)} / ${(memTotal / 1024).toFixed(1)} GB</b></span>
           <span>Served: <b>${(j.tokens_total || 0).toLocaleString('en-US')} tokens</b> since start</span>
-          <span>Programmable Logic: <b>${(nb * PL.lut).toLocaleString('en-US')} LUT · ${nb * PL.dsp} DSP · ${nb * PL.bram} BRAM</b> in use across ${nb} boards</span>
+          <span>Programmable Logic: <b>${(nb * PL.lut).toLocaleString('en-US')} LUT · ${nb * PL.dsp} DSP · ${nb * PL.bram} BRAM · ${nb * PL.uram} URAM</b> in use across ${nb} boards</span>
         </div>`;
     const stale = j.sample_age_s < 0;
     g.innerHTML = j.boards.map(b => {
@@ -392,7 +392,7 @@ async function boards() {
         <h3><span>${b.host || 'board ' + (b.rank + 1)}</span><span class="st ${on ? 'on' : ''}">${on ? '● decoding ' + b.tps.toFixed(1) + ' t/s' : '○ idle'}</span></h3>
         <div class="legend" title="Shard bytes per token over the whole per-token time — the average DRAM rate, not the peak while streaming.">Memory BW (token avg) ${bw > 0 && !stale ? bw.toFixed(1) + ' / 19.2 GB/s' : '—'}</div>${bar([['e', bw]], 19.2, true)}
         <div class="legend">RAM ${(b.mem_used_mb / 1024).toFixed(2)} / ${(b.mem_total_mb / 1024).toFixed(1)} GB</div>${bar([['u', b.mem_used_mb]], b.mem_total_mb, true)}
-        ${plRow('lut')}${plRow('dsp')}${plRow('bram')}
+        ${plRow('lut')}${plRow('dsp')}${plRow('bram')}${plRow('uram')}
         <div class="kv">
           <span>Loaded Weights:</span><b>${b.shard_mb.toFixed(0)} MB (heads ${b.heads}, vocab rows ${b.vocab_rows})</b>
           <span>Fabric clock:</span><b>250 MHz</b>
