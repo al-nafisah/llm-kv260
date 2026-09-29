@@ -87,7 +87,7 @@ with an OpenAI-compatible API (`board/tp/`); a public page (`web/`) fronts it.
 ## Public route
 
 Repo is private, so `board/tp/publish-demo.sh` pushes `web/` to the public
-repo `AbdullahAlNafisah/llm-kv260-demo` (GitHub Pages), committing as the
+repo `al-nafisah/llm-kv260-demo` (GitHub Pages), committing as the
 account's noreply address. The page reaches board 1:8080 through a Cloudflare
 named tunnel (`kv260.al-nafisah.com`, user service `cloudflared-kv260`; quick
 tunnels never routed from here) via a logging proxy on 127.0.0.1:8081

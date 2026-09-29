@@ -1,7 +1,7 @@
 # Edge FPGA-based LLM
 
 Four AMD Kria KV260 boards run one language model together and answer over
-an OpenAI-compatible API. Try it: **https://abdullahalnafisah.github.io/llm-kv260-demo/**
+an OpenAI-compatible API. Try it: **https://al-nafisah.github.io/llm-kv260-demo/**
 
 ## What is implemented, in plain words
 
