@@ -44,6 +44,7 @@ in `docs/fabric-engine.md`; setting up a board is `docs/kv260-bringup.md`.
 | `board/tp/` | the tensor-parallel runtime, the API server, launch and publish scripts |
 | `board/*.sh`, `board/*.py` | bringing a fresh board up and loading the engine |
 | `web/` | the test page |
+| `enclosure/` | the 3D-printed tower that stacks the four boards on the switch (OpenSCAD, STLs) |
 | `docs/` | design, runbook, build logs with evidence |
 
 ## Rebuilding from source
