@@ -1,8 +1,8 @@
 # The public test page
 
 `index.html` + `config.js` are deployed to the public repo
-`AbdullahAlNafisah/llm-kv260-demo` (GitHub Pages:
-https://abdullahalnafisah.github.io/llm-kv260-demo/). This repo is private and
+`al-nafisah/llm-kv260-demo` (GitHub Pages:
+https://al-nafisah.github.io/llm-kv260-demo/). This repo is private and
 GitHub Pages on a private repo needs a paid plan, so the page lives in its own
 public repo and nothing else does. `board/tp/publish-demo.sh` pushes it.
 

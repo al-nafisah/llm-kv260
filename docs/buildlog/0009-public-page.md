@@ -3,7 +3,7 @@
 **Status: Attested.** 2026-09-14, measured from the PC through the public
 URL. Raw log: `evidence/0009-public-api.txt`.
 
-- Page: https://abdullahalnafisah.github.io/llm-kv260-demo/ (GitHub Pages,
+- Page: https://al-nafisah.github.io/llm-kv260-demo/ (GitHub Pages,
   public repo `llm-kv260-demo`; source in `web/`).
 - API: https://kv260.al-nafisah.com — a Cloudflare named tunnel from the PC
   to board 1, OpenAI-compatible, one prompt at a time in arrival order.
