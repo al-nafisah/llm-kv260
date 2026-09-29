@@ -7,7 +7,8 @@ instead of re-deriving.
 Four Kria KV260 boards decode **one** LLM stream (Llama-3.2-1B-Instruct, all
 tensors ggml Q4_0). Each has a weight-streaming int4 engine in its FPGA
 (`hls/`, `hw/`), a driver (`board/kv260gemv/`), and a tensor-parallel runtime
-with an OpenAI-compatible API (`board/tp/`); a public page (`web/`) fronts it.
+with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
+(`/projects/llm-kv260`) fronts it.
 
 | where | what |
 |---|---|
@@ -86,20 +87,21 @@ with an OpenAI-compatible API (`board/tp/`); a public page (`web/`) fronts it.
 
 ## Public route
 
-Repo is private, so `board/tp/publish-demo.sh` pushes `web/` to the public
-repo `al-nafisah/llm-kv260-demo` (GitHub Pages), committing as the
-account's noreply address. The page reaches board 1:8080 through a Cloudflare
+The page is part of the personal site, https://al-nafisah.com/projects/llm-kv260
+(repo `al-nafisah/AbdullahAlNafisah.github.io`, code in `src/components/kv260/`;
+Cloudflare Pages deploys it on push). Nothing in this repo publishes it any
+more: `web/`, `publish-demo.sh` and the `llm-kv260-demo` repo are retired. The
+page reaches board 1:8080 through a Cloudflare
 named tunnel (`kv260.al-nafisah.com`, user service `cloudflared-kv260`; quick
 tunnels never routed from here) via a logging proxy on 127.0.0.1:8081
 (`board/tp/logproxy.py`, unit beside it; `logproxy-view.py` is a local-only
 dashboard). **Cloudflare 403s the `Python-urllib` user agent** — send a real
 one.
 
-- `web/index.html` pins marked, DOMPurify and KaTeX to a version **and** a
-  SHA-384 `integrity` hash. Raising a version without recomputing the hash
-  leaves the page silently plain. Hash:
-  `curl -sf URL | openssl dgst -sha384 -binary | openssl base64 -A`. Nothing
-  in the repo tests the page; headless `google-chrome-stable` renders it.
+- The page (`src/components/kv260/cdn.ts` in the site repo) pins marked,
+  DOMPurify and KaTeX to a version **and** a SHA-384 `integrity` hash.
+  Raising a version without recomputing the hash leaves the chat silently
+  plain. Hash: `curl -sf URL | openssl dgst -sha384 -binary | openssl base64 -A`.
 - `/stats` feeds the board cards. "Memory BW (token avg)" is shard bytes over
   the **whole** per-token time — dividing by the engine term alone read
   ~18.5 GB/s, above what the DRAM can do, because gemv2 prefetches during the
@@ -194,7 +196,6 @@ bash board/tp/serve-tp.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114   # AP
 bash board/tp/serve-tp.sh stop 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
 .venv/bin/python board/tp/api-bench.py http://10.42.0.137:8080 --n 400 --repeats 3
 PREFIX="taskset -c 2" bash board/tp/bench/run-mesh.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
-bash board/tp/publish-demo.sh https://kv260.al-nafisah.com              # the page
 python3 board/tp/logproxy-view.py                                      # request log -> 127.0.0.1:8090
 systemctl --user status cloudflared-kv260 logproxy                     # the public route
 ```

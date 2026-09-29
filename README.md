@@ -1,7 +1,7 @@
 # Edge FPGA-based LLM
 
 Four AMD Kria KV260 boards run one language model together and answer over
-an OpenAI-compatible API. Try it: **https://al-nafisah.github.io/llm-kv260-demo/**
+an OpenAI-compatible API. Try it: **https://al-nafisah.com/projects/llm-kv260**
 
 ## What is implemented, in plain words
 
@@ -26,8 +26,8 @@ small. So the work is: read weights fast, and split the reading across boards.
    a time in arrival order so the one stream gets the whole machine, with
    `/stats` reporting what each board is doing: engine time, exchange time,
    CPU, RAM, temperature and power (about 5 W per board while decoding).
-4. **A public page** (`web/`, GitHub Pages) that chats with it and shows the
-   four boards live.
+4. **A public page** on al-nafisah.com (`/projects/llm-kv260`, in the site's
+   own repo) that chats with it and shows the four boards live.
 
 Measured numbers with their raw logs are in `docs/buildlog/`; the design is
 in `docs/fabric-engine.md`; setting up a board is `docs/kv260-bringup.md`.
@@ -43,7 +43,6 @@ in `docs/fabric-engine.md`; setting up a board is `docs/kv260-bringup.md`.
 | `board/kv260gemv/` | driver: contiguous memory (u-dma-buf), registers (UIO), benchmark |
 | `board/tp/` | the tensor-parallel runtime, the API server, launch and publish scripts |
 | `board/*.sh`, `board/*.py` | bringing a fresh board up and loading the engine |
-| `web/` | the test page |
 | `enclosure/` | the 3D-printed tower that stacks the four boards on the switch (OpenSCAD, STLs) |
 | `docs/` | design, runbook, build logs with evidence |
 
