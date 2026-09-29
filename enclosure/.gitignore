@@ -1,0 +1,6 @@
+# OpenSCAD / slicer temp files
+*.csg
+*.3mf
+*.gcode
+*~
+.DS_Store
