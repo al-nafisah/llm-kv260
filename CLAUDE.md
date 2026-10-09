@@ -130,7 +130,8 @@ one.
   (numbering follows plug order — read `hostname` first); they are not always
   cabled, so fix networking before unplugging them. MTU 9000 and the unbound
   DisplayPort survive a reboot; **overlay, memory pools and the AXI width do
-  not**: `sudo bash ~/board/load-overlay.sh ~/gemv2`. CMA is fragmented — one
+  not**: `sudo bash ~/board/load-overlay.sh ~/gemv2`, which every board now
+  allows without a password, so `bash board/tp/recover.sh` recovers all four. CMA is fragmented — one
   allocation above ~512 MiB fails, so pools are 512 + 256 + 128 MiB.
 - **Board builds happen on the board**: `~/kv260gemv` (driver + bench),
   `~/board/tp` (runtime, needs `~/llama.cpp` via `board/board-llama-build.sh`,
@@ -194,6 +195,7 @@ sudo bash ~/board/load-overlay.sh ~/gemv2                              # app nam
 bash board/tp/run-tp.sh "prompt" 400 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
 bash board/tp/serve-tp.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114   # API on board 1:8080
 bash board/tp/serve-tp.sh stop 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
+bash board/tp/recover.sh                                               # after a power cut: boards, overlays, ranks, public check
 .venv/bin/python board/tp/api-bench.py http://10.42.0.137:8080 --n 400 --repeats 3
 PREFIX="taskset -c 2" bash board/tp/bench/run-mesh.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
 python3 board/tp/logproxy-view.py                                      # request log -> 127.0.0.1:8090

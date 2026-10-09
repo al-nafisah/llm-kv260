@@ -72,7 +72,12 @@ Overlay, memory pools and the AXI-width fix are all lost:
 sudo bash ~/board/load-overlay.sh ~/gemv2          # the app name is the .bit.bin's
 ```
 
-then from the PC `bash board/tp/serve-tp.sh <four addresses>`. The runtime
+then from the PC `bash board/tp/serve-tp.sh <four addresses>`. Since
+2026-10-05 every board allows that one script without a password
+(`/etc/sudoers.d/load-overlay`), so after a power cut
+`bash board/tp/recover.sh` does all of it from the PC: waits for the boards
+to boot, loads what is missing, restarts the ranks and checks the public
+API with a chat. The runtime
 detects which engine the overlay provides (`gemv_mac` or `gemv_q4_0` in
 `/sys/class/uio/*/name`) and lays the weights out for it, so a cluster can
 be mixed while overlays are being changed; it runs at the slower engine's
