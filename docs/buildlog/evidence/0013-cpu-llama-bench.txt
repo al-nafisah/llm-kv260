@@ -1,0 +1,23 @@
+### first attempt (main session), failed: the board's llama.cpp registers the old engine's KV260 device, whose overlay is not loaded
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.137 hostname; ~/llama.cpp/build/bin/llama-bench -m ~/llama-3.2-1b-instruct-q4_0-pure.gguf -p 0 -n 400 -r 3 -t 4 -ngl 0
+### exit 1
+kv260-01
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+llama_bench: error: failed to create context with model '/home/ubuntu/llama-3.2-1b-instruct-q4_0-pure.gguf'
+
+### second attempt (ONLY=cpu, runtime stopped on all four boards): -dev none, so no device; the backend column lists the build's registered backends
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.137 hostname; ~/llama.cpp/build/bin/llama-bench -m ~/llama-3.2-1b-instruct-q4_0-pure.gguf -p 0 -n 400 -r 3 -t 4 -ngl 0 -dev none
+### exit 0
+kv260-01
+| model                          |       size |     params | backend    | ngl | dev          |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | ------------ | --------------: | -------------------: |
+| llama 1B Q4_0                  | 663.16 MiB |     1.24 B | KV260      |   0 | none         |           tg400 |          2.88 ± 0.07 |
+
+build: unknown (0)

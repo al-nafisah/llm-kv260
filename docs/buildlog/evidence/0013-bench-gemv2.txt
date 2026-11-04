@@ -1,0 +1,104 @@
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.137 hostname; cd ~/kv260gemv && taskset -c 2 ./bench_gemv2 ~/vectors udmabuf0 k256_n32 k512_n64 k1024_n32 k2048_n64 k8192_n32 k512_n2048 k2048_n768 k2048_n2048 k2048_n4096
+### exit 0
+kv260-01
+drain: 129.5 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.5 us    13.30 |    30.9 us    28.60
+o           0.590 |    53.9 us    10.95 |    21.2 us    27.86
+gateup      4.719 |   348.1 us    13.56 |   196.9 us    23.97
+down        2.359 |   176.2 us    13.39 |    77.1 us    30.60
+lm_head    36.938 |  2816.8 us    13.11 |  2658.1 us    13.90
+
+65 calls, 0 us gap after each: MAC time 13.35 ms (13.02 GB/s over 173.8 MB), wall 13.40 ms
+
+65 calls, 300 us gap after each: MAC time 8.14 ms (21.35 GB/s over 173.8 MB), wall 31.86 ms
+
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.218 hostname; cd ~/kv260gemv && taskset -c 2 ./bench_gemv2 ~/vectors udmabuf0 k256_n32 k512_n64 k1024_n32 k2048_n64 k8192_n32 k512_n2048 k2048_n768 k2048_n2048 k2048_n4096
+### exit 0
+kv260-02
+drain: 74.9 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.8 us    13.25 |    30.9 us    28.60
+o           0.590 |    54.1 us    10.90 |    21.2 us    27.86
+gateup      4.719 |   348.0 us    13.56 |   196.4 us    24.03
+down        2.359 |   176.4 us    13.38 |    77.1 us    30.61
+lm_head    36.938 |  2817.7 us    13.11 |  2657.1 us    13.90
+
+65 calls, 0 us gap after each: MAC time 13.41 ms (12.96 GB/s over 173.8 MB), wall 13.46 ms
+
+65 calls, 300 us gap after each: MAC time 8.06 ms (21.55 GB/s over 173.8 MB), wall 31.79 ms
+
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.217 hostname; cd ~/kv260gemv && taskset -c 2 ./bench_gemv2 ~/vectors udmabuf0 k256_n32 k512_n64 k1024_n32 k2048_n64 k8192_n32 k512_n2048 k2048_n768 k2048_n2048 k2048_n4096
+### exit 0
+kv260-03
+drain: 46.7 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.4 us    13.32 |    30.9 us    28.60
+o           0.590 |    53.6 us    11.01 |    21.2 us    27.87
+gateup      4.719 |   346.8 us    13.61 |   196.7 us    23.98
+down        2.359 |   175.6 us    13.44 |    77.1 us    30.61
+lm_head    36.938 |  2801.7 us    13.18 |  2650.6 us    13.94
+
+65 calls, 0 us gap after each: MAC time 13.35 ms (13.02 GB/s over 173.8 MB), wall 13.40 ms
+
+65 calls, 300 us gap after each: MAC time 8.13 ms (21.37 GB/s over 173.8 MB), wall 31.86 ms
+
+### ssh -n -o BatchMode=yes -o ConnectTimeout=10 ubuntu@10.42.0.114 hostname; cd ~/kv260gemv && taskset -c 2 ./bench_gemv2 ~/vectors udmabuf0 k256_n32 k512_n64 k1024_n32 k2048_n64 k8192_n32 k512_n2048 k2048_n768 k2048_n2048 k2048_n4096
+### exit 0
+kv260-04
+drain: 46.7 us
+k256_n32     k=256   rows=32   bit-exact (0/32 rows differ)
+k512_n64     k=512   rows=64   bit-exact (0/64 rows differ)
+k1024_n32    k=1024  rows=32   bit-exact (0/32 rows differ)
+k2048_n64    k=2048  rows=64   bit-exact (0/64 rows differ)
+k8192_n32    k=8192  rows=32   bit-exact (0/32 rows differ)
+k512_n2048   k=512   rows=2048 bit-exact (0/2048 rows differ)
+k2048_n768   k=2048  rows=768  bit-exact (0/768 rows differ)
+k2048_n2048  k=2048  rows=2048 bit-exact (0/2048 rows differ)
+k2048_n4096  k=2048  rows=4096 bit-exact (0/4096 rows differ)
+EXACTNESS: PASS
+
+shape          MB |       cold     GB/s | prefetched     GB/s
+qkv         0.885 |    66.4 us    13.32 |    30.9 us    28.60
+o           0.590 |    53.6 us    11.00 |    21.2 us    27.87
+gateup      4.719 |   347.7 us    13.57 |   196.1 us    24.06
+down        2.359 |   176.2 us    13.39 |    77.1 us    30.60
+lm_head    36.938 |  2815.5 us    13.12 |  2676.0 us    13.80
+
+65 calls, 0 us gap after each: MAC time 13.30 ms (13.06 GB/s over 173.8 MB), wall 13.35 ms
+
+65 calls, 300 us gap after each: MAC time 8.05 ms (21.60 GB/s over 173.8 MB), wall 31.75 ms
+

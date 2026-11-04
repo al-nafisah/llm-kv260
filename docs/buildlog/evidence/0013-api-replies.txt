@@ -1,0 +1,835 @@
+### streamed chat completions from the PC to http://10.42.0.137:8080, temperature 0; t_req/t_first/t_last on the PC clock; timings and usage from the last chunk; stats = GET /stats right after
+
+===== api-400-1
+{
+ "t_req": 1793787625.3260648,
+ "t_first": 1793787626.1610188,
+ "t_last": 1793787638.0048606,
+ "timings": {
+  "predicted_ms": 11844.042969001748,
+  "predicted_n": 400,
+  "predicted_per_second": 33.77225167511472,
+  "prompt_ms": 826.6124479996506,
+  "prompt_n": 33
+ },
+ "usage": {
+  "completion_tokens": 400,
+  "prompt_tokens": 33,
+  "total_tokens": 433
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 9.755830764770508,
+    "cpu_pct": 28.571428298950195,
+    "engine_ms": 9.343902587890625,
+    "engine_share": 0.28900057077407837,
+    "exchange_ms": 13.232048988342285,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1393.6875,
+    "power_w": 5.429999828338623,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.763999938964844,
+    "tps": 29.577180862426758,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 9.893901824951172,
+    "cpu_pct": 25.0,
+    "engine_ms": 9.565667152404785,
+    "engine_share": 0.2912570536136627,
+    "exchange_ms": 13.383130073547363,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1397.80859375,
+    "power_w": 5.380000114440918,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.79999923706055,
+    "tps": 29.525875091552734,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 10.323833465576172,
+    "cpu_pct": 23.076923370361328,
+    "engine_ms": 9.376663208007812,
+    "engine_share": 0.2853676378726959,
+    "exchange_ms": 13.157692909240723,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1387.8984375,
+    "power_w": 5.510000228881836,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.26599884033203,
+    "tps": 29.525917053222656,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 10.447696685791016,
+    "cpu_pct": 46.153846740722656,
+    "engine_ms": 10.1328706741333,
+    "engine_share": 0.3087467551231384,
+    "exchange_ms": 12.238789558410645,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1389.9765625,
+    "power_w": 5.659999847412109,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 36.29199981689453,
+    "tps": 29.537612915039062,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 6.555607401936276,
+     "engine_ms": 9.435294003116159,
+     "exchange_ms": 12.460541156300327,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 7.16620235335558,
+     "engine_ms": 9.478413199422354,
+     "exchange_ms": 11.92388501322658,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 6.915156767780619,
+     "engine_ms": 9.436123185886775,
+     "exchange_ms": 12.21351789173327,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 6.946522881811424,
+     "engine_ms": 9.425069706183029,
+     "exchange_ms": 12.20144148040236,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 6.895872351220975,
+   "engine_ms": 9.443725023652078,
+   "exchange_ms": 12.199846385415633,
+   "gen_ms": 11844.042969001748,
+   "n_gen": 400,
+   "n_prompt": 33,
+   "prompt_ms": 826.6124479996506,
+   "samples": 399,
+   "tps": 33.77225167511472
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0009249790018657222,
+  "tokens_total": 1249
+ },
+ "text": "The Roman Empire was a vast and powerful state that existed from 27 BC to 476 AD. It was founded by Romulus and Remus, two legendary brothers who established the city of Rome in 753 BC. The Roman Empire was a major power in the ancient world, and its history is marked by a series of key events, figures, and dynasties.\n\n**Early Roman Kingdom (753 BC - 509 BC)**\n\nThe early Roman kingdom was founded by Romulus and Remus, two legendary brothers who were said to have been abandoned by their father, Tullius Hostius, and then killed by a she-wolf. Romulus and Remus were said to have been raised by a group of shepherds and later became the founders of the city of Rome.\n\nThe early Roman kingdom was a small and relatively isolated state, with a population of around 10,000 people. The kingdom was ruled by a series of kings, including Tarquin the Proud, who was said to have been killed by a group of Roman soldiers.\n\n**The Roman Republic (509 BC - 27 BC)**\n\nIn 509 BC, the Roman Republic was established, with a system of governance that was based on the concept of representation. The Roman Republic was a republic, with a system of governance that was based on the concept of representation. The Roman Republic was a loose confederation of city-states, with a system of governance that was based on the concept of representation.\n\nThe Roman Republic was a relatively peaceful and prosperous period, with a population of around 10 million people. The Roman Republic was ruled by a series of consuls, who were elected by the Roman Senate.\n\n**The Roman Empire (27 BC - 476 AD)**\n\nIn 27 BC, the Roman Empire was established, with a system of governance that was based on the concept of imperial power. The Roman Empire was a vast and powerful state, with a population of around 50 million people.\n\nThe Roman Empire"
+}
+
+===== api-400-2
+{
+ "t_req": 1793787648.0070324,
+ "t_first": 1793787648.7553034,
+ "t_last": 1793787659.906635,
+ "timings": {
+  "predicted_ms": 11151.531812996836,
+  "predicted_n": 400,
+  "predicted_per_second": 35.86951162474467,
+  "prompt_ms": 746.3795150033548,
+  "prompt_n": 33
+ },
+ "usage": {
+  "completion_tokens": 400,
+  "prompt_tokens": 33,
+  "total_tokens": 433
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 9.822389602661133,
+    "cpu_pct": 27.272727966308594,
+    "engine_ms": 9.454012870788574,
+    "engine_share": 0.320213258266449,
+    "exchange_ms": 10.247712135314941,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1393.70703125,
+    "power_w": 5.929999828338623,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.111000061035156,
+    "tps": 32.591033935546875,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 9.871039390563965,
+    "cpu_pct": 30.769229888916016,
+    "engine_ms": 9.389444351196289,
+    "engine_share": 0.3161642253398895,
+    "exchange_ms": 10.437514305114746,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1397.5859375,
+    "power_w": 5.539999961853027,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.59299850463867,
+    "tps": 32.5638313293457,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 10.284980773925781,
+    "cpu_pct": 38.46154022216797,
+    "engine_ms": 9.512764930725098,
+    "engine_share": 0.32054802775382996,
+    "exchange_ms": 9.878820419311523,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.40234375,
+    "power_w": 5.559999942779541,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.72200012207031,
+    "tps": 32.572410583496094,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 10.277706146240234,
+    "cpu_pct": 33.33333206176758,
+    "engine_ms": 9.287188529968262,
+    "engine_share": 0.31326133012771606,
+    "exchange_ms": 10.081881523132324,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.4765625,
+    "power_w": 5.900000095367432,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 35.99700164794922,
+    "tps": 32.62788009643555,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 6.057822085860977,
+     "engine_ms": 9.436512148768681,
+     "exchange_ms": 11.221641810615559,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 6.097178877445689,
+     "engine_ms": 9.472105599883804,
+     "exchange_ms": 11.262533180695728,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 6.265108255515421,
+     "engine_ms": 9.435112812166524,
+     "exchange_ms": 11.110261486885243,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 6.263046385949118,
+     "engine_ms": 9.418549093088709,
+     "exchange_ms": 11.171715296599501,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 6.170788901192801,
+   "engine_ms": 9.44056991347693,
+   "exchange_ms": 11.191537943699007,
+   "gen_ms": 11151.531812996836,
+   "n_gen": 400,
+   "n_prompt": 33,
+   "prompt_ms": 746.3795150033548,
+   "samples": 399,
+   "tps": 35.86951162474467
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0008604280010331422,
+  "tokens_total": 1649
+ },
+ "text": "The Roman Empire was a vast and powerful state that existed from 27 BC to 476 AD. It was founded by Romulus and Remus, two legendary brothers who established the city of Rome in 753 BC. The Roman Empire was a major power in the ancient world, and its history is marked by a series of key events, figures, and dynasties.\n\n**Early Roman Kingdom (753 BC - 509 BC)**\n\nThe early Roman kingdom was founded by Romulus and Remus, two legendary brothers who were said to have been abandoned by their father, Tullius Hostius, and then killed by a she-wolf. Romulus and Remus were said to have been raised by a group of shepherds and later became the founders of the city of Rome.\n\nThe early Roman kingdom was a small and relatively isolated state, with a population of around 10,000 people. The kingdom was ruled by a series of kings, including Tarquin the Proud, who was said to have been killed by a group of Roman soldiers.\n\n**The Roman Republic (509 BC - 27 BC)**\n\nIn 509 BC, the Roman Republic was established, with a system of governance that was based on the concept of representation. The Roman Republic was a republic, with a system of governance that was based on the concept of representation. The Roman Republic was a loose confederation of city-states, with a system of governance that was based on the concept of representation.\n\nThe Roman Republic was a relatively peaceful and prosperous period, with a population of around 10 million people. The Roman Republic was ruled by a series of consuls, who were elected by the Roman Senate.\n\n**The Roman Empire (27 BC - 476 AD)**\n\nIn 27 BC, the Roman Empire was established, with a system of governance that was based on the concept of imperial power. The Roman Empire was a vast and powerful state, with a population of around 50 million people.\n\nThe Roman Empire"
+}
+
+===== api-400-3
+{
+ "t_req": 1793787669.9086726,
+ "t_first": 1793787670.6575024,
+ "t_last": 1793787681.724235,
+ "timings": {
+  "predicted_ms": 11066.78105500032,
+  "predicted_n": 400,
+  "predicted_per_second": 36.14420471608295,
+  "prompt_ms": 746.6742879987578,
+  "prompt_n": 33
+ },
+ "usage": {
+  "completion_tokens": 400,
+  "prompt_tokens": 33,
+  "total_tokens": 433
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 9.837261199951172,
+    "cpu_pct": 25.0,
+    "engine_ms": 9.537484169006348,
+    "engine_share": 0.2943032681941986,
+    "exchange_ms": 13.032249450683594,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1393.3203125,
+    "power_w": 5.619999885559082,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.5,
+    "tps": 29.40117073059082,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 10.069311141967773,
+    "cpu_pct": 23.076923370361328,
+    "engine_ms": 9.415444374084473,
+    "engine_share": 0.285378634929657,
+    "exchange_ms": 13.508054733276367,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1397.17578125,
+    "power_w": 5.28000020980835,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 39.30799865722656,
+    "tps": 29.40595245361328,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 10.186614990234375,
+    "cpu_pct": 23.076923370361328,
+    "engine_ms": 9.410970687866211,
+    "engine_share": 0.2853376567363739,
+    "exchange_ms": 13.384284973144531,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.41015625,
+    "power_w": 5.5,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.59299850463867,
+    "tps": 29.447050094604492,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 10.43911361694336,
+    "cpu_pct": 25.0,
+    "engine_ms": 9.381476402282715,
+    "engine_share": 0.2841786742210388,
+    "exchange_ms": 13.192009925842285,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.48828125,
+    "power_w": 5.440000057220459,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 36.66600036621094,
+    "tps": 29.39681625366211,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 6.0543064718557185,
+     "engine_ms": 9.435984348593498,
+     "exchange_ms": 11.014135492176639,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 6.1014109793163485,
+     "engine_ms": 9.469802046180668,
+     "exchange_ms": 11.044296164261667,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 6.267143245328937,
+     "engine_ms": 9.438363584360681,
+     "exchange_ms": 10.917366771172162,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 6.25142949207086,
+     "engine_ms": 9.418010893322172,
+     "exchange_ms": 10.980573090096764,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 6.168572547142967,
+   "engine_ms": 9.440540218114254,
+   "exchange_ms": 10.989092879426808,
+   "gen_ms": 11066.78105500032,
+   "n_gen": 400,
+   "n_prompt": 33,
+   "prompt_ms": 746.6742879987578,
+   "samples": 399,
+   "tps": 36.14420471608295
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0009255900004063733,
+  "tokens_total": 2049
+ },
+ "text": "The Roman Empire was a vast and powerful state that existed from 27 BC to 476 AD. It was founded by Romulus and Remus, two legendary brothers who established the city of Rome in 753 BC. The Roman Empire was a major power in the ancient world, and its history is marked by a series of key events, figures, and dynasties.\n\n**Early Roman Kingdom (753 BC - 509 BC)**\n\nThe early Roman kingdom was founded by Romulus and Remus, two legendary brothers who were said to have been abandoned by their father, Tullius Hostius, and then killed by a she-wolf. Romulus and Remus were said to have been raised by a group of shepherds and later became the founders of the city of Rome.\n\nThe early Roman kingdom was a small and relatively isolated state, with a population of around 10,000 people. The kingdom was ruled by a series of kings, including Tarquin the Proud, who was said to have been killed by a group of Roman soldiers.\n\n**The Roman Republic (509 BC - 27 BC)**\n\nIn 509 BC, the Roman Republic was established, with a system of governance that was based on the concept of representation. The Roman Republic was a republic, with a system of governance that was based on the concept of representation. The Roman Republic was a loose confederation of city-states, with a system of governance that was based on the concept of representation.\n\nThe Roman Republic was a relatively peaceful and prosperous period, with a population of around 10 million people. The Roman Republic was ruled by a series of consuls, who were elected by the Roman Senate.\n\n**The Roman Empire (27 BC - 476 AD)**\n\nIn 27 BC, the Roman Empire was established, with a system of governance that was based on the concept of imperial power. The Roman Empire was a vast and powerful state, with a population of around 50 million people.\n\nThe Roman Empire"
+}
+
+===== api-short-1
+{
+ "t_req": 1793787691.7262924,
+ "t_first": 1793787692.2149134,
+ "t_last": 1793787693.9531715,
+ "timings": {
+  "predicted_ms": 1762.321456000791,
+  "predicted_n": 67,
+  "predicted_per_second": 38.01803568347972,
+  "prompt_ms": 486.80651899485383,
+  "prompt_n": 22
+ },
+ "usage": {
+  "completion_tokens": 67,
+  "prompt_tokens": 22,
+  "total_tokens": 89
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 3.332782030105591,
+    "cpu_pct": 40.0,
+    "engine_ms": 9.32508659362793,
+    "engine_share": 0.40672487020492554,
+    "exchange_ms": 10.269390106201172,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1393.140625,
+    "power_w": 6.289999961853027,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.48400115966797,
+    "tps": 41.57008361816406,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 3.328333854675293,
+    "cpu_pct": 30.0,
+    "engine_ms": 9.380374908447266,
+    "engine_share": 0.4068126082420349,
+    "exchange_ms": 10.349512100219727,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1397.1328125,
+    "power_w": 6.110000133514404,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.61399841308594,
+    "tps": 41.543663024902344,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 3.445939064025879,
+    "cpu_pct": 30.0,
+    "engine_ms": 9.36551570892334,
+    "engine_share": 0.4048362672328949,
+    "exchange_ms": 10.322627067565918,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.4296875,
+    "power_w": 5.920000076293945,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.4119987487793,
+    "tps": 41.4724006652832,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 3.4919910430908203,
+    "cpu_pct": 36.3636360168457,
+    "engine_ms": 9.496143341064453,
+    "engine_share": 0.41752374172210693,
+    "exchange_ms": 9.755824089050293,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.71875,
+    "power_w": 6.070000171661377,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 36.15299987792969,
+    "tps": 41.568946838378906,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 3.700943345454202,
+     "engine_ms": 9.405078816769729,
+     "exchange_ms": 11.989846158383498,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 3.8800652703242515,
+     "engine_ms": 9.443448607601336,
+     "exchange_ms": 11.953059751596024,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 3.5475494292244982,
+     "engine_ms": 9.428340057828533,
+     "exchange_ms": 12.252544474245896,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 3.685394913402956,
+     "engine_ms": 9.416987404894472,
+     "exchange_ms": 12.141007779249504,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 3.7034882396014766,
+   "engine_ms": 9.423463721773517,
+   "exchange_ms": 12.08411454086873,
+   "gen_ms": 1762.321456000791,
+   "n_gen": 67,
+   "n_prompt": 22,
+   "prompt_ms": 486.80651899485383,
+   "samples": 67,
+   "tps": 38.01803568347972
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0008101380008156411,
+  "tokens_total": 2117
+ },
+ "text": "The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced when the sun is high in the sky, which is why the sky typically appears blue during the day."
+}
+
+===== api-short-2
+{
+ "t_req": 1793787698.9791684,
+ "t_first": 1793787699.4878979,
+ "t_last": 1793787701.0604491,
+ "timings": {
+  "predicted_ms": 1596.5385680028703,
+  "predicted_n": 67,
+  "predicted_per_second": 41.96578857710348,
+  "prompt_ms": 506.68336800299585,
+  "prompt_n": 22
+ },
+ "usage": {
+  "completion_tokens": 67,
+  "prompt_tokens": 22,
+  "total_tokens": 89
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 3.375930070877075,
+    "cpu_pct": 22.22222137451172,
+    "engine_ms": 9.335036277770996,
+    "engine_share": 0.4122934639453888,
+    "exchange_ms": 9.930760383605957,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1392.7421875,
+    "power_w": 6.329999923706055,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 40.52000045776367,
+    "tps": 42.07366180419922,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 3.3716559410095215,
+    "cpu_pct": 40.0,
+    "engine_ms": 9.583893775939941,
+    "engine_share": 0.4216211140155792,
+    "exchange_ms": 9.775507926940918,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1396.94921875,
+    "power_w": 5.900000095367432,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.86199951171875,
+    "tps": 42.172176361083984,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 3.4580869674682617,
+    "cpu_pct": 22.22222137451172,
+    "engine_ms": 9.313302993774414,
+    "engine_share": 0.40987807512283325,
+    "exchange_ms": 9.950737953186035,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.12109375,
+    "power_w": 5.980000019073486,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.737998962402344,
+    "tps": 42.17996597290039,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 3.4444169998168945,
+    "cpu_pct": 25.0,
+    "engine_ms": 9.31544017791748,
+    "engine_share": 0.4093954265117645,
+    "exchange_ms": 9.994280815124512,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.61328125,
+    "power_w": 5.909999847412109,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 37.4119987487793,
+    "tps": 42.164920806884766,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 2.7880875921961086,
+     "engine_ms": 9.42440760313575,
+     "exchange_ms": 10.44818812697681,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 2.7739988085049303,
+     "engine_ms": 9.463093174037649,
+     "exchange_ms": 10.510564533632193,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 2.8255390942986334,
+     "engine_ms": 9.430490109457898,
+     "exchange_ms": 10.517628128848859,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 2.8325454654978284,
+     "engine_ms": 9.400178624622857,
+     "exchange_ms": 10.560640932908699,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 2.8050427401243754,
+   "engine_ms": 9.42954237781354,
+   "exchange_ms": 10.50925543059164,
+   "gen_ms": 1596.5385680028703,
+   "n_gen": 67,
+   "n_prompt": 22,
+   "prompt_ms": 506.68336800299585,
+   "samples": 67,
+   "tps": 41.96578857710348
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0008189889995264821,
+  "tokens_total": 2185
+ },
+ "text": "The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced when the sun is high in the sky, which is why the sky typically appears blue during the day."
+}
+
+===== api-short-3
+{
+ "t_req": 1793787706.0864086,
+ "t_first": 1793787706.5914593,
+ "t_last": 1793787708.185332,
+ "timings": {
+  "predicted_ms": 1618.0123230005847,
+  "predicted_n": 67,
+  "predicted_per_second": 41.40883171751702,
+  "prompt_ms": 503.2878230049391,
+  "prompt_n": 22
+ },
+ "usage": {
+  "completion_tokens": 67,
+  "prompt_tokens": 22,
+  "total_tokens": 89
+ },
+ "stats": {
+  "boards": [
+   {
+    "cpu_ms": 3.423309087753296,
+    "cpu_pct": 30.0,
+    "engine_ms": 9.53164005279541,
+    "engine_share": 0.4209482669830322,
+    "exchange_ms": 9.688307762145996,
+    "heads": "0-7",
+    "host": "kv260-01",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1392.796875,
+    "power_w": 6.260000228881836,
+    "rank": 0,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 40.2869987487793,
+    "tps": 41.08407211303711,
+    "vocab_rows": "0-32063"
+   },
+   {
+    "cpu_ms": 3.3683969974517822,
+    "cpu_pct": 30.0,
+    "engine_ms": 9.344801902770996,
+    "engine_share": 0.4010917842388153,
+    "exchange_ms": 10.585213661193848,
+    "heads": "8-15",
+    "host": "kv260-02",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1396.58984375,
+    "power_w": 5.869999885559082,
+    "rank": 1,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.375,
+    "tps": 41.12765121459961,
+    "vocab_rows": "32064-64127"
+   },
+   {
+    "cpu_ms": 3.4427340030670166,
+    "cpu_pct": 36.3636360168457,
+    "engine_ms": 9.830817222595215,
+    "engine_share": 0.42086243629455566,
+    "exchange_ms": 10.08519172668457,
+    "heads": "16-23",
+    "host": "kv260-03",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.14453125,
+    "power_w": 5.989999771118164,
+    "rank": 2,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 38.70199966430664,
+    "tps": 40.46707534790039,
+    "vocab_rows": "64128-96191"
+   },
+   {
+    "cpu_ms": 3.5021331310272217,
+    "cpu_pct": 33.33333206176758,
+    "engine_ms": 9.31710433959961,
+    "engine_share": 0.3990311920642853,
+    "exchange_ms": 10.53007698059082,
+    "heads": "24-31",
+    "host": "kv260-04",
+    "mem_total_mb": 3911.2578125,
+    "mem_used_mb": 1388.38671875,
+    "power_w": 6.25,
+    "rank": 3,
+    "shard_mb": 173.776896,
+    "state": "idle",
+    "temp_c": 36.992000579833984,
+    "tps": 41.17567443847656,
+    "vocab_rows": "96192-128255"
+   }
+  ],
+  "busy": false,
+  "last_chat": {
+   "boards": [
+    {
+     "cpu_ms": 2.7897610806707127,
+     "engine_ms": 9.426831957119614,
+     "exchange_ms": 10.723547323426203,
+     "rank": 0
+    },
+    {
+     "cpu_ms": 2.779372951877651,
+     "engine_ms": 9.449791609351315,
+     "exchange_ms": 10.86267058529071,
+     "rank": 1
+    },
+    {
+     "cpu_ms": 2.8233883416474757,
+     "engine_ms": 9.4253750132091,
+     "exchange_ms": 10.830956302472014,
+     "rank": 2
+    },
+    {
+     "cpu_ms": 2.830057521364582,
+     "engine_ms": 9.395300580494439,
+     "exchange_ms": 10.86197337819569,
+     "rank": 3
+    }
+   ],
+   "cpu_ms": 2.8056449738901055,
+   "engine_ms": 9.424324790043617,
+   "exchange_ms": 10.819786897346154,
+   "gen_ms": 1618.0123230005847,
+   "n_gen": 67,
+   "n_prompt": 22,
+   "prompt_ms": 503.2878230049391,
+   "samples": 67,
+   "tps": 41.40883171751702
+  },
+  "model": "llama-3.2-1b-instruct-q4_0-pure.gguf",
+  "nranks": 4,
+  "queued": 0,
+  "sample_age_s": 0.0009479689979343675,
+  "tokens_total": 2253
+ },
+ "text": "The sky appears blue because of a phenomenon called scattering, where shorter (blue) wavelengths of light are scattered more than longer (red) wavelengths by the tiny molecules of gases in the Earth's atmosphere. This scattering effect is more pronounced when the sun is high in the sky, which is why the sky typically appears blue during the day."
+}

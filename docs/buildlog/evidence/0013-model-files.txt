@@ -1,0 +1,9 @@
+### PC models/ (2026-11-04): ls -l and sha256sum. The boards serve llama-3.2-1b-instruct-q4_0-pure.gguf; kv260-01's copy read over ssh the same day: 703209184 bytes, sha256 b940c6c675634fb498a3cf44c0b301c04b6913062bf1c7d46ffcb6983c3f1b13
+-rw-r--r-- 1 nafisah nafisah 2479591360 2026-09-13 18:25 llama-3.2-1b-f16.gguf
+-rw-r--r-- 1 nafisah nafisah 2479595232 2026-09-14 00:23 llama-3.2-1b-instruct-f16.gguf
+-rw-r--r-- 1 nafisah nafisah  703209184 2026-09-14 00:23 llama-3.2-1b-instruct-q4_0-pure.gguf
+-rw-r--r-- 1 nafisah nafisah  703205312 2026-09-13 20:03 llama-3.2-1b-q4_0-pure.gguf
+2ddfacd0f993373323953dce81b0f78dba56118b41578edf98d3875a4f17db61  llama-3.2-1b-f16.gguf
+5bce7c03906dc0be4a8d2e68a7d00f6a3bf34c659d46cedb8583c2144219588e  llama-3.2-1b-instruct-f16.gguf
+b940c6c675634fb498a3cf44c0b301c04b6913062bf1c7d46ffcb6983c3f1b13  llama-3.2-1b-instruct-q4_0-pure.gguf
+3cfc1ff0c5a6a1b4415c470477fab615523818e3345e62200eabac83ac6e785a  llama-3.2-1b-q4_0-pure.gguf
