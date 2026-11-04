@@ -85,5 +85,25 @@ whole 663 MiB model at one rank still fits the three pools.
 2. **Bandwidth per board** (`0006` next-steps) still applies: 11.6 → 16
    GB/s takes the engine term from 18 to 13 ms.
 3. **Bigger models.** At four boards the per-rank shard of a 3B model is
-   ~430 MB and fits; this is the first configuration on which Llama-3.2-3B
+   ~430 MiB and fits; this is the first configuration on which Llama-3.2-3B
    would run at a usable rate.
+
+## Corrections (2026-11-04)
+
+- The per-token columns of the table are rank 0's. The other ranks in the
+  same runs: two boards engine 34.7–34.9 ms, exchange 6.1–6.2, CPU 16.5;
+  four boards engine 17.8–20.9, exchange 13.9–20.4, CPU 8.6–11.3
+  (`evidence/0007-tp-scaling.txt`).
+- "The text is identical at every width": the evidence holds about the
+  first 120 characters of rank 0's text at each width (lines 9, 19, 35), and
+  those are identical; the full texts were not saved, and no llama.cpp
+  output is logged to compare with. Likewise "the four ranks print the same
+  text": only rank 0's text is in the log; that every rank holds the same
+  hidden state follows from the rank-order sums and is not a logged
+  comparison.
+- "33 exchanges of 8 KB per token" is 32 all-reduces of an 8 KB vector and
+  one 8-byte argmax exchange. Since `0008` that exchange carries each
+  rank's top 40 candidates and its board stats, 356 bytes per rank
+  (`board/tp/tp_llama.cpp:899`); the 0007 build itself is not in the tree.
+- `0005`, cited for the 0.31 ms round trip, is not part of this
+  repository; that figure has no evidence file here.

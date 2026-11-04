@@ -22,3 +22,14 @@ front end, but it makes its own extra model calls per message (titles, tags,
 follow-ups), which on a one-stream server queue behind the user's own
 request, and a static page keeps the pipeline for the tester. It can be added
 later behind the same API if a fuller UI is wanted.
+
+## Corrections (2026-11-04)
+
+- "equal to the server's own figure": client and server agree within
+  0.02 t/s (20.83 / 20.81, 21.85 / 21.86, 20.83 / 20.83;
+  `evidence/0009-public-api.txt`).
+- `web/`, named above as the page's source, left this repository in commit
+  `f72a157`.
+- Both routes above are retired. Since 2026-11-04 the API answers on the
+  LAN only (the tunnel is off), and the project page,
+  al-nafisah.com/projects/llm-kv260, describes the work without a live chat.

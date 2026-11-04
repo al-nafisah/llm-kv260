@@ -10,7 +10,7 @@ ips=("$@"); nranks=${#ips[@]}
 peers=$(IFS=,; echo "${ips[*]}")
 model=${MODEL:-'~/llama-3.2-1b-q4_0-pure.gguf'}
 out=${OUT:-/tmp/tp-run}; mkdir -p "$out"
-# STAGGER=s delays rank r by r*s seconds (to test late peers); TP_DEBUG=1 traces the exchanges;
+# STAGGER=s delays rank r by r*s seconds (to test late peers); TP_DEBUG is passed through (the current binary ignores it);
 # BIN=./tp_llama.old runs another binary in ~/board/tp (an A/B against a kept build).
 for r in $(seq 0 $((nranks - 1))); do
     (sleep $(( r * ${STAGGER:-0} )); timeout ${LIMIT:-600} ssh -n -o BatchMode=yes ubuntu@${ips[$r]} "cd ~/board/tp && TP_DEBUG=${TP_DEBUG:-} ${BIN:-./tp_llama} --model $model --rank $r --nranks $nranks --peers $peers --n $n --prompt \"$prompt\"" > "$out/rank$r.out" 2> "$out/rank$r.err"; ssh -n -o BatchMode=yes ubuntu@${ips[$r]} 'pkill tp_llama' 2>/dev/null) &

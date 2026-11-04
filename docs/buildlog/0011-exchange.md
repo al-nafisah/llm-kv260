@@ -115,3 +115,24 @@ pinned with `PREFIX="taskset -c 2" bash board/tp/bench/run-mesh.sh <ips>`.
   not. Anything that needs root on 3 and 4 has to be run by hand.
 - `mesh_bench`'s numbers move ±10% between runs; compare variants within
   one run, and trust the runtime's per-token split over 400 tokens.
+
+## Corrections (2026-11-04)
+
+- Finding 2: the scheduler put the ranks on CPUs 0, 1, 3 and 3 (kv260-01 to
+  -04), and the DisplayPort rate was 10,468–11,012 interrupts per second,
+  626–630 million since boot; "~10,500" and "628 million" are kv260-01's
+  (`evidence/0011-board-facts.txt:2-5`). The file does not record which CPU
+  takes those interrupts.
+- Finding 3: polled reads gave 69.4–69.8 µs against 81.8–82.6 blocking in
+  one session (pinned, every board at MTU 1500 with the storm); the next
+  session, with the committed polled code and the mixed network state, read
+  83.8–84.9 µs (`evidence/0011-mesh-bench.txt:59-115, 117-173`).
+- "33 × 0.34 ms ≈ 11 ms measures as 13": a token has 32 all-reduces and one
+  argmax all-gather, and 0.34 ms is the bench's own variant before the
+  commit, measured with every board at MTU 1500. The committed all-reduce
+  in the network state of these runs took 0.364 ms, so 32 × 0.364 ms plus
+  about 0.1 ms for the argmax is 11.8 ms against the measured 13.1–13.3
+  (`evidence/0011-mesh-bench.txt:129, 143, 157, 171`).
+- "~0.24 ms of wire per all-reduce (12 KB each way)": 12,288 bytes at
+  1 Gbit/s take 0.098 ms in each direction, and the two directions overlap
+  on a full-duplex link.

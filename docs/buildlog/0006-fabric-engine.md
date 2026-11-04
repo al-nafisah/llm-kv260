@@ -63,13 +63,31 @@ arxiv 2502.10659) reached 84.5% of peak on this board, bare-metal.
    `evidence/0006-bench-gemv-kv260-01-before-afi-fix.txt` is the failure.
 
 A llama.cpp backend was written first to prove the engine end to end (9.03
-tokens/s on one board against 2.98 on its CPU, with 40% of every token lost
+tokens/s on one board against 2.98 on its CPU, tg64,
+`evidence/0006-llama-bench-kv260-01.txt`, with 40% of every token lost
 to the scheduler starting the CPU backend 86 times). It is not part of the
 running system; the runtime that replaced it is `0007`.
 
 ## Quality of the model being served
 
 Full wikitext-2 test, ctx 512, PC (`evidence/0006-ppl-llama-3.2-1b-*.txt`):
-Llama-3.2-1B F16 **10.19**, all-Q4_0 **11.64**. Forcing the output tensor to
+Llama-3.2-1B F16 **10.19**, all-Q4_0 **11.64**. These are the base model;
+the served Instruct model's perplexity was not measured. Forcing the output tensor to
 Q4_0 (rather than llama-quantize's default Q6_K) costs 1.1% of perplexity and
 keeps the largest matmul of every token on the engine.
+
+## Corrections (2026-11-04)
+
+- "60% of the DDR4 peak (19.2 GB/s)" and the comparison with llama-fpga's
+  84.5% divide a rate measured here by a cited one, which
+  [../measurement.md](../measurement.md) rules out. Side by side instead:
+  the engine streams 10.2–11.7 GB/s on kv260-01
+  (`evidence/0006-bench-gemv-kv260-01.txt`); the DDR4 interface peak is
+  19.2 GB/s (Cited: Li et al., arXiv 2502.10659, the llama-fpga paper); that
+  paper's 84.5% is its decode rate over the rate 19.2 GB/s would allow (4.9
+  against 5.8 tokens/s, Llama2-7B at 4 bits, bare-metal), not a measured
+  DRAM bandwidth.
+- The WNS of -0.049 ns on 122 endpoints is this log's statement only:
+  `evidence/0006-vivado-timing-summary.txt` ends at the check_timing
+  section, before the Design Timing Summary. The 32,228 LUTs, 48 BRAM tiles
+  and 228 DSPs are in `evidence/0006-vivado-utilization.txt`.

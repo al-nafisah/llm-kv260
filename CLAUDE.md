@@ -7,8 +7,8 @@ instead of re-deriving.
 Four Kria KV260 boards decode **one** LLM stream (Llama-3.2-1B-Instruct, all
 tensors ggml Q4_0). Each has a weight-streaming int4 engine in its FPGA
 (`hls/`, `hw/`), a driver (`board/kv260gemv/`), and a tensor-parallel runtime
-with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
-(`/projects/llm-kv260`) fronts it.
+with an OpenAI-compatible API on the LAN (`board/tp/`); a page on
+al-nafisah.com (`/projects/llm-kv260`) describes it.
 
 | where | what |
 |---|---|
@@ -20,8 +20,9 @@ with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
 
 ## Decisions (do not relitigate)
 
-- The engine consumes **ggml Q4_0 weights and Q8_0 activations**, reading the
-  GGUF's own bytes in place. Integer in-block accumulation makes bit-exactness
+- The engine consumes **ggml Q4_0 weights and Q8_0 activations**: the GGUF's
+  own block bytes, unmodified, re-laid-out per port when the runtime loads
+  them. Integer in-block accumulation makes bit-exactness
   free. The contract is `src/llm_kv260/q4_0.py`; one differing byte between
   fabric and contract is a failure, no tolerance.
 - Summation order is the contract's, not llama.cpp's: int32 block dot, two
@@ -43,10 +44,11 @@ with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
 - `k % 256 == 0`, `k <= 8192`, `rows % 32 == 0` (the contract admits `% 16`,
   so gemv2 skips the `_n16` vector cases).
 - Activation buffer is `int8[K]` then `float32[K/32]` (`pack_x_for_engine`).
-- The four quarters of a matrix must sit at **distinct offsets modulo 64 KB**
-  or the streams collide in the DRAM banks (12.7 vs 10.3 GB/s, buildlog 0012).
-  The runtime 64 KB-aligns each quarter, shifts ports 1 and 3 by 16 KB, and
-  passes four addresses (`gemv_dev_start4`).
+- The four port streams of a matrix must **not all start at the same offset
+  modulo 64 KB**, or they collide in the DRAM banks (12.7 vs 10.3 GB/s on the
+  old engine, buildlog 0012). The runtime 64 KB-aligns each quarter, shifts
+  ports 1 and 3 by 16 KB (two offsets, 0 and 16 KB, alternate) and passes
+  four addresses (`gemv_dev_start4`). Pads of 256 B to 8 KB were not enough.
 - gemv2 weight layout: per port, row i pairs with row i + rows/8 and their
   144-byte chunks alternate (`gemv2_chunk_offset`); every call names the next
   matrix; a fresh process drains the FIFOs first.
@@ -69,7 +71,7 @@ with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
   on one A53 core — the board's GCC 11 at `-O2` vectorizes nothing by itself,
   and fixed-count loops need `#pragma GCC unroll` or accumulators spill. KV
   cache is `[layer][kv head][pos][head_dim]`, one head contiguous; the
-  interleaved layout cost 1.8× in attention.
+  interleaved layout was 1.3–1.8× slower in attention (`0010` microbench).
 - Tensor parallelism: column-parallel matrices (q, k, v, gate, up, lm_head)
   shard by output rows; row-parallel ones (attn_output, ffn_down) by input
   columns — so one all-reduce after attention and one after the MLP per layer,
@@ -85,33 +87,31 @@ with an OpenAI-compatible API (`board/tp/`); a public page on al-nafisah.com
 - `bench_gemv2` is the only bench: exactness, then cold and prefetched GB/s.
   It needs the gemv2 overlay and the `_n32` vector cases.
 
-## Public route
+## The API stays on the LAN
 
-The page is part of the personal site, https://al-nafisah.com/projects/llm-kv260
-(repo `al-nafisah/AbdullahAlNafisah.github.io`, code in `src/components/kv260/`;
-Cloudflare Pages deploys it on push). Nothing in this repo publishes it any
-more: `web/`, `publish-demo.sh` and the `llm-kv260-demo` repo are retired. The
-page reaches board 1:8080 through a Cloudflare
-named tunnel (`kv260.al-nafisah.com`, user service `cloudflared-kv260`; quick
-tunnels never routed from here) via a logging proxy on 127.0.0.1:8081
-(`board/tp/logproxy.py`, unit beside it; `logproxy-view.py` is a local-only
-dashboard). **Cloudflare 403s the `Python-urllib` user agent** — send a real
-one.
+Since 2026-11-04 the system is **LAN-only**: the API answers on board 1:8080
+(`http://10.42.0.137:8080` while the lease holds) and nothing routes to it
+from the internet. The Cloudflare tunnel (`cloudflared-kv260`) and the
+logging proxy are stopped and disabled; do not re-enable them unless the
+user asks. The project page (https://al-nafisah.com/projects/llm-kv260, in
+the site repo `al-nafisah/AbdullahAlNafisah.github.io`) describes the work
+and has no live chat. Local clients: `board/tp/chat.py` (terminal) and
+`local/` (a page on 127.0.0.1:8090).
 
-- The page (`src/components/kv260/cdn.ts` in the site repo) pins marked,
-  DOMPurify and KaTeX to a version **and** a SHA-384 `integrity` hash.
-  Raising a version without recomputing the hash leaves the chat silently
-  plain. Hash: `curl -sf URL | openssl dgst -sha384 -binary | openssl base64 -A`.
+- `local/index.html` pins marked, DOMPurify and KaTeX to a version **and** a
+  SHA-384 `integrity` hash. Raising a version without recomputing the hash
+  leaves the chat silently plain. Hash: `curl -sf URL | openssl dgst -sha384 -binary | openssl base64 -A`.
 - `/stats` feeds the board cards. "Memory BW (token avg)" is shard bytes over
   the **whole** per-token time — dividing by the engine term alone read
   ~18.5 GB/s, above what the DRAM can do, because gemv2 prefetches during the
-  exchange. `power_w` is the K26 module's INA260 only (four boards decoding:
-  22.6 W, `docs/buildlog/evidence/0013-decode-power-2026-09-15.txt`).
-- The API is open by design (no auth, CORS `*`). Three holes are known and
-  unfixed, each needing a rebuild + restart: cpp-httplib's 100 MB default
-  body (the proxy now caps at 1 MB), a stream whose client left runs to the
-  end holding the slot (nothing checks `sink.is_writable()`), and one caller
-  can hold all 8 queue slots. Cloudflare rules are the no-downtime mitigation.
+  exchange. `power_w` is the K26 module's INA260 only, sampled once per
+  generated token, so an idle `/stats` repeats a stale value; the sampled
+  numbers are in buildlog 0013.
+- The API is open by design (no auth, CORS `*`), which is why it stays on
+  the LAN. Three holes are known and unfixed, each needing a rebuild +
+  restart: cpp-httplib's 100 MB default body, a stream whose client left runs
+  to the end holding the slot (nothing checks `sink.is_writable()`), and one
+  caller can hold all 8 queue slots.
 
 ## Machines
 
@@ -195,13 +195,16 @@ sudo bash ~/board/load-overlay.sh ~/gemv2                              # app nam
 bash board/tp/run-tp.sh "prompt" 400 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
 bash board/tp/serve-tp.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114   # API on board 1:8080
 bash board/tp/serve-tp.sh stop 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
-bash board/tp/recover.sh                                               # after a power cut: boards, overlays, ranks, public check
+bash board/tp/recover.sh                                               # after a power cut: boards, overlays, ranks, LAN check
 .venv/bin/python board/tp/api-bench.py http://10.42.0.137:8080 --n 400 --repeats 3
 PREFIX="taskset -c 2" bash board/tp/bench/run-mesh.sh 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114
-python3 board/tp/logproxy-view.py                                      # request log -> 127.0.0.1:8090
-systemctl --user status cloudflared-kv260 logproxy                     # the public route
+python3 board/tp/chat.py                                               # chat from the terminal
+bash local/serve.sh                                                    # local page -> 127.0.0.1:8090
+python3 board/tp/bench/session.py OUT <four boards>                    # recorded session: rate + module power (0013)
 ```
 
-`run-tp.sh` honours `MODEL`, `OUT`, `LIMIT`, `STAGGER`, `BIN=./tp_llama.old`
-(A/B against a kept binary) and `TP_DEBUG=1`; `serve-tp.sh` honours `MODEL`
-and `HTTP_PORT`. Ranks log to `~/tp-serve.log` on each board.
+`run-tp.sh` honours `MODEL` (its default is the **base** model; the served
+one is `MODEL=~/llama-3.2-1b-instruct-q4_0-pure.gguf`), `OUT`, `LIMIT`,
+`STAGGER` and `BIN=./tp_llama.old` (A/B against a kept binary); it passes
+`TP_DEBUG` through, but the current binary ignores it. `serve-tp.sh` honours
+`MODEL` (default: the Instruct model) and `HTTP_PORT`. Ranks log to `~/tp-serve.log` on each board.
