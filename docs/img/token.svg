@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="482" viewBox="0 0 800 482" role="img" aria-labelledby="title desc" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title id="title">Where one token's time goes on 1, 2 and 4 boards</title>
+<desc id="desc">1 board, run 1: 13.39 tokens/s; engine 53.4 ms, exchange 0.2 ms, CPU 22.9 ms per token; 1 board, run 2: 13.51 tokens/s; engine 53.4 ms, exchange 0.2 ms, CPU 22.1 ms per token; 1 board, run 3: 13.53 tokens/s; engine 53.4 ms, exchange 0.2 ms, CPU 22.0 ms per token; 2 boards, run 1: 21.87 tokens/s; engine 22.4 ms, exchange 12.4 ms, CPU 11.9 ms per token; 2 boards, run 2: 21.75 tokens/s; engine 22.4 ms, exchange 12.7 ms, CPU 11.8 ms per token; 2 boards, run 3: 21.65 tokens/s; engine 22.4 ms, exchange 12.9 ms, CPU 11.8 ms per token; 4 boards, run 1: 34.71 tokens/s; engine 10.0 ms, exchange 12.7 ms, CPU 6.3 ms per token; 4 boards, run 2: 36.69 tokens/s; engine 10.0 ms, exchange 11.4 ms, CPU 6.1 ms per token; 4 boards, run 3: 36.57 tokens/s; engine 10.0 ms, exchange 11.7 ms, CPU 5.9 ms per token. Llama-3.2-1B-Instruct, every weight matrix ggml Q4_0. run-tp.sh, 400 tokens generated after a 24-token prompt (positions 24-423), greedy; gemv2 bitstream at 250 MHz; rank 0's buckets: all 423 forwards, prompt included, over the 400 tokens (about 6% high). Engine time includes preparing each call's input on the CPU. 2026-11-04, buildlog 0013; source: evidence/0013-tp-runs.txt.</desc>
+<rect width="800" height="482" fill="#ffffff"/>
+<text x="20.0" y="30.0" font-size="18" fill="#0b0b0b" font-weight="bold">Where one token's time goes</text>
+<text x="20.0" y="51.0" font-size="13" fill="#52514e">Time per generated token on board 1 (rank 0), three runs for each board count</text>
+<rect x="20" y="70" width="12" height="12" rx="2" fill="#2a78d6"/>
+<text x="38.0" y="80.0" font-size="12.5" fill="#52514e">Engine (matrix-vector calls on the FPGA)</text>
+<rect x="291.15" y="70" width="12" height="12" rx="2" fill="#eb6834"/>
+<text x="309.1" y="80.0" font-size="12.5" fill="#52514e">Exchange (network)</text>
+<rect x="446.29999999999995" y="70" width="12" height="12" rx="2" fill="#1baf7a"/>
+<text x="464.3" y="80.0" font-size="12.5" fill="#52514e">CPU (one A53 core)</text>
+<line x1="160.0" y1="98" x2="160.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="160.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">0</text>
+<line x1="225.0" y1="98" x2="225.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="225.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">10</text>
+<line x1="290.0" y1="98" x2="290.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="290.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">20</text>
+<line x1="355.0" y1="98" x2="355.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="355.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">30</text>
+<line x1="420.0" y1="98" x2="420.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="420.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">40</text>
+<line x1="485.0" y1="98" x2="485.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="485.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">50</text>
+<line x1="550.0" y1="98" x2="550.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="550.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">60</text>
+<line x1="615.0" y1="98" x2="615.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="615.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">70</text>
+<line x1="680.0" y1="98" x2="680.0" y2="352" stroke="#e1e0d9" stroke-width="1"/>
+<text x="680.0" y="370.0" font-size="12" fill="#898781" text-anchor="middle">80</text>
+<line x1="160" y1="98" x2="160" y2="352" stroke="#c3c2b7" stroke-width="1"/>
+<text x="420.0" y="390.0" font-size="12.5" fill="#52514e" text-anchor="middle">milliseconds per generated token</text>
+<text x="20.0" y="141.0" font-size="13.5" fill="#0b0b0b" font-weight="bold">1 board</text>
+<text x="20.0" y="158.0" font-size="11.5" fill="#52514e">exchange 0.2 ms</text>
+<text x="150.0" y="117.5" font-size="11.5" fill="#52514e" text-anchor="end">run 1</text>
+<rect x="160.00" y="104" width="346.10" height="18" fill="#2a78d6"><title>1 board, run 1: engine 53.4 ms per token</title></rect>
+<text x="333.1" y="117.2" font-size="11.5" fill="#ffffff" text-anchor="middle">53.4</text>
+<path d="M509.40,104.00 H653.25 A4,4 0 0 1 657.25,108.00 V118.00 A4,4 0 0 1 653.25,122.00 H509.40 Z" fill="#1baf7a"><title>1 board, run 1: cpu 22.9 ms per token</title></path>
+<text x="583.3" y="117.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">22.9</text>
+<text x="665.2" y="117.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">13.39 tokens/s</text>
+<text x="150.0" y="140.5" font-size="11.5" fill="#52514e" text-anchor="end">run 2</text>
+<rect x="160.00" y="127" width="346.10" height="18" fill="#2a78d6"><title>1 board, run 2: engine 53.4 ms per token</title></rect>
+<text x="333.1" y="140.2" font-size="11.5" fill="#ffffff" text-anchor="middle">53.4</text>
+<path d="M509.40,127.00 H648.05 A4,4 0 0 1 652.05,131.00 V141.00 A4,4 0 0 1 648.05,145.00 H509.40 Z" fill="#1baf7a"><title>1 board, run 2: cpu 22.1 ms per token</title></path>
+<text x="580.7" y="140.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">22.1</text>
+<text x="660.0" y="140.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">13.51 tokens/s</text>
+<text x="150.0" y="163.5" font-size="11.5" fill="#52514e" text-anchor="end">run 3</text>
+<rect x="160.00" y="150" width="346.10" height="18" fill="#2a78d6"><title>1 board, run 3: engine 53.4 ms per token</title></rect>
+<text x="333.1" y="163.2" font-size="11.5" fill="#ffffff" text-anchor="middle">53.4</text>
+<path d="M509.40,150.00 H647.40 A4,4 0 0 1 651.40,154.00 V164.00 A4,4 0 0 1 647.40,168.00 H509.40 Z" fill="#1baf7a"><title>1 board, run 3: cpu 22.0 ms per token</title></path>
+<text x="580.4" y="163.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">22.0</text>
+<text x="659.4" y="163.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">13.53 tokens/s</text>
+<text x="20.0" y="231.0" font-size="13.5" fill="#0b0b0b" font-weight="bold">2 boards</text>
+<text x="150.0" y="207.5" font-size="11.5" fill="#52514e" text-anchor="end">run 1</text>
+<rect x="160.00" y="194" width="144.60" height="18" fill="#2a78d6"><title>2 boards, run 1: engine 22.4 ms per token</title></rect>
+<text x="232.3" y="207.2" font-size="11.5" fill="#ffffff" text-anchor="middle">22.4</text>
+<rect x="306.60" y="194" width="78.60" height="18" fill="#eb6834"><title>2 boards, run 1: exchange 12.4 ms per token</title></rect>
+<text x="345.9" y="207.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">12.4</text>
+<path d="M387.20,194.00 H459.55 A4,4 0 0 1 463.55,198.00 V208.00 A4,4 0 0 1 459.55,212.00 H387.20 Z" fill="#1baf7a"><title>2 boards, run 1: cpu 11.9 ms per token</title></path>
+<text x="425.4" y="207.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">11.9</text>
+<text x="471.5" y="207.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">21.87 tokens/s</text>
+<text x="150.0" y="230.5" font-size="11.5" fill="#52514e" text-anchor="end">run 2</text>
+<rect x="160.00" y="217" width="144.60" height="18" fill="#2a78d6"><title>2 boards, run 2: engine 22.4 ms per token</title></rect>
+<text x="232.3" y="230.2" font-size="11.5" fill="#ffffff" text-anchor="middle">22.4</text>
+<rect x="306.60" y="217" width="80.55" height="18" fill="#eb6834"><title>2 boards, run 2: exchange 12.7 ms per token</title></rect>
+<text x="346.9" y="230.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">12.7</text>
+<path d="M389.15,217.00 H460.85 A4,4 0 0 1 464.85,221.00 V231.00 A4,4 0 0 1 460.85,235.00 H389.15 Z" fill="#1baf7a"><title>2 boards, run 2: cpu 11.8 ms per token</title></path>
+<text x="427.0" y="230.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">11.8</text>
+<text x="472.8" y="230.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">21.75 tokens/s</text>
+<text x="150.0" y="253.5" font-size="11.5" fill="#52514e" text-anchor="end">run 3</text>
+<rect x="160.00" y="240" width="144.60" height="18" fill="#2a78d6"><title>2 boards, run 3: engine 22.4 ms per token</title></rect>
+<text x="232.3" y="253.2" font-size="11.5" fill="#ffffff" text-anchor="middle">22.4</text>
+<rect x="306.60" y="240" width="81.85" height="18" fill="#eb6834"><title>2 boards, run 3: exchange 12.9 ms per token</title></rect>
+<text x="347.5" y="253.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">12.9</text>
+<path d="M390.45,240.00 H462.15 A4,4 0 0 1 466.15,244.00 V254.00 A4,4 0 0 1 462.15,258.00 H390.45 Z" fill="#1baf7a"><title>2 boards, run 3: cpu 11.8 ms per token</title></path>
+<text x="428.3" y="253.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">11.8</text>
+<text x="474.1" y="253.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">21.65 tokens/s</text>
+<text x="20.0" y="321.0" font-size="13.5" fill="#0b0b0b" font-weight="bold">4 boards</text>
+<text x="150.0" y="297.5" font-size="11.5" fill="#52514e" text-anchor="end">run 1</text>
+<rect x="160.00" y="284" width="64.00" height="18" fill="#2a78d6"><title>4 boards, run 1: engine 10.0 ms per token</title></rect>
+<text x="192.0" y="297.2" font-size="11.5" fill="#ffffff" text-anchor="middle">10.0</text>
+<rect x="226.00" y="284" width="80.55" height="18" fill="#eb6834"><title>4 boards, run 1: exchange 12.7 ms per token</title></rect>
+<text x="266.3" y="297.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">12.7</text>
+<path d="M308.55,284.00 H344.50 A4,4 0 0 1 348.50,288.00 V298.00 A4,4 0 0 1 344.50,302.00 H308.55 Z" fill="#1baf7a"><title>4 boards, run 1: cpu 6.3 ms per token</title></path>
+<text x="328.5" y="297.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">6.3</text>
+<text x="356.5" y="297.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">34.71 tokens/s</text>
+<text x="150.0" y="320.5" font-size="11.5" fill="#52514e" text-anchor="end">run 2</text>
+<rect x="160.00" y="307" width="64.00" height="18" fill="#2a78d6"><title>4 boards, run 2: engine 10.0 ms per token</title></rect>
+<text x="192.0" y="320.2" font-size="11.5" fill="#ffffff" text-anchor="middle">10.0</text>
+<rect x="226.00" y="307" width="72.10" height="18" fill="#eb6834"><title>4 boards, run 2: exchange 11.4 ms per token</title></rect>
+<text x="262.1" y="320.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">11.4</text>
+<path d="M300.10,307.00 H334.75 A4,4 0 0 1 338.75,311.00 V321.00 A4,4 0 0 1 334.75,325.00 H300.10 Z" fill="#1baf7a"><title>4 boards, run 2: cpu 6.1 ms per token</title></path>
+<text x="319.4" y="320.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">6.1</text>
+<text x="346.8" y="320.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">36.69 tokens/s</text>
+<text x="150.0" y="343.5" font-size="11.5" fill="#52514e" text-anchor="end">run 3</text>
+<rect x="160.00" y="330" width="64.00" height="18" fill="#2a78d6"><title>4 boards, run 3: engine 10.0 ms per token</title></rect>
+<text x="192.0" y="343.2" font-size="11.5" fill="#ffffff" text-anchor="middle">10.0</text>
+<rect x="226.00" y="330" width="74.05" height="18" fill="#eb6834"><title>4 boards, run 3: exchange 11.7 ms per token</title></rect>
+<text x="263.0" y="343.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">11.7</text>
+<path d="M302.05,330.00 H335.40 A4,4 0 0 1 339.40,334.00 V344.00 A4,4 0 0 1 335.40,348.00 H302.05 Z" fill="#1baf7a"><title>4 boards, run 3: cpu 5.9 ms per token</title></path>
+<text x="320.7" y="343.2" font-size="11.5" fill="#0b0b0b" text-anchor="middle">5.9</text>
+<text x="347.4" y="343.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">36.57 tokens/s</text>
+<text x="20.0" y="420.0" font-size="12" fill="#52514e">Llama-3.2-1B-Instruct, every weight matrix ggml Q4_0. run-tp.sh, 400 tokens generated after a 24-token prompt</text>
+<text x="20.0" y="436.0" font-size="12" fill="#52514e">(positions 24-423), greedy; gemv2 bitstream at 250 MHz; rank 0's buckets: all 423 forwards,</text>
+<text x="20.0" y="452.0" font-size="12" fill="#52514e">prompt included, over the 400 tokens (about 6% high). Engine time includes preparing each call's input on the CPU.</text>
+<text x="20.0" y="468.0" font-size="12" fill="#52514e">2026-11-04, buildlog 0013; source: evidence/0013-tp-runs.txt.</text>
+</svg>

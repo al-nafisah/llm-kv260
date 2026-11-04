@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="652" viewBox="0 0 800 652" role="img" aria-labelledby="title desc" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title id="title">The engine on one board (gemv2)</title>
+<desc id="desc">The gemv2 engine on one KV260. The board's quarter of every weight matrix sits in DDR4 as 4-bit ggml Q4_0 blocks, in four regions, one per port. Four 128-bit memory ports (HP0 to HP3) feed the fetch kernel's four readers; each reader deals alternate 144-byte chunks to its two of eight on-chip buffers (AXI4-Stream FIFOs of 256 KiB each in UltraRAM, 2 MiB in all). Eight MAC units drain the buffers, one per buffer. Activations come in once per call as 8-bit Q8_0 and are copied into each unit; results go back as 32-bit floats, one per row; activations and results share one 128-bit port. In each unit, for every block of 32 weights: 32 products of a 4-bit weight and an 8-bit activation, summed as an integer, multiplied by the two block scales in float32, added into one of eight lanes; at the end of a row the eight lanes go through a fixed adder tree. The A53 runtime starts the multiply for each matrix and then names the next matrix, so the fetch kernel streams it into the buffers while the CPU and the network finish their part of the token. Hand-written diagram; facts from hls/gemv2, hw/kv260_gemv2/build.tcl and board/tp/tp_llama.cpp.</desc>
+<!-- Hand-written. Colours as system.svg: blue #2a78d6 = FPGA engine, aqua #1baf7a = CPU.
+     Facts: hls/gemv2/gemv2.h (4 ports, 2 MAC units per port), gemv_fetch.cpp (reader, 9-beat
+     chunk toggle), gemv_mac.cpp (load_x, eight engine() units), hls/int4_core/gemv_core.h
+     (block arithmetic, 8 lanes + tree), hw/kv260_gemv2/build.tcl (HP0..3 128-bit, FIFOs 16384 x
+     128 bit in UltraRAM, 9:1 SmartConnect to HPC0, 250 MHz), board/tp/tp_llama.cpp:355-374
+     (gemv then prefetch(next)); .work/understand/engine.md sections 5 and 7. -->
+<style>
+  .h1 { font-size: 18px; font-weight: bold; fill: #0b0b0b; }
+  .sub { font-size: 13px; fill: #52514e; }
+  .h2 { font-size: 14px; font-weight: bold; fill: #0b0b0b; }
+  .b { font-size: 12px; font-weight: bold; fill: #0b0b0b; }
+  .bc { font-size: 12px; font-weight: bold; fill: #0b0b0b; text-anchor: middle; }
+  .t { font-size: 12px; fill: #52514e; }
+  .s { font-size: 11.5px; fill: #52514e; }
+  .sc { font-size: 11.5px; fill: #52514e; text-anchor: middle; }
+  .i { font-size: 11px; fill: #0b0b0b; text-anchor: middle; }
+  .chip { font-size: 11.5px; text-anchor: middle; fill: #0b0b0b; }
+  .cap { font-size: 12px; fill: #52514e; }
+</style>
+<defs>
+  <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker>
+  <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1baf7a"/></marker>
+</defs>
+<rect width="800" height="652" fill="#ffffff"/>
+
+<text x="20" y="30" class="h1">The engine on one board</text>
+<text x="20" y="51" class="sub">Every token, the FPGA streams this board's quarter of the weights from DDR4 and multiplies it as it passes</text>
+
+<!-- the A53 runtime and its two commands -->
+<rect x="250" y="64" width="384" height="56" rx="8" fill="#e4f6ef" stroke="#1baf7a" stroke-width="1.2"/>
+<text x="262" y="83" class="b">Runtime on one A53 core</text>
+<text x="262" y="99" class="t">starts the multiply for this matrix, then names the next one;</text>
+<text x="262" y="113" class="t">up to 2 MiB of it streams in while the CPU and network work</text>
+<g stroke="#1baf7a" stroke-width="1.5" marker-end="url(#aa)">
+  <line x1="298" y1="120" x2="298" y2="143"/><line x1="562" y1="120" x2="562" y2="143"/>
+</g>
+<text x="306" y="137" class="s">fetch: next matrix</text>
+<text x="554" y="137" class="s" text-anchor="end">multiply: this matrix</text>
+
+<!-- DDR4 -->
+<rect x="20" y="144" width="140" height="338" rx="8" fill="#f4f4f1" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="32" y="164" class="b">DDR4, 4 GB</text>
+<rect x="28" y="184" width="124" height="208" rx="5" fill="#e3eefa" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="38" y="204" class="b">weights</text>
+<text x="38" y="221" class="s">4-bit (ggml Q4_0):</text>
+<text x="38" y="236" class="s">this board's quarter</text>
+<text x="38" y="251" class="s">of every matrix,</text>
+<text x="38" y="266" class="s">173.8 MB, read</text>
+<text x="38" y="281" class="s">once per token</text>
+<text x="38" y="304" class="s">four regions,</text>
+<text x="38" y="319" class="s">one per port</text>
+<rect x="28" y="417" width="124" height="22" rx="4" fill="#ffffff" stroke="#c3c2b7"/>
+<text x="38" y="432" class="s">activations, 8-bit</text>
+<rect x="28" y="445" width="124" height="22" rx="4" fill="#ffffff" stroke="#c3c2b7"/>
+<text x="38" y="460" class="s">results, 32-bit float</text>
+
+<!-- four ports -->
+<text x="205" y="164" class="sc" style="font-size:11px">4 memory ports,</text>
+<text x="205" y="178" class="sc" style="font-size:11px">128 bits each</text>
+<g stroke="#2a78d6" stroke-width="3" marker-end="url(#ab)">
+  <line x1="152" y1="210" x2="258" y2="210"/><line x1="152" y1="262" x2="258" y2="262"/>
+  <line x1="152" y1="314" x2="258" y2="314"/><line x1="152" y1="366" x2="258" y2="366"/>
+</g>
+
+<!-- fetch kernel -->
+<rect x="250" y="144" width="96" height="258" rx="8" fill="#eef4fc" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="298" y="162" class="bc">fetch kernel</text>
+<text x="298" y="176" class="sc">4 readers</text>
+<g fill="#ffffff" stroke="#2a78d6" stroke-width="1">
+  <rect x="260" y="187" width="76" height="46" rx="4"/><rect x="260" y="239" width="76" height="46" rx="4"/>
+  <rect x="260" y="291" width="76" height="46" rx="4"/><rect x="260" y="343" width="76" height="46" rx="4"/>
+</g>
+<text x="298" y="214" class="i">reader 1</text><text x="298" y="266" class="i">reader 2</text>
+<text x="298" y="318" class="i">reader 3</text><text x="298" y="370" class="i">reader 4</text>
+
+<!-- eight buffers -->
+<rect x="360" y="144" width="116" height="258" rx="8" fill="#eef4fc" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="418" y="162" class="bc">8 buffers (FIFOs)</text>
+<text x="418" y="176" class="sc">UltraRAM, 2 MiB</text>
+<g stroke="#2a78d6" stroke-width="1.5" marker-end="url(#ab)">
+  <line x1="336" y1="197" x2="377" y2="197"/><line x1="336" y1="223" x2="377" y2="223"/>
+  <line x1="336" y1="249" x2="377" y2="249"/><line x1="336" y1="275" x2="377" y2="275"/>
+  <line x1="336" y1="301" x2="377" y2="301"/><line x1="336" y1="327" x2="377" y2="327"/>
+  <line x1="336" y1="353" x2="377" y2="353"/><line x1="336" y1="379" x2="377" y2="379"/>
+</g>
+<g fill="#ffffff" stroke="#2a78d6" stroke-width="1">
+  <rect x="380" y="187" width="76" height="20" rx="3"/><rect x="380" y="213" width="76" height="20" rx="3"/>
+  <rect x="380" y="239" width="76" height="20" rx="3"/><rect x="380" y="265" width="76" height="20" rx="3"/>
+  <rect x="380" y="291" width="76" height="20" rx="3"/><rect x="380" y="317" width="76" height="20" rx="3"/>
+  <rect x="380" y="343" width="76" height="20" rx="3"/><rect x="380" y="369" width="76" height="20" rx="3"/>
+</g>
+<text x="418" y="201" class="i">256 KiB</text><text x="418" y="227" class="i">256 KiB</text>
+<text x="418" y="253" class="i">256 KiB</text><text x="418" y="279" class="i">256 KiB</text>
+<text x="418" y="305" class="i">256 KiB</text><text x="418" y="331" class="i">256 KiB</text>
+<text x="418" y="357" class="i">256 KiB</text><text x="418" y="383" class="i">256 KiB</text>
+
+<!-- eight MAC units -->
+<rect x="490" y="144" width="144" height="258" rx="8" fill="#eef4fc" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="562" y="162" class="bc">8 MAC units</text>
+<text x="562" y="176" class="sc">4-bit × 8-bit</text>
+<g stroke="#2a78d6" stroke-width="1.5" marker-end="url(#ab)">
+  <line x1="456" y1="197" x2="499" y2="197"/><line x1="456" y1="223" x2="499" y2="223"/>
+  <line x1="456" y1="249" x2="499" y2="249"/><line x1="456" y1="275" x2="499" y2="275"/>
+  <line x1="456" y1="301" x2="499" y2="301"/><line x1="456" y1="327" x2="499" y2="327"/>
+  <line x1="456" y1="353" x2="499" y2="353"/><line x1="456" y1="379" x2="499" y2="379"/>
+</g>
+<g fill="#2a78d6">
+  <rect x="502" y="187" width="120" height="20" rx="3"/><rect x="502" y="213" width="120" height="20" rx="3"/>
+  <rect x="502" y="239" width="120" height="20" rx="3"/><rect x="502" y="265" width="120" height="20" rx="3"/>
+  <rect x="502" y="291" width="120" height="20" rx="3"/><rect x="502" y="317" width="120" height="20" rx="3"/>
+  <rect x="502" y="343" width="120" height="20" rx="3"/><rect x="502" y="369" width="120" height="20" rx="3"/>
+</g>
+<g class="i" fill="#ffffff" style="fill:#ffffff">
+  <text x="562" y="201">unit 1</text><text x="562" y="227">unit 2</text><text x="562" y="253">unit 3</text><text x="562" y="279">unit 4</text>
+  <text x="562" y="305">unit 5</text><text x="562" y="331">unit 6</text><text x="562" y="357">unit 7</text><text x="562" y="383">unit 8</text>
+</g>
+
+<!-- results out, activations in: one shared port -->
+<g stroke="#52514e" stroke-width="1.5" fill="none">
+  <path d="M622,197 H652 M622,223 H652 M622,249 H652 M622,275 H652 M622,301 H652 M622,327 H652 M622,353 H652 M622,379 H652"/>
+  <path d="M652,197 V379"/>
+</g>
+<path d="M652,379 V456 H155" fill="none" stroke="#52514e" stroke-width="1.5" marker-end="url(#ag)"/>
+<path d="M152,428 H562 V405" fill="none" stroke="#52514e" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="176" y="422" class="s">activations in (8-bit, ggml Q8_0), once per call, copied into each unit</text>
+<text x="176" y="450" class="s">results out: one 32-bit float per row</text>
+<text x="176" y="476" class="s">activations and results share one 128-bit port; the weights have four</text>
+<text x="664" y="201" class="t">results:</text>
+<text x="664" y="216" class="t">one 32-bit float</text>
+<text x="664" y="231" class="t">per output row,</text>
+<text x="664" y="246" class="t">four per 128-bit</text>
+<text x="664" y="261" class="t">write</text>
+
+<!-- inside a MAC unit -->
+<text x="20" y="514" class="h2">Inside each MAC unit, for every block of 32 weights</text>
+<g class="chip">
+  <rect x="20" y="526" width="128" height="26" rx="4" fill="#d7e6f9"/><text x="84" y="543">32 × (4-bit × 8-bit)</text>
+  <rect x="166" y="526" width="84" height="26" rx="4" fill="#d7e6f9"/><text x="208" y="543">integer sum</text>
+  <rect x="268" y="526" width="150" height="26" rx="4" fill="#d7e6f9"/><text x="343" y="543">× two scales, 32-bit float</text>
+  <rect x="436" y="526" width="150" height="26" rx="4" fill="#d7e6f9"/><text x="511" y="543">add into lane (block mod 8)</text>
+  <rect x="604" y="526" width="176" height="26" rx="4" fill="#b9d3f4"/><text x="692" y="543">end of row: 8 lanes, fixed tree</text>
+</g>
+<g stroke="#898781" stroke-width="1.5" marker-end="url(#ag)">
+  <line x1="150" y1="539" x2="163" y2="539"/><line x1="252" y1="539" x2="265" y2="539"/>
+  <line x1="420" y1="539" x2="433" y2="539"/><line x1="588" y1="539" x2="601" y2="539"/>
+</g>
+<text x="20" y="574" class="t">The integer sum is exact in any order and the float order is fixed by the contract (src/llm_kv260/q4_0.py),</text>
+<text x="20" y="589" class="t">so the output is checked against it byte for byte: 9 of 9 test cases pass on each of the four boards (bench_gemv2).</text>
+
+<text x="20" y="620" class="cap">gemv2 on the XCK26 (Vitis HLS and Vivado 2022.2), 250 MHz clock. Each reader deals alternate 144-byte chunks to its two buffers.</text>
+<text x="20" y="636" class="cap">Sources: hls/gemv2/, hw/kv260_gemv2/build.tcl, board/tp/tp_llama.cpp. Weights are a load-time copy of the GGUF's Q4_0 blocks.</text>
+</svg>
