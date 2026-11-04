@@ -1,0 +1,12 @@
+### md5 of rank 0's text per run, and where the texts part (characters in common from the start)
+44a234bf02a973577097b97f581e9c51  tp4-1/rank0.out
+44a234bf02a973577097b97f581e9c51  tp4-2/rank0.out
+44a234bf02a973577097b97f581e9c51  tp4-3/rank0.out
+123145013f4a5318e86d384603107986  tp2-1/rank0.out
+123145013f4a5318e86d384603107986  tp2-2/rank0.out
+123145013f4a5318e86d384603107986  tp2-3/rank0.out
+9f20dd9671e7544b81ea0f1442a7c94d  tp1-1/rank0.out
+9f20dd9671e7544b81ea0f1442a7c94d  tp1-2/rank0.out
+9f20dd9671e7544b81ea0f1442a7c94d  tp1-3/rank0.out
+tp4 vs 0012 reference (0012-tp-ab-runs.txt, rank 0 text, both stripped): identical 1945 characters
+tp4 vs tp2: first 72 characters equal; tp4 vs tp1: 673 ; tp2 vs tp1: 72

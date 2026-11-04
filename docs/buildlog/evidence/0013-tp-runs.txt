@@ -1,0 +1,398 @@
+### MODEL=~/llama-3.2-1b-instruct-q4_0-pure.gguf bash board/tp/run-tp.sh '<prompt>' 400 <boards>, prompt 'Write a detailed history of the Roman Empire, from its founding to its fall, covering the key events and figures.' (24 tokens); tp4 = 10.42.0.137 10.42.0.218 10.42.0.217 10.42.0.114, tp2 = the first two, tp1 = the first
+### per run: run-tp.sh's output (rank 0's text, then every rank's summary line), then each rank's stderr without libllama's model-loader dump (lines starting engine:, rank N:, gemv_dev:, init_tokenizer)
+
+===== tp4-1
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance based on the principle of "pax sine fine" or "peace without end," which would guide the empire's development for centuries to come.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Republic. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Republic was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Republic was also marked by a series of military campaigns, as the Roman legions expanded Rome's territories and established a network of alliances with neighboring states.
+
+**The Roman Empire (27 BCE-476 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Empire. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Empire was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The
+=== per rank
+rank 0: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.7 ms, cpu 6.3 ms
+rank 1: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.3 ms, cpu 6.8 ms
+rank 2: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.4 ms, cpu 6.6 ms
+rank 3: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.4 ms, cpu 6.6 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 173.8 MB of weights in engine memory
+rank 0: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.7 ms, cpu 6.3 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 173.8 MB of weights in engine memory
+rank 1: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.3 ms, cpu 6.8 ms
+--- rank2.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 2: 16 layers, shard 173.8 MB of weights in engine memory
+rank 2: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 2: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.4 ms, cpu 6.6 ms
+--- rank3.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 3: 16 layers, shard 173.8 MB of weights in engine memory
+rank 3: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 3: prompt 24 tokens in 0.53 s (45.3 t/s); generated 400 tokens in 11.52 s = 34.71 t/s; per token: engine 10.0 ms, comm 12.4 ms, cpu 6.6 ms
+
+===== tp4-2
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance based on the principle of "pax sine fine" or "peace without end," which would guide the empire's development for centuries to come.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Republic. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Republic was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Republic was also marked by a series of military campaigns, as the Roman legions expanded Rome's territories and established a network of alliances with neighboring states.
+
+**The Roman Empire (27 BCE-476 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Empire. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Empire was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The
+=== per rank
+rank 0: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.4 ms, cpu 6.1 ms
+rank 1: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.4 ms, cpu 6.0 ms
+rank 2: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.6 ms, cpu 5.9 ms
+rank 3: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.1 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 173.8 MB of weights in engine memory
+rank 0: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.4 ms, cpu 6.1 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 173.8 MB of weights in engine memory
+rank 1: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.4 ms, cpu 6.0 ms
+--- rank2.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 2: 16 layers, shard 173.8 MB of weights in engine memory
+rank 2: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 2: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.6 ms, cpu 5.9 ms
+--- rank3.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 3: 16 layers, shard 173.8 MB of weights in engine memory
+rank 3: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 3: prompt 24 tokens in 0.54 s (44.3 t/s); generated 400 tokens in 10.90 s = 36.69 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.1 ms
+
+===== tp4-3
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance based on the principle of "pax sine fine" or "peace without end," which would guide the empire's development for centuries to come.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Republic. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Republic was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Republic was also marked by a series of military campaigns, as the Roman legions expanded Rome's territories and established a network of alliances with neighboring states.
+
+**The Roman Empire (27 BCE-476 CE)**
+
+In 27 BCE, the Roman Senate, now dominated by the Optimates, established the Roman Empire. This period saw the rise of powerful Roman families, such as the Julian clan, who would play a significant role in shaping the empire's future.
+
+The Roman Empire was characterized by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The
+=== per rank
+rank 0: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.7 ms, cpu 5.9 ms
+rank 1: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.1 ms
+rank 2: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.0 ms
+rank 3: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.6 ms, cpu 6.1 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 173.8 MB of weights in engine memory
+rank 0: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.7 ms, cpu 5.9 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 173.8 MB of weights in engine memory
+rank 1: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.1 ms
+--- rank2.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 2: 16 layers, shard 173.8 MB of weights in engine memory
+rank 2: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 2: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.5 ms, cpu 6.0 ms
+--- rank3.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 3: 16 layers, shard 173.8 MB of weights in engine memory
+rank 3: loaded in 0.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 3: prompt 24 tokens in 0.54 s (44.4 t/s); generated 400 tokens in 10.94 s = 36.57 t/s; per token: engine 10.0 ms, comm 11.6 ms, cpu 6.1 ms
+
+===== tp2-1
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BC)**
+
+The Roman Empire was founded on September 21, 509 BC, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, led by Lucius Junius Brutus, established the Roman Republic, with a system of governance based on the rule of law and the separation of powers.
+
+During the early years of the Roman Republic, the city-state of Rome expanded its territories through a series of wars with neighboring states, including the Etruscans, the Sabines, and the Latins. The Roman Republic also established a system of governance, with a Senate and a Assemblies (Curiato) that represented the interests of the different social classes.
+
+**The Roman Republic (509-27 BC)**
+
+The Roman Republic was characterized by a series of civil wars, power struggles, and military campaigns. The Republic was ruled by a series of consuls, who were elected by the Senate to serve as temporary leaders. The Republic also established a system of governance, with a Senate and a Assemblies that represented the interests of the different social classes.
+
+One of the most significant events in the history of the Roman Republic was the First Punic War (264-241 BC), which was fought between Rome and Carthage. The war was won by Rome, and it established Rome as a dominant power in the Mediterranean.
+
+**The Roman Empire (27 BC-476 AD)**
+
+The Roman Empire was founded on September 21, 27 BC, when the Roman Senate granted the title of Augustus to Gaius Octavianus, who would later become the first Emperor of Rome. The Roman Empire was characterized by a series of military campaigns, including the conquest of Gaul (modern-day France) and the expansion of the empire into Egypt.
+
+The Roman Empire was also marked by a series
+=== per rank
+rank 0: prompt 24 tokens in 0.91 s (26.3 t/s); generated 400 tokens in 18.29 s = 21.87 t/s; per token: engine 22.4 ms, comm 12.4 ms, cpu 11.9 ms
+rank 1: prompt 24 tokens in 0.91 s (26.3 t/s); generated 400 tokens in 18.29 s = 21.87 t/s; per token: engine 22.5 ms, comm 12.5 ms, cpu 11.8 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 347.6 MB of weights in engine memory
+rank 0: loaded in 19.4 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.91 s (26.3 t/s); generated 400 tokens in 18.29 s = 21.87 t/s; per token: engine 22.4 ms, comm 12.4 ms, cpu 11.9 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 347.6 MB of weights in engine memory
+rank 1: loaded in 19.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.91 s (26.3 t/s); generated 400 tokens in 18.29 s = 21.87 t/s; per token: engine 22.5 ms, comm 12.5 ms, cpu 11.8 ms
+
+===== tp2-2
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BC)**
+
+The Roman Empire was founded on September 21, 509 BC, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, led by Lucius Junius Brutus, established the Roman Republic, with a system of governance based on the rule of law and the separation of powers.
+
+During the early years of the Roman Republic, the city-state of Rome expanded its territories through a series of wars with neighboring states, including the Etruscans, the Sabines, and the Latins. The Roman Republic also established a system of governance, with a Senate and a Assemblies (Curiato) that represented the interests of the different social classes.
+
+**The Roman Republic (509-27 BC)**
+
+The Roman Republic was characterized by a series of civil wars, power struggles, and military campaigns. The Republic was ruled by a series of consuls, who were elected by the Senate to serve as temporary leaders. The Republic also established a system of governance, with a Senate and a Assemblies that represented the interests of the different social classes.
+
+One of the most significant events in the history of the Roman Republic was the First Punic War (264-241 BC), which was fought between Rome and Carthage. The war was won by Rome, and it established Rome as a dominant power in the Mediterranean.
+
+**The Roman Empire (27 BC-476 AD)**
+
+The Roman Empire was founded on September 21, 27 BC, when the Roman Senate granted the title of Augustus to Gaius Octavianus, who would later become the first Emperor of Rome. The Roman Empire was characterized by a series of military campaigns, including the conquest of Gaul (modern-day France) and the expansion of the empire into Egypt.
+
+The Roman Empire was also marked by a series
+=== per rank
+rank 0: prompt 24 tokens in 0.88 s (27.3 t/s); generated 400 tokens in 18.39 s = 21.75 t/s; per token: engine 22.4 ms, comm 12.7 ms, cpu 11.8 ms
+rank 1: prompt 24 tokens in 0.88 s (27.3 t/s); generated 400 tokens in 18.39 s = 21.75 t/s; per token: engine 22.4 ms, comm 12.6 ms, cpu 11.8 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 347.6 MB of weights in engine memory
+rank 0: loaded in 0.9 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.88 s (27.3 t/s); generated 400 tokens in 18.39 s = 21.75 t/s; per token: engine 22.4 ms, comm 12.7 ms, cpu 11.8 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 347.6 MB of weights in engine memory
+rank 1: loaded in 0.9 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.88 s (27.3 t/s); generated 400 tokens in 18.39 s = 21.75 t/s; per token: engine 22.4 ms, comm 12.6 ms, cpu 11.8 ms
+
+===== tp2-3
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BC)**
+
+The Roman Empire was founded on September 21, 509 BC, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, led by Lucius Junius Brutus, established the Roman Republic, with a system of governance based on the rule of law and the separation of powers.
+
+During the early years of the Roman Republic, the city-state of Rome expanded its territories through a series of wars with neighboring states, including the Etruscans, the Sabines, and the Latins. The Roman Republic also established a system of governance, with a Senate and a Assemblies (Curiato) that represented the interests of the different social classes.
+
+**The Roman Republic (509-27 BC)**
+
+The Roman Republic was characterized by a series of civil wars, power struggles, and military campaigns. The Republic was ruled by a series of consuls, who were elected by the Senate to serve as temporary leaders. The Republic also established a system of governance, with a Senate and a Assemblies that represented the interests of the different social classes.
+
+One of the most significant events in the history of the Roman Republic was the First Punic War (264-241 BC), which was fought between Rome and Carthage. The war was won by Rome, and it established Rome as a dominant power in the Mediterranean.
+
+**The Roman Empire (27 BC-476 AD)**
+
+The Roman Empire was founded on September 21, 27 BC, when the Roman Senate granted the title of Augustus to Gaius Octavianus, who would later become the first Emperor of Rome. The Roman Empire was characterized by a series of military campaigns, including the conquest of Gaul (modern-day France) and the expansion of the empire into Egypt.
+
+The Roman Empire was also marked by a series
+=== per rank
+rank 0: prompt 24 tokens in 0.87 s (27.4 t/s); generated 400 tokens in 18.47 s = 21.65 t/s; per token: engine 22.4 ms, comm 12.9 ms, cpu 11.8 ms
+rank 1: prompt 24 tokens in 0.87 s (27.4 t/s); generated 400 tokens in 18.47 s = 21.65 t/s; per token: engine 22.4 ms, comm 12.8 ms, cpu 11.9 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 347.6 MB of weights in engine memory
+rank 0: loaded in 0.9 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 0.87 s (27.4 t/s); generated 400 tokens in 18.47 s = 21.65 t/s; per token: engine 22.4 ms, comm 12.9 ms, cpu 11.8 ms
+--- rank1.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 1: 16 layers, shard 347.6 MB of weights in engine memory
+rank 1: loaded in 0.9 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 1: prompt 24 tokens in 0.87 s (27.4 t/s); generated 400 tokens in 18.47 s = 21.65 t/s; per token: engine 22.4 ms, comm 12.8 ms, cpu 11.9 ms
+
+===== tp1-1
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, led by Julius Caesar, established the Roman Republic, which would last for over two centuries. During this period, the Roman Republic was marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy.
+
+Caesar, who had risen to power through his military campaigns, became a dominant force in Roman politics. He established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Punic Wars (264-146 BCE)**
+
+The Roman Republic was marked by a series of conflicts with Carthage, a powerful city-state in North Africa. The Punic Wars, which lasted from 264 to 146 BCE, were a series of three wars fought between Rome and Carthage.
+
+The first Punic War, fought in 264 BCE, was a decisive victory for Rome, which led to the capture of Carthage and the establishment of a
+=== per rank
+rank 0: prompt 24 tokens in 1.36 s (17.7 t/s); generated 400 tokens in 29.88 s = 13.39 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.9 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 695.1 MB of weights in engine memory
+rank 0: loaded in 19.6 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 1.36 s (17.7 t/s); generated 400 tokens in 29.88 s = 13.39 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.9 ms
+
+===== tp1-2
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, led by Julius Caesar, established the Roman Republic, which would last for over two centuries. During this period, the Roman Republic was marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy.
+
+Caesar, who had risen to power through his military campaigns, became a dominant force in Roman politics. He established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Punic Wars (264-146 BCE)**
+
+The Roman Republic was marked by a series of conflicts with Carthage, a powerful city-state in North Africa. The Punic Wars, which lasted from 264 to 146 BCE, were a series of three wars fought between Rome and Carthage.
+
+The first Punic War, fought in 264 BCE, was a decisive victory for Rome, which led to the capture of Carthage and the establishment of a
+=== per rank
+rank 0: prompt 24 tokens in 1.36 s (17.6 t/s); generated 400 tokens in 29.60 s = 13.51 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.1 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 695.1 MB of weights in engine memory
+rank 0: loaded in 1.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 1.36 s (17.6 t/s); generated 400 tokens in 29.60 s = 13.51 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.1 ms
+
+===== tp1-3
+=== rank 0 text
+ Here's a comprehensive overview:
+
+**Founding and Early Years (509-27 BCE)**
+
+The Roman Empire was founded on September 21, 509 BCE, when the last king of Rome, Lucius Tarquinius Superbus, was overthrown by a group of plebeians led by the Roman Senate. The Senate, which had been in power since the 6th century BCE, had grown increasingly powerful and had become a dominant force in Roman politics.
+
+The early years of the Roman Empire were marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy. The Senate eventually established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Roman Republic (27 BCE-27 CE)**
+
+In 27 BCE, the Roman Senate, led by Julius Caesar, established the Roman Republic, which would last for over two centuries. During this period, the Roman Republic was marked by a series of civil wars, as the Senate struggled to maintain control over the growing number of plebeians who were increasingly demanding greater power and autonomy.
+
+Caesar, who had risen to power through his military campaigns, became a dominant force in Roman politics. He established a system of governance that would last for centuries, with a rotating council of magistrates and a system of checks and balances to prevent the concentration of power.
+
+**The Punic Wars (264-146 BCE)**
+
+The Roman Republic was marked by a series of conflicts with Carthage, a powerful city-state in North Africa. The Punic Wars, which lasted from 264 to 146 BCE, were a series of three wars fought between Rome and Carthage.
+
+The first Punic War, fought in 264 BCE, was a decisive victory for Rome, which led to the capture of Carthage and the establishment of a
+=== per rank
+rank 0: prompt 24 tokens in 1.36 s (17.7 t/s); generated 400 tokens in 29.56 s = 13.53 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.0 ms
+--- rank0.err (filtered)
+engine: gemv2 (fetch + FIFOs + 8 MAC units)
+rank 0: 16 layers, shard 695.1 MB of weights in engine memory
+rank 0: loaded in 1.5 s
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+gemv_dev: no UIO device named gemv_q4_0 (overlay not loaded?)
+init_tokenizer: initializing tokenizer for type 2
+rank 0: prompt 24 tokens in 1.36 s (17.7 t/s); generated 400 tokens in 29.56 s = 13.53 t/s; per token: engine 53.4 ms, comm 0.2 ms, cpu 22.0 ms

@@ -1,0 +1,7 @@
+# kv260-01, llama-3.2-1b-q4_0-pure.gguf, wikitext-2-raw test, -c 512 --chunks 4 -nkvo
+## CPU (-ngl 0)
+[1]5.9850,[2]7.7976,[3]8.8938,[4]9.4570,
+9.31.640.686 I Final estimate: PPL = 9.4570 +/- 0.79025
+## fabric (-ngl 99)
+[1]6.0060,[2]7.8144,[3]8.9036,[4]9.4597,
+2.41.494.374 I Final estimate: PPL = 9.4597 +/- 0.79069

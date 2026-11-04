@@ -1,0 +1,146 @@
+### PC 2026-11-04T13:19:15+0300
+===== 10.42.0.137
+kv260-01
+5.15.0-1027-xilinx-zynqmp
+ 21:08:59 up 13:20,  0 users,  load average: 0.02, 0.02, 0.00
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1231        1895           3         784        2518
+2403 ./tp_llama --model /home/ubuntu/llama-3.2-1b-instruct-q4_0-pure.gguf --rank 0 --nranks 4 --peers 10.42.0.137,10.42.0.218,10.42.0.217,10.42.0.114 --serve 8080
+board clock 2026-09-14T21:09:01Z
+===== 10.42.0.218
+kv260-02
+5.15.0-1027-xilinx-zynqmp
+ 20:47:29 up 13:20,  0 users,  load average: 0.05, 0.01, 0.00
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1232        1931           3         747        2518
+2461 ./tp_llama --model /home/ubuntu/llama-3.2-1b-instruct-q4_0-pure.gguf --rank 1 --nranks 4 --peers 10.42.0.137,10.42.0.218,10.42.0.217,10.42.0.114 --serve 8080
+board clock 2026-09-14T20:47:32Z
+===== 10.42.0.217
+kv260-03
+5.15.0-1027-xilinx-zynqmp
+ 20:47:38 up 13:20,  0 users,  load average: 0.01, 0.02, 0.00
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1225        1903           3         782        2525
+2664 ./tp_llama --model /home/ubuntu/llama-3.2-1b-instruct-q4_0-pure.gguf --rank 2 --nranks 4 --peers 10.42.0.137,10.42.0.218,10.42.0.217,10.42.0.114 --serve 8080
+board clock 2026-09-14T20:47:40Z
+===== 10.42.0.114
+kv260-04
+5.15.0-1027-xilinx-zynqmp
+ 20:47:42 up 13:20,  0 users,  load average: 0.00, 0.00, 0.00
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1224        1905           3         781        2525
+2663 ./tp_llama --model /home/ubuntu/llama-3.2-1b-instruct-q4_0-pure.gguf --rank 3 --nranks 4 --peers 10.42.0.137,10.42.0.218,10.42.0.217,10.42.0.114 --serve 8080
+board clock 2026-09-14T20:47:45Z
+### PC 2026-11-04T13:30:30+0300
+===== 10.42.0.137
+kv260-01
+5.15.0-1027-xilinx-zynqmp
+ 21:20:14 up 13:31,  0 users,  load average: 0.26, 0.51, 0.29
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1120        1658           3        1131        2628
+no tp_llama
+board clock 2026-09-14T21:20:16Z
+===== 10.42.0.218
+kv260-02
+5.15.0-1027-xilinx-zynqmp
+ 20:58:45 up 13:31,  0 users,  load average: 0.19, 0.27, 0.18
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1120        1802           3         988        2629
+no tp_llama
+board clock 2026-09-14T20:58:47Z
+===== 10.42.0.217
+kv260-03
+5.15.0-1027-xilinx-zynqmp
+ 20:58:53 up 13:31,  0 users,  load average: 0.11, 0.11, 0.08
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1113        1998           3         799        2637
+no tp_llama
+board clock 2026-09-14T20:58:55Z
+===== 10.42.0.114
+kv260-04
+5.15.0-1027-xilinx-zynqmp
+ 20:58:57 up 13:31,  0 users,  load average: 0.08, 0.11, 0.08
+mtu 9000
+81e7b63d430956c99de998ab90bfffda  /home/ubuntu/gemv2/gemv2.bit.bin
+axi-pmon
+axi-pmon
+axi-pmon
+axi-pmon
+gemv_fetch
+gemv_mac
+display irqs/2s 0
+      4 1333333
+               total        used        free      shared  buff/cache   available
+Mem:            3911        1118        1993           3         799        2631
+no tp_llama
+board clock 2026-09-14T20:59:00Z

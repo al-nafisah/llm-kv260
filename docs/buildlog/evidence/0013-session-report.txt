@@ -1,0 +1,55 @@
+# session .work/session-0013
+# power: K26 module INA260 (hwmon power1_input), W; mean [min-max, samples] per board; total = sum of the boards' means
+# boards: kv260-01 kv260-02 kv260-03 kv260-04
+
+## idle
+api-idle         total 15.563 W | 3.884 [3.85-4.23, n=577] | 3.847 [3.82-4.12, n=577] | 3.935 [3.90-4.18, n=577] | 3.897 [3.87-4.29, n=577]
+idle-no-runtime  total 15.577 W | 3.887 [3.86-4.30, n=577] | 3.852 [3.82-4.29, n=577] | 3.938 [3.90-4.33, n=576] | 3.900 [3.87-4.27, n=577]
+idle-after       total 15.543 W | 3.882 [3.86-3.97, n=288] | 3.844 [3.81-4.23, n=288] | 3.927 [3.90-4.11, n=289] | 3.891 [3.87-3.99, n=288]
+
+## API replies (temperature 0, streamed, from the PC over the LAN)
+api-400-1: prompt 33 tok, 400 tokens, server 33.77 t/s, client 33.69 t/s (tokens 2..400 over 11.84 s), first token 0.835 s; decode power total 22.362 W, 0.6621 J/token; prefill power total 22.496 W
+    decode per board: 5.584 [4.04-6.25, n=112] | 5.568 [3.87-6.25, n=113] | 5.645 [4.01-6.40, n=113] | 5.565 [4.13-6.16, n=113]
+    last_chat: {"boards": [{"cpu_ms": 6.555607401936276, "engine_ms": 9.435294003116159, "exchange_ms": 12.460541156300327, "rank": 0}, {"cpu_ms": 7.16620235335558, "engine_ms": 9.478413199422354, "exchange_ms": 11.92388501322658, "rank": 1}, {"cpu_ms": 6.915156767780619, "engine_ms": 9.436123185886775, "exchange_ms": 12.21351789173327, "rank": 2}, {"cpu_ms": 6.946522881811424, "engine_ms": 9.425069706183029, "exchange_ms": 12.20144148040236, "rank": 3}], "cpu_ms": 6.895872351220975, "engine_ms": 9.443725023652078, "exchange_ms": 12.199846385415633, "gen_ms": 11844.042969001748, "n_gen": 400, "n_prompt": 33, "prompt_ms": 826.6124479996506, "samples": 399, "tps": 33.77225167511472}
+api-400-2: prompt 33 tok, 400 tokens, server 35.87 t/s, client 35.78 t/s (tokens 2..400 over 11.15 s), first token 0.748 s; decode power total 22.702 W, 0.6329 J/token; prefill power total 23.637 W
+    decode per board: 5.662 [4.82-6.29, n=106] | 5.591 [4.73-6.24, n=106] | 5.791 [5.23-6.43, n=107] | 5.659 [5.05-6.29, n=106]
+    last_chat: {"boards": [{"cpu_ms": 6.057822085860977, "engine_ms": 9.436512148768681, "exchange_ms": 11.221641810615559, "rank": 0}, {"cpu_ms": 6.097178877445689, "engine_ms": 9.472105599883804, "exchange_ms": 11.262533180695728, "rank": 1}, {"cpu_ms": 6.265108255515421, "engine_ms": 9.435112812166524, "exchange_ms": 11.110261486885243, "rank": 2}, {"cpu_ms": 6.263046385949118, "engine_ms": 9.418549093088709, "exchange_ms": 11.171715296599501, "rank": 3}], "cpu_ms": 6.170788901192801, "engine_ms": 9.44056991347693, "exchange_ms": 11.191537943699007, "gen_ms": 11151.531812996836, "n_gen": 400, "n_prompt": 33, "prompt_ms": 746.3795150033548, "samples": 399, "tps": 35.86951162474467}
+api-400-3: prompt 33 tok, 400 tokens, server 36.14 t/s, client 36.05 t/s (tokens 2..400 over 11.07 s), first token 0.749 s; decode power total 22.673 W, 0.6273 J/token; prefill power total 23.879 W
+    decode per board: 5.652 [5.00-6.16, n=106] | 5.575 [4.67-6.24, n=106] | 5.721 [4.79-6.31, n=105] | 5.725 [5.13-6.32, n=106]
+    last_chat: {"boards": [{"cpu_ms": 6.0543064718557185, "engine_ms": 9.435984348593498, "exchange_ms": 11.014135492176639, "rank": 0}, {"cpu_ms": 6.1014109793163485, "engine_ms": 9.469802046180668, "exchange_ms": 11.044296164261667, "rank": 1}, {"cpu_ms": 6.267143245328937, "engine_ms": 9.438363584360681, "exchange_ms": 10.917366771172162, "rank": 2}, {"cpu_ms": 6.25142949207086, "engine_ms": 9.418010893322172, "exchange_ms": 10.980573090096764, "rank": 3}], "cpu_ms": 6.168572547142967, "engine_ms": 9.440540218114254, "exchange_ms": 10.989092879426808, "gen_ms": 11066.78105500032, "n_gen": 400, "n_prompt": 33, "prompt_ms": 746.6742879987578, "samples": 399, "tps": 36.14420471608295}
+api-short-1: prompt 22 tok, 67 tokens, server 38.02 t/s, client 37.97 t/s (tokens 2..67 over 1.74 s), first token 0.489 s; decode power total 23.042 W, 0.6061 J/token; prefill power total 24.203 W
+    decode per board: 5.681 [3.91-6.36, n=17] | 5.739 [4.51-6.21, n=16] | 5.808 [4.44-6.43, n=17] | 5.815 [4.85-6.37, n=16]
+    last_chat: {"boards": [{"cpu_ms": 3.700943345454202, "engine_ms": 9.405078816769729, "exchange_ms": 11.989846158383498, "rank": 0}, {"cpu_ms": 3.8800652703242515, "engine_ms": 9.443448607601336, "exchange_ms": 11.953059751596024, "rank": 1}, {"cpu_ms": 3.5475494292244982, "engine_ms": 9.428340057828533, "exchange_ms": 12.252544474245896, "rank": 2}, {"cpu_ms": 3.685394913402956, "engine_ms": 9.416987404894472, "exchange_ms": 12.141007779249504, "rank": 3}], "cpu_ms": 3.7034882396014766, "engine_ms": 9.423463721773517, "exchange_ms": 12.08411454086873, "gen_ms": 1762.321456000791, "n_gen": 67, "n_prompt": 22, "prompt_ms": 486.80651899485383, "samples": 67, "tps": 38.01803568347972}
+api-short-2: prompt 22 tok, 67 tokens, server 41.97 t/s, client 41.97 t/s (tokens 2..67 over 1.57 s), first token 0.509 s; decode power total 23.517 W, 0.5604 J/token; prefill power total 23.140 W
+    decode per board: 5.935 [5.74-6.06, n=15] | 5.759 [5.32-6.23, n=15] | 6.003 [5.81-6.41, n=15] | 5.820 [5.40-6.12, n=15]
+    last_chat: {"boards": [{"cpu_ms": 2.7880875921961086, "engine_ms": 9.42440760313575, "exchange_ms": 10.44818812697681, "rank": 0}, {"cpu_ms": 2.7739988085049303, "engine_ms": 9.463093174037649, "exchange_ms": 10.510564533632193, "rank": 1}, {"cpu_ms": 2.8255390942986334, "engine_ms": 9.430490109457898, "exchange_ms": 10.517628128848859, "rank": 2}, {"cpu_ms": 2.8325454654978284, "engine_ms": 9.400178624622857, "exchange_ms": 10.560640932908699, "rank": 3}], "cpu_ms": 2.8050427401243754, "engine_ms": 9.42954237781354, "exchange_ms": 10.50925543059164, "gen_ms": 1596.5385680028703, "n_gen": 67, "n_prompt": 22, "prompt_ms": 506.68336800299585, "samples": 67, "tps": 41.96578857710348}
+api-short-3: prompt 22 tok, 67 tokens, server 41.41 t/s, client 41.41 t/s (tokens 2..67 over 1.59 s), first token 0.505 s; decode power total 23.629 W, 0.5706 J/token; prefill power total 23.883 W
+    decode per board: 5.859 [5.30-6.09, n=16] | 5.829 [5.23-6.08, n=15] | 6.026 [5.53-6.44, n=15] | 5.915 [5.53-6.08, n=15]
+    last_chat: {"boards": [{"cpu_ms": 2.7897610806707127, "engine_ms": 9.426831957119614, "exchange_ms": 10.723547323426203, "rank": 0}, {"cpu_ms": 2.779372951877651, "engine_ms": 9.449791609351315, "exchange_ms": 10.86267058529071, "rank": 1}, {"cpu_ms": 2.8233883416474757, "engine_ms": 9.4253750132091, "exchange_ms": 10.830956302472014, "rank": 2}, {"cpu_ms": 2.830057521364582, "engine_ms": 9.395300580494439, "exchange_ms": 10.86197337819569, "rank": 3}], "cpu_ms": 2.8056449738901055, "engine_ms": 9.424324790043617, "exchange_ms": 10.819786897346154, "gen_ms": 1618.0123230005847, "n_gen": 67, "n_prompt": 22, "prompt_ms": 503.2878230049391, "samples": 67, "tps": 41.40883171751702}
+
+## run-tp.sh, 400 tokens after the 24-token prompt, greedy
+tp4-1: 400 tokens in 11.52 s = 34.71 t/s; per token engine 10.0 ms, comm 12.7 ms, cpu 6.3 ms; decode power of the 4 running boards 22.390 W, 0.6451 J/token
+    per board: 5.599 [4.06-6.22, n=72] | 5.520 [3.93-6.08, n=72] | 5.660 [4.01-6.31, n=71] | 5.612 [4.00-6.25, n=71]
+tp4-2: 400 tokens in 10.90 s = 36.69 t/s; per token engine 10.0 ms, comm 11.4 ms, cpu 6.1 ms; decode power of the 4 running boards 22.758 W, 0.6203 J/token
+    per board: 5.664 [5.18-6.12, n=66] | 5.618 [5.13-6.23, n=66] | 5.718 [5.22-6.33, n=66] | 5.758 [5.21-6.31, n=66]
+tp4-3: 400 tokens in 10.94 s = 36.57 t/s; per token engine 10.0 ms, comm 11.7 ms, cpu 5.9 ms; decode power of the 4 running boards 22.723 W, 0.6214 J/token
+    per board: 5.677 [5.17-6.12, n=66] | 5.616 [5.04-6.14, n=66] | 5.780 [5.35-6.26, n=66] | 5.650 [5.13-6.21, n=66]
+tp2-1: 400 tokens in 18.29 s = 21.87 t/s; per token engine 22.4 ms, comm 12.4 ms, cpu 11.9 ms; decode power of the 2 running boards 11.590 W, 0.5299 J/token
+    per board: 5.743 [4.05-6.84, n=136] | 5.846 [4.94-6.82, n=136] | 3.939 [3.90-3.99, n=137] | 3.895 [3.87-3.92, n=137]
+tp2-2: 400 tokens in 18.39 s = 21.75 t/s; per token engine 22.4 ms, comm 12.7 ms, cpu 11.8 ms; decode power of the 2 running boards 11.682 W, 0.5371 J/token
+    per board: 5.850 [4.78-6.80, n=137] | 5.832 [4.86-6.78, n=137] | 3.938 [3.90-4.27, n=138] | 3.894 [3.87-3.98, n=138]
+tp2-3: 400 tokens in 18.47 s = 21.65 t/s; per token engine 22.4 ms, comm 12.9 ms, cpu 11.8 ms; decode power of the 2 running boards 11.668 W, 0.5390 J/token
+    per board: 5.880 [4.94-6.98, n=138] | 5.789 [4.89-6.95, n=137] | 3.936 [3.91-4.01, n=139] | 3.895 [3.87-3.96, n=139]
+tp1-1: 400 tokens in 29.88 s = 13.39 t/s; per token engine 53.4 ms, comm 0.2 ms, cpu 22.9 ms; decode power of the 1 running boards 6.161 W, 0.4601 J/token
+    per board: 6.161 [5.10-6.95, n=246] | 3.852 [3.83-4.08, n=248] | 3.936 [3.90-4.21, n=248] | 3.895 [3.87-4.28, n=249]
+tp1-2: 400 tokens in 29.60 s = 13.51 t/s; per token engine 53.4 ms, comm 0.2 ms, cpu 22.1 ms; decode power of the 1 running boards 6.245 W, 0.4623 J/token
+    per board: 6.245 [5.26-6.96, n=244] | 3.848 [3.81-4.15, n=246] | 3.933 [3.90-4.10, n=246] | 3.892 [3.87-4.07, n=246]
+tp1-3: 400 tokens in 29.56 s = 13.53 t/s; per token engine 53.4 ms, comm 0.2 ms, cpu 22.0 ms; decode power of the 1 running boards 6.215 W, 0.4593 J/token
+    per board: 6.215 [5.11-6.93, n=243] | 3.847 [3.81-4.25, n=245] | 3.933 [3.90-4.03, n=246] | 3.894 [3.87-4.19, n=246]
+
+## bench_gemv2 and llama-bench
+bench-10.42.0.137: 6 s; power per board: 4.221 [3.88-6.88, n=58] | 3.848 [3.82-4.01, n=58] | 3.934 [3.90-4.00, n=58] | 3.894 [3.87-3.97, n=59]
+bench-10.42.0.218: 6 s; power per board: 3.893 [3.87-3.96, n=58] | 4.191 [3.84-6.92, n=57] | 3.936 [3.90-4.21, n=58] | 3.893 [3.87-3.92, n=57]
+bench-10.42.0.217: 6 s; power per board: 3.888 [3.87-3.91, n=55] | 3.843 [3.82-3.88, n=55] | 4.331 [3.94-7.07, n=55] | 3.900 [3.88-4.08, n=56]
+bench-10.42.0.114: 6 s; power per board: 3.889 [3.87-3.91, n=55] | 3.840 [3.81-3.88, n=54] | 3.928 [3.90-3.96, n=55] | 4.265 [3.90-7.00, n=54]
+cpu-llama-bench: 420 s; power per board: 5.276 [4.25-5.40, n=3731] | 3.841 [3.80-4.35, n=3751] | 3.928 [3.89-4.34, n=3751] | 3.889 [3.86-4.26, n=3751]
