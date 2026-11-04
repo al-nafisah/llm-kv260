@@ -1,0 +1,18 @@
+Edge LLM on FPGAs (llm-kv260)
+Copyright 2026 Abdullah Al-Nafisah
+
+Licensed under the Apache License, Version 2.0 (LICENSE).
+
+Not included in this repository, and under their own licenses:
+- The model weights. Llama 3.2 is licensed under the Llama 3.2 Community
+  License, Copyright (c) Meta Platforms, Inc. All Rights Reserved.
+- llama.cpp and ggml (MIT License), with cpp-httplib (MIT) and
+  nlohmann/json (MIT) from its vendor directory, which the runtime in
+  board/tp/ compiles and links on each board.
+- AMD Vitis HLS and Vivado, which build the engine.
+- marked, DOMPurify and KaTeX, which local/index.html loads from a CDN at
+  pinned versions and hashes.
+
+Included but generated: board/kv260gemv/xgemv_*_hw.h are register maps that
+Vitis HLS writes for each kernel; they keep the "Copyright 1986-2022 Xilinx,
+Inc." line the tool puts in them.
