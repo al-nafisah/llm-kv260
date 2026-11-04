@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="472" viewBox="0 0 800 472" role="img" aria-labelledby="title desc" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title id="title">Tokens per second and energy per token on 1, 2 and 4 boards</title>
+<desc id="desc">1 board(s): 13.39, 13.51, 13.53 tokens/s; 0.460, 0.462, 0.459 J per token at 6.16, 6.25, 6.21 W; 2 board(s): 21.87, 21.75, 21.65 tokens/s; 0.530, 0.537, 0.539 J per token at 11.59, 11.68, 11.67 W; 4 board(s): 34.71, 36.69, 36.57 tokens/s; 0.645, 0.620, 0.621 J per token at 22.39, 22.76, 22.72 W; CPU only: 2.88 ± 0.07 tokens/s, 5.28 W, 1.83 J per token. Llama-3.2-1B-Instruct, every weight matrix ggml Q4_0, 400 generated tokens. Boards: run-tp.sh, 24-token prompt (positions 24-423), greedy, 3 runs each; medians 13.51, 21.75, 36.57 tokens/s, 1.61x on two boards and 2.71x on four. CPU only: llama-bench on board 1's four A53 cores, tg400 from an empty context (positions 0-399), 2.88 ± 0.07 (mean ± s.d.). Power: the INA260 on each running K26 module, about 10 samples/s; carrier cards, fans, power supplies and the switch are not measured. 2026-11-04, buildlog 0013; source: evidence/0013-tp-runs.txt, -power-*, -cpu-llama-bench.txt.</desc>
+<rect width="800" height="472" fill="#ffffff"/>
+<text x="20.0" y="30.0" font-size="18" fill="#0b0b0b" font-weight="bold">Rate and energy per token on 1, 2 and 4 boards</text>
+<text x="20.0" y="51.0" font-size="13" fill="#52514e">Each dot is one 400-token run; the open diamond is the same board without its engine (different software)</text>
+<circle cx="26" cy="76" r="5" fill="#2a78d6"/>
+<text x="38.0" y="80.0" font-size="12.5" fill="#52514e">this project: runtime + FPGA engine, each run</text>
+<path d="M323.94,70.00 L329.94,76.00 L323.94,82.00 L317.94,76.00 Z" fill="#ffffff" stroke="#52514e" stroke-width="2"></path>
+<text x="335.9" y="80.0" font-size="12.5" fill="#52514e">same board, CPU only: llama.cpp, mean of 3 runs</text>
+<text x="20.0" y="110.0" font-size="14" fill="#0b0b0b" font-weight="bold">Decode rate</text>
+<line x1="78" y1="328.0" x2="372" y2="328.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="70.0" y="332.0" font-size="12" fill="#898781" text-anchor="end">0</text>
+<line x1="78" y1="279.0" x2="372" y2="279.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="70.0" y="283.0" font-size="12" fill="#898781" text-anchor="end">10</text>
+<line x1="78" y1="230.0" x2="372" y2="230.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="70.0" y="234.0" font-size="12" fill="#898781" text-anchor="end">20</text>
+<line x1="78" y1="181.0" x2="372" y2="181.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="70.0" y="185.0" font-size="12" fill="#898781" text-anchor="end">30</text>
+<line x1="78" y1="132.0" x2="372" y2="132.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="70.0" y="136.0" font-size="12" fill="#898781" text-anchor="end">40</text>
+<text x="38.0" y="230.0" font-size="12.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 38 230.0)">tokens per second</text>
+<text x="127.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">1 board</text>
+<circle cx="117.0" cy="262.4" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 1: 13.39</title></circle>
+<circle cx="127.0" cy="261.8" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 2: 13.51</title></circle>
+<circle cx="137.0" cy="261.7" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 3: 13.53</title></circle>
+<text x="127.0" y="250.7" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">13.39-13.53</text>
+<text x="225.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">2 boards</text>
+<circle cx="215.0" cy="220.8" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 1: 21.87</title></circle>
+<circle cx="225.0" cy="221.4" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 2: 21.75</title></circle>
+<circle cx="235.0" cy="221.9" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 3: 21.65</title></circle>
+<text x="225.0" y="209.8" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">21.65-21.87</text>
+<text x="323.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">4 boards</text>
+<circle cx="313.0" cy="157.9" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 1: 34.71</title></circle>
+<circle cx="323.0" cy="148.2" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 2: 36.69</title></circle>
+<circle cx="333.0" cy="148.8" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 3: 36.57</title></circle>
+<text x="323.0" y="137.2" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">34.71-36.69</text>
+<path d="M127.00,307.89 L133.00,313.89 L127.00,319.89 L121.00,313.89 Z" fill="#ffffff" stroke="#52514e" stroke-width="2"><title>CPU only: 2.88 ± 0.07 tokens/s, 5.28 W, 1.83 J per token</title></path>
+<text x="139.0" y="317.9" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">CPU only: 2.88 ± 0.07</text>
+<text x="430.0" y="110.0" font-size="14" fill="#0b0b0b" font-weight="bold">Energy per generated token</text>
+<line x1="488" y1="328.0" x2="782" y2="328.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="480.0" y="332.0" font-size="12" fill="#898781" text-anchor="end">0.0</text>
+<line x1="488" y1="279.0" x2="782" y2="279.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="480.0" y="283.0" font-size="12" fill="#898781" text-anchor="end">0.5</text>
+<line x1="488" y1="230.0" x2="782" y2="230.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="480.0" y="234.0" font-size="12" fill="#898781" text-anchor="end">1.0</text>
+<line x1="488" y1="181.0" x2="782" y2="181.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="480.0" y="185.0" font-size="12" fill="#898781" text-anchor="end">1.5</text>
+<line x1="488" y1="132.0" x2="782" y2="132.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="480.0" y="136.0" font-size="12" fill="#898781" text-anchor="end">2.0</text>
+<text x="448.0" y="230.0" font-size="12.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 448 230.0)">joules per token (module power)</text>
+<text x="537.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">1 board</text>
+<text x="537.0" y="364.0" font-size="11.5" fill="#52514e" text-anchor="middle">6.16-6.25 W</text>
+<circle cx="527.0" cy="282.9" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 1: 0.460 J at 6.16 W</title></circle>
+<circle cx="537.0" cy="282.7" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 2: 0.462 J at 6.25 W</title></circle>
+<circle cx="547.0" cy="283.0" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>1 board, run 3: 0.459 J at 6.21 W</title></circle>
+<text x="537.0" y="271.7" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">0.459-0.462 J</text>
+<text x="635.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">2 boards</text>
+<text x="635.0" y="364.0" font-size="11.5" fill="#52514e" text-anchor="middle">11.59-11.68 W</text>
+<circle cx="625.0" cy="276.1" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 1: 0.530 J at 11.59 W</title></circle>
+<circle cx="635.0" cy="275.4" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 2: 0.537 J at 11.68 W</title></circle>
+<circle cx="645.0" cy="275.2" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>2 boards, run 3: 0.539 J at 11.67 W</title></circle>
+<text x="635.0" y="264.2" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">0.530-0.539 J</text>
+<text x="733.0" y="348.0" font-size="12.5" fill="#0b0b0b" text-anchor="middle">4 boards</text>
+<text x="733.0" y="364.0" font-size="11.5" fill="#52514e" text-anchor="middle">22.39-22.76 W</text>
+<circle cx="723.0" cy="264.8" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 1: 0.645 J at 22.39 W</title></circle>
+<circle cx="733.0" cy="267.2" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 2: 0.620 J at 22.76 W</title></circle>
+<circle cx="743.0" cy="267.1" r="4.5" fill="#2a78d6" stroke="#ffffff" stroke-width="2"><title>4 boards, run 3: 0.621 J at 22.72 W</title></circle>
+<text x="733.0" y="253.8" font-size="12" fill="#52514e" text-anchor="middle" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">0.620-0.645 J</text>
+<path d="M537.00,142.46 L543.00,148.46 L537.00,154.46 L531.00,148.46 Z" fill="#ffffff" stroke="#52514e" stroke-width="2"><title>CPU only: 2.88 ± 0.07 tokens/s, 5.28 W, 1.83 J per token</title></path>
+<text x="549.0" y="152.5" font-size="12" fill="#52514e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" paint-order="stroke">CPU only: 1.83 J at 5.28 W</text>
+<text x="20.0" y="394.0" font-size="12" fill="#52514e">Llama-3.2-1B-Instruct, every weight matrix ggml Q4_0, 400 generated tokens. Boards: run-tp.sh, 24-token prompt (positions</text>
+<text x="20.0" y="410.0" font-size="12" fill="#52514e">24-423), greedy, 3 runs each; medians 13.51, 21.75, 36.57 tokens/s, 1.61x on two boards and 2.71x on four.</text>
+<text x="20.0" y="426.0" font-size="12" fill="#52514e">CPU only: llama-bench on board 1's four A53 cores, tg400 from an empty context (positions 0-399), 2.88 ± 0.07 (mean ± s.d.).</text>
+<text x="20.0" y="442.0" font-size="12" fill="#52514e">Power: the INA260 on each running K26 module, about 10 samples/s; carrier cards, fans, power supplies and the</text>
+<text x="20.0" y="458.0" font-size="12" fill="#52514e">switch are not measured. 2026-11-04, buildlog 0013; source: evidence/0013-tp-runs.txt, -power-*, -cpu-llama-bench.txt.</text>
+</svg>

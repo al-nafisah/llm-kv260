@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="742" viewBox="0 0 800 742" role="img" aria-labelledby="title desc" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<title id="title">Four boards, one token stream</title>
+<desc id="desc">Four Kria KV260 boards and a PC on one gigabit Ethernet switch. Between the boards runs a TCP full mesh, one connection per pair. Each board runs one rank: an A53 core does attention for its eight query heads, the norms and the sampling, and the FPGA engine streams that board's quarter of every weight matrix, 173.8 MB of 4-bit weights, from DDR4. Board 1 also serves the OpenAI-compatible API; the PC starts the ranks and sends prompts. q, k, v, gate, up and the output head are split by output rows, so each board computes its own quarter of the outputs with no all-reduce. The attention output and FFN down matrices are split by input columns, so each board holds a partial sum of every output and an all-reduce adds the four. Per layer: q k v, attention, attention output, all-reduce, gate and up, FFN down, all-reduce; after 16 layers the output head and one argmax exchange: 33 exchanges per token. Hand-written diagram; facts from board/tp/tp_llama.cpp and buildlog 0013.</desc>
+<!-- Hand-written. Colours: blue #2a78d6 = FPGA engine, orange #eb6834 = network exchange,
+     aqua #1baf7a = CPU; the same three roles as token.svg and scaling.svg. Facts:
+     board/tp/tp_llama.cpp (sharding lines 240-279, exchange 396-525, forward 822-883),
+     .work/understand/runtime.md sections 2-4, buildlog 0013 (173,776,896 B per board). -->
+<style>
+  .h1 { font-size: 18px; font-weight: bold; fill: #0b0b0b; }
+  .sub { font-size: 13px; fill: #52514e; }
+  .h2 { font-size: 14px; font-weight: bold; fill: #0b0b0b; }
+  .b { font-size: 12px; font-weight: bold; fill: #0b0b0b; }
+  .t { font-size: 12px; fill: #52514e; }
+  .s { font-size: 11.5px; fill: #52514e; }
+  .m { font-size: 11.5px; fill: #898781; }
+  .n { font-size: 11px; fill: #0b0b0b; text-anchor: middle; }
+  .chip { font-size: 11.5px; text-anchor: middle; }
+  .cap { font-size: 12px; fill: #52514e; }
+</style>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#898781"/></marker>
+</defs>
+<rect width="800" height="742" fill="#ffffff"/>
+
+<text x="20" y="30" class="h1">Four boards, one token stream</text>
+<text x="20" y="51" class="sub">Each board holds a quarter of every weight matrix; all four work on the same token at the same time</text>
+
+<!-- PC, switch, logical mesh -->
+<rect x="20" y="70" width="250" height="72" rx="8" fill="#f4f4f1" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="34" y="91" class="b">PC on the LAN</text>
+<text x="34" y="108" class="t">starts the four ranks over SSH and</text>
+<text x="34" y="123" class="t">sends prompts to board 1's</text>
+<text x="34" y="138" class="t">OpenAI-compatible API</text>
+<line x1="270" y1="103" x2="320" y2="103" stroke="#898781" stroke-width="2"/>
+
+<rect x="320" y="78" width="220" height="50" rx="8" fill="#ffffff" stroke="#52514e" stroke-width="1.5"/>
+<text x="430" y="99" class="b" text-anchor="middle">Gigabit Ethernet switch</text>
+<text x="430" y="117" class="t" text-anchor="middle">jumbo frames (MTU 9000)</text>
+
+<g stroke="#eb6834" stroke-width="1.5">
+  <line x1="590" y1="84" x2="640" y2="84"/><line x1="590" y1="84" x2="590" y2="130"/>
+  <line x1="590" y1="84" x2="640" y2="130"/><line x1="640" y1="84" x2="590" y2="130"/>
+  <line x1="640" y1="84" x2="640" y2="130"/><line x1="590" y1="130" x2="640" y2="130"/>
+</g>
+<g fill="#ffffff" stroke="#52514e" stroke-width="1.5">
+  <circle cx="590" cy="84" r="9"/><circle cx="640" cy="84" r="9"/><circle cx="590" cy="130" r="9"/><circle cx="640" cy="130" r="9"/>
+</g>
+<text x="590" y="88" class="n">1</text><text x="640" y="88" class="n">2</text><text x="590" y="134" class="n">3</text><text x="640" y="134" class="n">4</text>
+<text x="664" y="88" class="b">Between the boards:</text>
+<text x="664" y="104" class="t">a TCP full mesh,</text>
+<text x="664" y="119" class="t">one connection</text>
+<text x="664" y="134" class="t">per pair (6 in all)</text>
+
+<!-- cables from the switch to the boards -->
+<path d="M430,128 V154 M110,154 H690 M110,154 V178 M303,154 V178 M497,154 V178 M690,154 V178" fill="none" stroke="#eb6834" stroke-width="2.5"/>
+
+<!-- board 1 -->
+<rect x="20" y="178" width="180" height="198" rx="8" fill="#ffffff" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="32" y="200" class="h2">Board 1</text><text x="188" y="200" class="t" text-anchor="end">rank 0</text>
+<text x="32" y="216" class="m">kv260-01</text>
+<rect x="30" y="226" width="160" height="58" rx="6" fill="#e4f6ef" stroke="#1baf7a" stroke-width="1.2"/>
+<text x="40" y="244" class="b">CPU: one A53 core</text>
+<text x="40" y="260" class="s">attention for query heads</text>
+<text x="40" y="275" class="s">0-7; norms, sampling</text>
+<rect x="30" y="292" width="160" height="58" rx="6" fill="#e3eefa" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="40" y="310" class="b">FPGA engine + DDR4</text>
+<text x="40" y="326" class="s">its quarter of every matrix:</text>
+<text x="40" y="341" class="s">173.8 MB of 4-bit weights</text>
+<text x="32" y="367" class="b">serves the API (HTTP)</text>
+
+<!-- board 2 -->
+<rect x="213" y="178" width="180" height="198" rx="8" fill="#ffffff" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="225" y="200" class="h2">Board 2</text><text x="381" y="200" class="t" text-anchor="end">rank 1</text>
+<text x="225" y="216" class="m">kv260-02</text>
+<rect x="223" y="226" width="160" height="58" rx="6" fill="#e4f6ef" stroke="#1baf7a" stroke-width="1.2"/>
+<text x="233" y="244" class="b">CPU: one A53 core</text>
+<text x="233" y="260" class="s">attention for query heads</text>
+<text x="233" y="275" class="s">8-15; norms, sampling</text>
+<rect x="223" y="292" width="160" height="58" rx="6" fill="#e3eefa" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="233" y="310" class="b">FPGA engine + DDR4</text>
+<text x="233" y="326" class="s">its quarter of every matrix:</text>
+<text x="233" y="341" class="s">173.8 MB of 4-bit weights</text>
+<text x="225" y="367" class="s">gets API prompts from board 1</text>
+
+<!-- board 3 -->
+<rect x="407" y="178" width="180" height="198" rx="8" fill="#ffffff" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="419" y="200" class="h2">Board 3</text><text x="575" y="200" class="t" text-anchor="end">rank 2</text>
+<text x="419" y="216" class="m">kv260-03</text>
+<rect x="417" y="226" width="160" height="58" rx="6" fill="#e4f6ef" stroke="#1baf7a" stroke-width="1.2"/>
+<text x="427" y="244" class="b">CPU: one A53 core</text>
+<text x="427" y="260" class="s">attention for query heads</text>
+<text x="427" y="275" class="s">16-23; norms, sampling</text>
+<rect x="417" y="292" width="160" height="58" rx="6" fill="#e3eefa" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="427" y="310" class="b">FPGA engine + DDR4</text>
+<text x="427" y="326" class="s">its quarter of every matrix:</text>
+<text x="427" y="341" class="s">173.8 MB of 4-bit weights</text>
+<text x="419" y="367" class="s">gets API prompts from board 1</text>
+
+<!-- board 4 -->
+<rect x="600" y="178" width="180" height="198" rx="8" fill="#ffffff" stroke="#c3c2b7" stroke-width="1.5"/>
+<text x="612" y="200" class="h2">Board 4</text><text x="768" y="200" class="t" text-anchor="end">rank 3</text>
+<text x="612" y="216" class="m">kv260-04</text>
+<rect x="610" y="226" width="160" height="58" rx="6" fill="#e4f6ef" stroke="#1baf7a" stroke-width="1.2"/>
+<text x="620" y="244" class="b">CPU: one A53 core</text>
+<text x="620" y="260" class="s">attention for query heads</text>
+<text x="620" y="275" class="s">24-31; norms, sampling</text>
+<rect x="610" y="292" width="160" height="58" rx="6" fill="#e3eefa" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="620" y="310" class="b">FPGA engine + DDR4</text>
+<text x="620" y="326" class="s">its quarter of every matrix:</text>
+<text x="620" y="341" class="s">173.8 MB of 4-bit weights</text>
+<text x="612" y="367" class="s">gets API prompts from board 1</text>
+
+<!-- how a matrix is split -->
+<text x="20" y="410" class="h2">How a weight matrix is split across the four boards</text>
+
+<!-- by output rows -->
+<g>
+  <rect x="30" y="426" width="96" height="20" fill="#d7e6f9"/><rect x="30" y="446" width="96" height="20" fill="#b9d3f4"/>
+  <rect x="30" y="466" width="96" height="20" fill="#d7e6f9"/><rect x="30" y="486" width="96" height="20" fill="#b9d3f4"/>
+  <path d="M30,446 H126 M30,466 H126 M30,486 H126" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="78" y="440" class="n">1</text><text x="78" y="460" class="n">2</text><text x="78" y="480" class="n">3</text><text x="78" y="500" class="n">4</text>
+  <text x="137" y="471" class="t" text-anchor="middle">×</text>
+  <rect x="148" y="426" width="14" height="80" fill="#e6e5e0"/>
+  <text x="173" y="471" class="t" text-anchor="middle">=</text>
+  <rect x="184" y="426" width="14" height="20" fill="#d7e6f9"/><rect x="184" y="446" width="14" height="20" fill="#b9d3f4"/>
+  <rect x="184" y="466" width="14" height="20" fill="#d7e6f9"/><rect x="184" y="486" width="14" height="20" fill="#b9d3f4"/>
+  <path d="M184,446 H198 M184,466 H198 M184,486 H198" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="78" y="522" class="m" text-anchor="middle">weights</text>
+  <text x="155" y="522" class="m" text-anchor="middle">input</text>
+  <text x="191" y="522" class="m" text-anchor="middle">output</text>
+  <text x="216" y="438" class="b">By output rows</text>
+  <text x="216" y="455" class="t">q, k, v, gate, up and the</text>
+  <text x="216" y="470" class="t">output head (lm_head):</text>
+  <text x="216" y="487" class="t">each board computes its own</text>
+  <text x="216" y="502" class="t">quarter of the outputs,</text>
+  <text x="216" y="517" class="t">with no all-reduce</text>
+</g>
+
+<!-- by input columns -->
+<g>
+  <rect x="420" y="426" width="24" height="80" fill="#d7e6f9"/><rect x="444" y="426" width="24" height="80" fill="#b9d3f4"/>
+  <rect x="468" y="426" width="24" height="80" fill="#d7e6f9"/><rect x="492" y="426" width="24" height="80" fill="#b9d3f4"/>
+  <path d="M444,426 V506 M468,426 V506 M492,426 V506" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="432" y="470" class="n">1</text><text x="456" y="470" class="n">2</text><text x="480" y="470" class="n">3</text><text x="504" y="470" class="n">4</text>
+  <text x="527" y="471" class="t" text-anchor="middle">×</text>
+  <rect x="538" y="426" width="14" height="20" fill="#d7e6f9"/><rect x="538" y="446" width="14" height="20" fill="#b9d3f4"/>
+  <rect x="538" y="466" width="14" height="20" fill="#d7e6f9"/><rect x="538" y="486" width="14" height="20" fill="#b9d3f4"/>
+  <path d="M538,446 H552 M538,466 H552 M538,486 H552" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="563" y="471" class="t" text-anchor="middle">=</text>
+  <rect x="574" y="426" width="14" height="80" fill="#fbe1d6" stroke="#eb6834" stroke-width="1.2"/>
+  <text x="468" y="522" class="m" text-anchor="middle">weights</text>
+  <text x="545" y="522" class="m" text-anchor="middle">input</text>
+  <text x="581" y="522" class="m" text-anchor="middle">output</text>
+  <text x="606" y="438" class="b">By input columns</text>
+  <text x="606" y="455" class="t">attention output, FFN down:</text>
+  <text x="606" y="470" class="t">each board has a partial sum</text>
+  <text x="606" y="487" class="t">of every output; an all-reduce</text>
+  <text x="606" y="502" class="t">adds the four in board order,</text>
+  <text x="606" y="517" class="t">the same way on every board</text>
+</g>
+
+<!-- one token -->
+<text x="20" y="574" class="h2">One token</text>
+<text x="20" y="603" class="t">each of the 16 layers:</text>
+<g class="chip">
+  <rect x="150" y="586" width="51" height="24" rx="4" fill="#2a78d6"/><text x="175.5" y="602" fill="#ffffff">q, k, v</text>
+  <rect x="217" y="586" width="64" height="24" rx="4" fill="#1baf7a"/><text x="249" y="602" fill="#0b0b0b">attention</text>
+  <rect x="297" y="586" width="99" height="24" rx="4" fill="#2a78d6"/><text x="346.5" y="602" fill="#ffffff">attention output</text>
+  <rect x="412" y="586" width="70" height="24" rx="4" fill="#eb6834"/><text x="447" y="602" fill="#0b0b0b">all-reduce</text>
+  <rect x="498" y="586" width="62" height="24" rx="4" fill="#2a78d6"/><text x="529" y="602" fill="#ffffff">gate, up</text>
+  <rect x="576" y="586" width="73" height="24" rx="4" fill="#2a78d6"/><text x="612.5" y="602" fill="#ffffff">FFN down</text>
+  <rect x="665" y="586" width="70" height="24" rx="4" fill="#eb6834"/><text x="700" y="602" fill="#0b0b0b">all-reduce</text>
+</g>
+<g stroke="#898781" stroke-width="1.5" marker-end="url(#arr)">
+  <line x1="203" y1="598" x2="214" y2="598"/><line x1="283" y1="598" x2="294" y2="598"/>
+  <line x1="398" y1="598" x2="409" y2="598"/><line x1="484" y1="598" x2="495" y2="598"/>
+  <line x1="562" y1="598" x2="573" y2="598"/><line x1="651" y1="598" x2="662" y2="598"/>
+</g>
+<text x="20" y="641" class="t">then once per token:</text>
+<g class="chip">
+  <rect x="150" y="624" width="136" height="24" rx="4" fill="#2a78d6"/><text x="218" y="640" fill="#ffffff">output head (lm_head)</text>
+  <rect x="302" y="624" width="111" height="24" rx="4" fill="#eb6834"/><text x="357.5" y="640" fill="#0b0b0b">argmax exchange</text>
+</g>
+<g stroke="#898781" stroke-width="1.5" marker-end="url(#arr)">
+  <line x1="288" y1="636" x2="299" y2="636"/><line x1="415" y1="636" x2="426" y2="636"/>
+</g>
+<text x="432" y="641" class="t">next token, the same on all four boards</text>
+<text x="20" y="674" class="t">33 exchanges per token: 2 all-reduces in each of the 16 layers, plus 1 argmax exchange.</text>
+
+<g>
+  <rect x="20" y="687" width="12" height="12" rx="2" fill="#2a78d6"/><text x="38" y="697" class="t">engine (FPGA)</text>
+  <rect x="134" y="687" width="12" height="12" rx="2" fill="#eb6834"/><text x="152" y="697" class="t">exchange (network)</text>
+  <rect x="279" y="687" width="12" height="12" rx="2" fill="#1baf7a"/><text x="297" y="697" class="t">CPU (one A53 core)</text>
+</g>
+
+<text x="20" y="722" class="cap">Llama-3.2-1B-Instruct, every weight matrix ggml Q4_0: 695.1 MB of weights per token, 173.8 MB per board on four.</text>
+<text x="20" y="738" class="cap">Runtime: board/tp/tp_llama.cpp. Partial sums are added in rank order on every board, so all four hold the same hidden state.</text>
+</svg>
