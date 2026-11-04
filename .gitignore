@@ -23,3 +23,6 @@ __pycache__/
 .venv/
 .ipynb_checkpoints/
 build/
+
+# Local analysis output (fpa)
+.fpa/

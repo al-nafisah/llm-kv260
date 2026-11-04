@@ -1,8 +1,9 @@
 [project]
 name = "llm-kv260"
-version = "0.2.0"
+version = "1.0.0"
 description = "One LLM decoded by four Kria KV260 FPGAs: the bit-exact contract for the fabric engine, and the test vectors it is checked against"
 requires-python = ">=3.11"
+license = "Apache-2.0"
 dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]

@@ -1,0 +1,22 @@
+{
+  "title": "Edge LLM on FPGAs: four Kria KV260 boards decoding one Llama-3.2-1B stream",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Al-Nafisah, Abdullah",
+      "orcid": "0000-0002-9537-1335"
+    }
+  ],
+  "description": "An int4 weight-streaming matrix-vector engine for the AMD Kria KV260 (Vitis HLS), a bit-exact contract for ggml Q4_0 weights and Q8_0 activations, and a tensor-parallel runtime that decodes one Llama-3.2-1B-Instruct stream across four boards behind an OpenAI-compatible API. Measured numbers are reported in docs/buildlog with their raw logs under docs/buildlog/evidence.",
+  "license": "apache-2.0",
+  "keywords": [
+    "FPGA",
+    "LLM inference",
+    "Kria KV260",
+    "Zynq UltraScale+",
+    "tensor parallelism",
+    "Vitis HLS",
+    "int4 quantization"
+  ],
+  "access_right": "open"
+}
