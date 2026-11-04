@@ -76,8 +76,8 @@ then from the PC `bash board/tp/serve-tp.sh <four addresses>`. Since
 2026-10-05 every board allows that one script without a password
 (`/etc/sudoers.d/load-overlay`), so after a power cut
 `bash board/tp/recover.sh` does all of it from the PC: waits for the boards
-to boot, loads what is missing, restarts the ranks and checks the public
-API with a chat. The runtime
+to boot, loads what is missing, restarts the ranks and checks the API on
+the LAN with a chat. The runtime
 detects which engine the overlay provides (`gemv_mac` or `gemv_q4_0` in
 `/sys/class/uio/*/name`) and lays the weights out for it, so a cluster can
 be mixed while overlays are being changed; it runs at the slower engine's
@@ -104,8 +104,8 @@ in `~/vectors`).
 - **A bench on a board where the runtime is resident must use `udmabuf2`.**
   `udmabuf0` holds the loaded shard and `bench_gemv2` bump-allocates from the
   pool's start, so it would write random bytes over it. It uses `udmabuf0` by
-  default: stop the runtime first, or pass `udmabuf2` (it fits everything but
-  `lm_head`'s 37 MB).
+  default: stop the runtime first, or pass `udmabuf2` (its 128 MiB holds
+  everything the bench allocates, `lm_head`'s 37 MB shard included).
 - **gemv2's FIFOs outlive a process.** A process that dies with a fetch in
   flight leaves its bytes on chip; the runtime and the bench drain them at
   start, and the drain must read all eight FIFOs at once (buildlog 0012).
@@ -166,8 +166,9 @@ Two things on a stock board slow the four-way exchange. Both scripts are
 run on the board as root and persist across reboots:
 
 - `sudo bash ~/board/disable-dp.sh` — unbinds the DisplayPort subsystem,
-  which with no monitor attached raises ~10,500 interrupts per second on
-  CPU 0. Installs `unbind-dp.service`.
+  which with no monitor attached raises 10,500 to 11,000 interrupts per
+  second on CPU 0 (`buildlog/evidence/0011-board-facts.txt`). Installs
+  `unbind-dp.service`.
 - `sudo bash ~/board/jumbo-frames.sh` — MTU 9000 on eth0, now and at
   boot. It writes the netplan file for the next boot (the MTU line into
   `99-direct-link.yaml` on boards 1 and 2, a `99-jumbo-frames.yaml` with

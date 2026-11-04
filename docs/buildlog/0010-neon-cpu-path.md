@@ -106,3 +106,39 @@ Model: `llama-3.2-1b-instruct-q4_0-pure.gguf`, `--ctx 2048`.
 - The board microbenchmarks vary by ±20% run to run (scalar attention at
   position 400 measured 46.8 and 55.0 ms in two runs); the runtime's
   per-token split over 400 tokens is the number to trust.
+
+## Corrections (2026-11-04)
+
+- Result, the attention microbenchmark: `evidence/0010-microbench.txt`
+  holds the 55.0 ms run, not the 46.8 ms one (Traps): scalar attention takes
+  23.43 ms per token at position 200, 54.98 at 400 and 119.37 at 1000, which
+  is 0.12 ms per position between 200 and 1000 (lines 7, 10, 13). The 27.9
+  and 48.0 ms points of the line come from the public page's live `/stats`,
+  which was not captured.
+- Cause 1: in the committed file the NEON kernel takes attention from 54.98
+  to 12.65 ms at position 400, 4.35x (lines 10-11), not 46.8 → 10.6 ms and
+  4.5x.
+- Cause 3: the 8.7 ms is a bench variant (`attn_v<4,0,16>`,
+  `board/tp/bench/attn_var.cpp:106`) on the per-head layout, the 15.3 ms the
+  committed kernel on the interleaved one. The committed kernel on the
+  per-head layout takes 11.45 ms at position 400 in `ops_bench` (line 28).
+  For the same reason `attn_var` times the committed kernel only in its
+  first row (Configuration). On the contiguous layout prefetch saved 3%
+  (8.67 → 8.42 ms) and 32-column chunks were 11–18% slower (9.59 and
+  10.20 ms), rather than worth nothing.
+- Two worker threads: `attn_bench` measured its own NEON kernel on the
+  interleaved layout, 12.65 → 6.12 ms at position 400 and 26.73 → 15.33 ms
+  at 1000 (lines 11-12, 14-15); the "~7 to ~6" and "18 → 13.5" figures are
+  not in the evidence.
+- "~5 ms at the start of a conversation": the two attested points of each
+  400-token API chat (the mean over the generation and the last token, at
+  position 434) give 0.019 ms per position and an extrapolated 1.5–2.0 ms
+  at position 0; at position 434 the term is 9.8–10.4 ms
+  (`evidence/0010-stats-last-chat.txt`,
+  `evidence/0011-stats-last-chat.txt`). The "engine 19 + exchange 19 +
+  CPU 6 ms" split, here and in the title, is the mean over the 400
+  generated tokens (positions 27–426), not the cost at position 400.
+- "Every rank still prints the same text": only rank 0 prints text
+  (`board/tp/tp_llama.cpp:1319`), and only rank 0's is in
+  `evidence/0010-tp-neon-text.txt`; that the other ranks hold the same
+  state follows from the rank-order sums.

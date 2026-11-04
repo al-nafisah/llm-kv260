@@ -95,9 +95,9 @@ struct pools_t {
 };
 
 // A Q4_0 matrix shard in engine memory: four quarters of its rows, one per
-// engine, each in its own allocation. The quarters are staggered so that no
-// two start at the same offset modulo 64 KB: the four streams then fall on
-// different DDR banks, 12.7 GB/s instead of 10.3 (buildlog 0012).
+// engine, each in its own 64 KB-aligned allocation, quarters 1 and 3 used from
+// 16 KB in. The four streams then do not all start at the same offset modulo
+// 64 KB: 12.7 GB/s instead of 10.3 when they all do (buildlog 0012).
 //
 // Two layouts inside a quarter: gemv_q4_0 streams rows in order; gemv2
 // pairs row i with row i + rows/8 and alternates their 144-byte chunks

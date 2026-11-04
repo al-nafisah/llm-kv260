@@ -5,11 +5,14 @@ Raw log: `evidence/0008-api-bench.txt`.
 
 ## The model
 
-**Llama-3.2-1B-Instruct**, 1.24 B parameters, all tensors Q4_0: **663.16 MiB
-on disk** (F16: 2.36 GiB). Sharded four ways, each board holds 173.8 MB of
-weights in engine memory. The Instruct variant replaces the base model of
-`0006`/`0007` because a chat endpoint on a base model answers nothing; same
-architecture, same size, same engine, converted and quantized the same way
+**Llama-3.2-1B-Instruct**, 1.24 B parameters as llama.cpp counts them
+(Meta's model card: 1.23 B), every weight matrix Q4_0 (113 tensors; the 33
+norm vectors and rope_freqs stay F32): **663.16 MiB of tensors**, a 670.6
+MiB file (the F16 file: 2.31 GiB; `evidence/0013-model-files.txt`, recorded
+2026-11-04). Sharded four ways, each board holds 173.8 MB of weights in
+engine memory. The Instruct variant replaces the base model of `0006`/`0007`
+because a chat endpoint on a base model answers nothing; same architecture,
+same size, same engine, converted and quantized the same way
 (`--output-tensor-type q4_0 --token-embedding-type q4_0`).
 
 ## Result
