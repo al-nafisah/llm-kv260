@@ -8,6 +8,9 @@ and board 1 answers an OpenAI-compatible API on the local network.
 
 ![A 143-token chat reply streaming from the four boards through the API on the LAN, with its tokens/s and the four K26 modules' power](docs/img/demo.gif)
 
+[Project page](https://al-nafisah.com/projects/llm-kv260)
+· [Build logs with raw evidence](docs/buildlog)
+
 ## Results
 
 Measured on 2026-11-04 in one recorded session
