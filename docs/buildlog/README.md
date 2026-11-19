@@ -15,3 +15,8 @@ Each log has the same shape:
 
 See [../measurement.md](../measurement.md) for why the split between Attested
 and Cited numbers is kept.
+
+The git history was rebuilt in build order on 2026-09-26, so the dates of
+its first commits are approximate: each is close to when its part was last
+written. The work began on 2026-09-12; every build log carries the date of
+its measurement.
